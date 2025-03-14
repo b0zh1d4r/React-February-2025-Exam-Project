@@ -1,35 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { Routes, Route } from 'react-router'
+
+import Header from './components/header/Header'
+import Home from './components/home/Home'
+import About from './components/about/About'
+import Vehicles from './components/vehicles/Vehicles'
+import Details from './components/details/Details'
+import Edit from './components/edit/Edit'
+import ContactDealer from './components/contactDealer/ContactDealer'
+import Create from './components/create/Create'
+import Profile from './components/profile/Profile'
+import Login from './components/login/Login'
+import Register from './components/register/Register'
+import Error from './components/error/Error'
+import Footer from './components/footer/Footer'
+
+import './styles/_styles.css'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    return (
+        <>
+            <Header />
+            <Routes>
+                <Route path="/" element={<Home />}></Route>
+                <Route path="/about" element={<About />}></Route>
+                <Route path="/vehicles" element={<Vehicles />}></Route>
+                <Route path="/vehicles/:vehicleId/details" element={<Details />}></Route>
+                <Route path="/vehicles/:vehicleId/edit" element={<Edit />}></Route>
+                <Route path="/contact-dealer" element={<ContactDealer />}></Route>
+                <Route path="/create" element={<Create />}></Route>
+                <Route path="/profile" element={<Profile />}></Route>
+                <Route path="/login" element={<Login />}></Route>
+                <Route path="/register" element={<Register />}></Route>
+                <Route path="*" element={<Error />}></Route>
+            </Routes>
+            <Footer />
+        </>
+    )
 }
 
 export default App

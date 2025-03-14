@@ -1,42 +1,1619 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
+    /* !Navigation Bar Start: */
+    .nav {
+        height: 3.2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #000;
+        position: relative;
+        z-index: 1000;
+        background: white;
+        text-shadow: 2px 2px lightgray;
+    }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
+    .nav-logo {
+        top: 10px;
+        left: 20px;
+        margin-left: 5px;
+    }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+    .nav-logo img {
+        width: 90px;
+        height: auto;
+        max-width: 100%;
+    }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
+    .nav-menu ul {
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
 
-.card {
-  padding: 2em;
-}
+    .nav-menu ul li {
+        list-style: none;
+    }
 
-.read-the-docs {
-  color: #888;
-}
+    .nav-menu ul li a {
+        text-decoration: none;
+        padding: 0.5rem;
+        display: block;
+        color: #000;
+        font-size: 1.4rem;
+    }
+
+    .nav-menu ul li a.create {
+        color: red;
+    }
+
+    .nav-menu li:hover {
+        background: rgb(0, 0, 0, 0.1);
+    }
+
+    .nav-hamburger {
+        width: 1.875rem;
+        height: 1.313rem;
+        display: none;
+        flex-direction: column;
+        justify-content: space-around;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+
+    .nav-hamburger-line {
+        height: 0.188rem;
+        width: 100%;
+        background: #000;
+        border-radius: 0.625rem;
+        transition: all ease-in-out 0.2s;
+    }
+
+    @media screen and (max-width: 700px) {
+
+        .nav-logo img {
+            width: 70px;
+            height: auto;
+        }
+
+        .nav-hamburger {
+            display: flex;
+        }
+
+        .nav-menu {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            background: #fff;
+            top: -39rem;
+            width: 100%;
+            transition: all ease-in-out 0.4s;
+        }
+
+        .nav {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .nav-menu ul {
+            flex-direction: column;
+            width: 100%;
+            padding: 3rem 0 0.6rem;
+        }
+
+        .nav-menu ul li {
+            text-align: center;
+        }
+
+        .nav-menu {
+            z-index: -1;
+        }
+
+        .nav-menu.active {
+            top: 0;
+        }
+
+        .nav-hamburger.active :nth-child(1) {
+            transform: rotate(45deg) translate(0.45rem, 0.1875rem);
+        }
+
+        .nav-hamburger.active :nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-hamburger.active :nth-child(3) {
+            transform: rotate(-45deg) translate(0.45rem, -0.1875rem)
+        }
+    }
+
+    /* !Navigation Bar End */
+
+    /* !Welcome Start */
+
+    .inner {
+        position: relative;
+        text-align: center;
+    }
+
+    .card {
+        position: relative;
+    }
+
+    .card img {
+        position: relative;
+        width: 100%;
+        height: auto;
+        display: block;
+        z-index: -1;
+    }
+
+    .card h1,
+    .card p {
+        position: absolute;
+        width: 100%;
+        color: white;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    }
+
+    .card h1 {
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 2rem;
+    }
+
+    .card p {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 1.2rem;
+    }
+
+    /* !Welcome End */
+
+    /* !About Us Start */
+
+    .about-container {
+        max-width: 900px;
+        margin: 50px auto;
+        background: #222;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(255, 0, 0, 1);
+        transition: transform 0.3s ease-in-out;
+        text-align: center;
+        text-shadow: 2px 2px #000;
+    }
+
+    .about-container:hover {
+        transform: scale(1.03);
+    }
+
+    .about-container h2 {
+        color: #ff0000;
+        font-size: 32px;
+        margin-bottom: 15px;
+    }
+
+    .about-container p {
+        font-size: 18px;
+        line-height: 1.6;
+        color: #ddd;
+    }
+
+    .about-container p a {
+        text-decoration: none;
+    }
+
+    .about-container .highlight {
+        color: #ff0000;
+        font-weight: bold;
+    }
+
+    .about-container::after {
+        content: '';
+        display: block;
+        width: 100px;
+        height: 4px;
+        background: #ff0000;
+        margin: 20px auto 0;
+    }
+
+    /* Top Cars Start */
+    .top-vehicles {
+        width: 100%;
+        margin: 0 auto;
+        max-width: 3840px;
+        background: #222;
+        padding: 40px;
+        text-align: center;
+        text-shadow: 2px 2px #000;
+    }
+
+    .top-vehicles h2 {
+        color: #ff0000;
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+
+    .vehicles-container {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .vehicle-card {
+        background: #333;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        width: 280px;
+        transition: transform 0.3s ease-in-out;
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+    }
+
+    .vehicle-card:hover {
+        transform: scale(1.05);
+    }
+
+    .vehicle-card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+
+    .vehicle-card h3 {
+        color: #fff;
+        margin: 15px 0 5px;
+        font-size: 20px;
+    }
+
+    .vehicle-card .price {
+        color: #ff0000;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .sort-by-container {
+        margin-bottom: 20px;
+        font-size: 18px;
+    }
+
+    .sort-by-container label {
+        margin-right: 10px;
+        font-weight: bold;
+        color: white;
+    }
+
+    .sort-by-container select {
+        padding: 5px 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+
+    /* Responsive Design */
+    @media screen and (max-width: 700px) {
+        .top-vehicles {
+            padding: 20px;
+        }
+
+        .vehicles-container {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .vehicle-card {
+            width: 90%;
+        }
+
+        .top-vehicles h2 {
+            font-size: 24px;
+        }
+    }
+
+    .vehicle-card .read-more-btn {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: #ff0000;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: transform 0.3s ease-in-out, background-color 0.3s;
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    }
+
+    .vehicle-card .read-more-btn:hover {
+        background-color: #c60000;
+        transform: scale(1.05);
+    }
+
+    */
+    /* Top Cars End */
+
+    /* Latest Vehicles Start */
+    .latest-vehicles:hover {
+        transform: scale(1.03);
+    }
+
+    .top-vehicles h2 {
+        color: #ff0000;
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+
+    .vehicles-container {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .vehicle-card {
+        background: #333;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        width: 280px;
+        transition: transform 0.3s ease-in-out;
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+    }
+
+    .vehicle-card:hover {
+        transform: scale(1.05);
+    }
+
+    .vehicle-card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+
+    .vehicle-card h3 {
+        color: #fff;
+        margin: 15px 0 5px;
+        font-size: 20px;
+    }
+
+    .vehicle-card .price {
+        color: #ff0000;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .vehicle-card .rating {
+        color: yellow;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    /* Responsive Design */
+    @media screen and (max-width: 700px) {
+        .latest-vehicles {
+            padding: 20px;
+        }
+
+        .vehicles-container {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .vehicle-card {
+            width: 90%;
+        }
+
+        .latest-vehicles h2 {
+            font-size: 24px;
+        }
+    }
+
+    .vehicle-card .read-more-btn {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: #ff0000;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: transform 0.3s ease-in-out, background-color 0.3s;
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    }
+
+    .vehicle-card .read-more-btn:hover {
+        background-color: #c60000;
+        transform: scale(1.05);
+    }
+
+    */
+    /* Latest Vehicles End */
+
+    /* !About Us End */
+
+    /* !Profile Start */
+
+    .profile-container {
+        background: #222;
+    }
+
+    .profile-header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        background: #222;
+        padding: 20px;
+        text-shadow: 2px 2px #000;
+        color: white;
+    }
+
+    .profile-header .profile-image {
+        flex-shrink: 0;
+        margin-right: 20px;
+    }
+
+    .profile-header .profile-image img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .profile-header .profile-info {
+        flex-grow: 1;
+    }
+
+    .profile-header .profile-info h1 {
+        margin-bottom: 5px;
+        font-size: 24px;
+    }
+
+    .profile-header .profile-info p {
+        font-size: 16px;
+        opacity: 0.8;
+    }
+
+    .profile-details,
+    .profile-vehicles {
+        padding: 20px;
+        background: #f2f2f2;
+        border-top: 1px solid #ddd;
+    }
+
+    .profile-details h2,
+    .profile-vehicles h2 {
+        font-size: 20px;
+        color: #333;
+        margin-bottom: 10px;
+        text-align: left;
+    }
+
+    .profile-details ul {
+        list-style: none;
+    }
+
+    .profile-details ul li {
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 8px;
+    }
+
+    .profile-vehicles .vehicle-item {
+        background: #fff;
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 10px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+    }
+
+    .profile-vehicles .vehicle-item img {
+        width: 120px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-right: 15px;
+    }
+
+    .profile-vehicles .vehicle-item p {
+        font-size: 16px;
+        color: #333;
+    }
+
+    .read-more-btn {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: #ff0000;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        margin-left: 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: transform 0.3s ease-in-out, background-color 0.3s;
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    }
+
+    .read-more-btn:hover {
+        background-color: #cc0000;
+        transform: scale(1.05);
+    }
+
+    /* Responsive Design */
+    @media screen and (max-width: 700px) {
+        .profile-header {
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .profile-header .profile-image {
+            margin-right: 0;
+        }
+
+        .profile-header .profile-info h1 {
+            font-size: 22px;
+        }
+
+        .profile-header .profile-info p {
+            font-size: 14px;
+        }
+
+        .profile-vehicles h2 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .profile-details,
+        .profile-vehicles {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .profile-details h2,
+        .profile-vehicles h2 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .profile-vehicles .vehicle-item {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-vehicles .vehicle-item img {
+            width: 150px;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+
+        .read-more-btn {
+            margin-left: 0;
+        }
+    }
+
+    /* !Profile End */
+
+    /* !Search Start */
+
+    .search-container {
+        margin: 50px auto;
+        background: #222;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(255, 0, 0, 1);
+        transition: transform 0.3s ease-in-out;
+        text-align: center;
+    }
+
+    .search-container:hover {
+        transform: scale(1.03);
+    }
+
+    .search-container h2 {
+        color: #ff0000;
+        font-size: 28px;
+        margin-bottom: 15px;
+    }
+
+    .search-form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .search-form input {
+        width: 100%;
+        max-width: 400px;
+        padding: 12px;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        outline: none;
+        background-color: #333;
+        color: white;
+        transition: border-color 0.3s ease-in-out;
+    }
+
+    .search-form input:focus {
+        border-color: #ff0000;
+    }
+
+    .search-form button {
+        padding: 12px 20px;
+        background-color: #ff0000;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    }
+
+    .search-form button:hover {
+        background-color: #c60000;
+        transform: scale(1.05);
+    }
+
+    .search-container::after {
+        content: '';
+        display: block;
+        width: 100px;
+        height: 4px;
+        background: #ff0000;
+        margin: 20px auto 0;
+    }
+
+    /* Responsive Design */
+    @media screen and (max-width: 700px) {
+        .search-form {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .search-form input {
+            width: 100%;
+            font-size: 14px;
+            padding: 10px;
+        }
+
+        .search-form button {
+            width: 100%;
+            font-size: 14px;
+            padding: 10px;
+        }
+    }
+
+    /* !Search End */
+
+    /* !Login Start */
+
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        scale: 85%;
+        text-shadow: 2px 2px #000;
+    }
+
+    .login-box {
+        background: #222;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(255, 0, 0, 1);
+        transition: transform 0.3s ease-in-out;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .login-box:hover {
+        transform: scale(1.03);
+    }
+
+    h2 {
+        color: #ff0000;
+        font-size: 32px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .login-box .textbox {
+        position: relative;
+        margin-bottom: 2em;
+    }
+
+    .textbox input {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        outline: none;
+        transition: border-color 0.3s;
+        background: #333;
+        color: white;
+    }
+
+    .textbox input:focus {
+        border-color: #ff0000;
+    }
+
+    .textbox .icon {
+        color: #888;
+        position: absolute;
+        top: -20px;
+        right: 0;
+    }
+
+    .login-btn button {
+        width: 100%;
+        padding: 12px;
+        background: #ff0000;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        text-shadow: 2px 2px #000;
+    }
+
+    .login-btn button:hover {
+        background: #c60000;
+    }
+
+    .notRegisteredYet {
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    .notRegisteredYet a {
+        color: #888;
+        text-decoration: none;
+        font-size: 1.2rem;
+    }
+
+    .notRegisteredYet a:hover {
+        color: #ff0000;
+    }
+
+    /* Responsive Styles */
+    @media screen and (max-width: 700px) {
+        .login-box {
+            padding: 25px;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .textbox input {
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        .login-btn button {
+            padding: 10px;
+            font-size: 14px;
+        }
+    }
+
+    /* !Login End */
+
+    /* !Register Start */
+
+    .register-container {
+        scale: 85%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        text-shadow: 2px 2px #000;
+    }
+
+    .register-box {
+        background: #222;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(255, 0, 0, 1);
+        transition: transform 0.3s ease-in-out;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .register-box:hover {
+        transform: scale(1.03);
+    }
+
+    .register-box .textbox {
+        position: relative;
+        margin-bottom: 2em;
+    }
+
+    h2 {
+        color: #ff0000;
+        font-size: 32px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .textbox {
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    .textbox input {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        outline: none;
+        transition: border-color 0.3s;
+        background: #333;
+        color: white;
+    }
+
+    .textbox .icon {
+        color: #888;
+        position: absolute;
+        top: -20px;
+        right: 0;
+    }
+
+    .textbox input:focus {
+        border-color: #ff0000;
+    }
+
+    .register-btn button {
+        width: 100%;
+        padding: 12px;
+        background: #ff0000;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        text-shadow: 2px 2px #000;
+    }
+
+    .register-btn button:hover {
+        background: #c60000;
+    }
+
+    .register-box::after {
+        content: '';
+        display: block;
+        width: 100px;
+        height: 4px;
+        background: #ff0000;
+        margin: 20px auto 0;
+    }
+
+    .alreadyHaveAnAccount {
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    .alreadyHaveAnAccount a {
+        color: #888;
+        text-decoration: none;
+        font-size: 1.2rem;
+    }
+
+    .alreadyHaveAnAccount a:hover {
+        color: #ff0000;
+    }
+
+    .login-box::after {
+        content: '';
+        display: block;
+        width: 100px;
+        height: 4px;
+        background: #ff0000;
+        margin: 20px auto 0;
+    }
+
+    /* Responsive Styles */
+    @media screen and (max-width: 700px) {
+        .register-box {
+            padding: 25px;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .textbox input {
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        .register-btn button {
+            padding: 10px;
+            font-size: 14px;
+        }
+    }
+
+    /* !Register End */
+
+    /* !Create Start */
+
+    .create-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        width: 100%;
+        padding: 20px;
+    }
+
+    .create-box {
+        background: #222;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(255, 0, 0, 1);
+        transition: transform 0.3s ease-in-out;
+        width: 90%;
+        max-width: 800px;
+        box-sizing: border-box;
+    }
+
+    h2 {
+        color: #ff0000;
+        font-size: 32px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .full-width {
+        grid-column: span 2;
+    }
+
+    .input-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .input-group input,
+    .input-group textarea,
+    .input-group select {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        outline: none;
+        background-color: #333;
+        color: white;
+        box-sizing: border-box;
+    }
+
+    .input-group input:focus,
+    .input-group textarea:focus,
+    .input-group select:focus {
+        border-color: #ff0000;
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    .submit-btn button {
+        width: 100%;
+        padding: 12px;
+        background-color: #ff0000;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        text-shadow: 2px 2px #000;
+    }
+
+    .submit-btn button:hover {
+        background-color: #c60000;
+    }
+
+    /* Responsive Design */
+    @media screen and (max-width: 700px) {
+        .create-box {
+            padding: 20px;
+            width: 100%;
+        }
+
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .input-group input,
+        .input-group textarea,
+        .input-group select {
+            font-size: 14px;
+        }
+
+        .submit-btn button {
+            font-size: 14px;
+        }
+    }
+
+
+    /* !Create End */
+
+    /* !Edit Start */
+
+    .create-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        scale: 80%;
+    }
+
+    .create-box {
+        background: #222;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(255, 0, 0, 1);
+        transition: transform 0.3s ease-in-out;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .create-box:hover {
+        transform: scale(1.03);
+    }
+
+    h2 {
+        color: #ff0000;
+        font-size: 32px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .input-group {
+        margin-bottom: 20px;
+    }
+
+    .input-group label {
+        display: block;
+        color: #ddd;
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+
+    .input-group input,
+    .input-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+        outline: none;
+        background-color: #333;
+        color: white;
+    }
+
+    .input-group input:focus,
+    .input-group textarea:focus {
+        border-color: #ff0000;
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    .submit-btn button {
+        width: 100%;
+        padding: 12px;
+        background-color: #ff0000;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .submit-btn button:hover {
+        background-color: #c60000;
+    }
+
+    .create-box::after {
+        content: '';
+        display: block;
+        width: 100px;
+        height: 4px;
+        background: #ff0000;
+        margin: 20px auto 0;
+    }
+
+    /* Responsive Styles */
+    @media screen and (max-width: 700px) {
+
+        .create-container {
+            scale: 70%;
+        }
+
+        .create-box {
+            padding: 25px;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .input-group input,
+        .input-group textarea {
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        .submit-btn button {
+            padding: 10px;
+            font-size: 14px;
+        }
+    }
+
+    /* !Edit End */
+
+    /* !Contact Dealer Start */
+
+    .contact-seller {
+        width: 100%;
+        margin: 0 auto;
+        max-width: 3840px;
+        background: #222;
+        padding: 40px;
+        text-align: center;
+        text-shadow: 2px 2px #000;
+    }
+
+    .contact-seller h2 {
+        color: #ff0000;
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+
+    .dealer-info {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        text-shadow: 2px 2px #000;
+    }
+
+    .dealer-card {
+        background: #333;
+        padding: 25px;
+        border-radius: 10px;
+        text-align: center;
+        width: 280px;
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .dealer-card:hover {
+        transform: scale(1.05);
+    }
+
+    .dealer-card h3 {
+        color: #fff;
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    .dealer-card .dealer-email,
+    .dealer-card .dealer-phone {
+        color: #ddd;
+        font-size: 16px;
+    }
+
+    .dealer-card a {
+        color: #ff0000;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .dealer-card a:hover {
+        text-decoration: underline;
+    }
+
+    /* Responsive Design */
+    @media screen and (max-width: 700px) {
+        .contact-seller {
+            padding: 20px;
+        }
+
+        .dealer-info {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .dealer-card {
+            width: 90%;
+        }
+
+        .contact-seller h2 {
+            font-size: 24px;
+        }
+
+        .dealer-card h3 {
+            font-size: 18px;
+        }
+
+        .dealer-card .dealer-email,
+        .dealer-card .dealer-phone {
+            font-size: 14px;
+        }
+    }
+
+    /* !Contact Dealer End */
+
+    /* !Details Start */
+    .vehicle-details {
+        width: 100%;
+        margin: 0 auto;
+        max-width: 3840px;
+        background: #222;
+        padding: 40px;
+        text-align: center;
+        text-shadow: 2px 2px #000;
+    }
+
+    .vehicle-details h2 {
+        color: #ff0000;
+        font-size: 32px;
+        margin-bottom: 20px;
+    }
+
+    .vehicle-container {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .vehicle-card {
+        background: #333;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        width: 280px;
+        transition: transform 0.3s ease-in-out;
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+    }
+
+    .vehicle-card:hover {
+        transform: scale(1.05);
+    }
+
+    .vehicle-card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    .vehicle-card h3 {
+        color: #fff;
+        margin: 15px 0 5px;
+        font-size: 20px;
+    }
+
+    .vehicle-card .price {
+        color: #ff0000;
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .vehicle-card .description {
+        font-size: 14px;
+        color: #ddd;
+        line-height: 1.6;
+        margin-bottom: 10px;
+    }
+
+    .contact-btn {
+        display: inline-block;
+        padding: 10px 15px;
+        background: green;
+        color: white;
+        text-decoration: none;
+        font-size: 14px;
+        margin-right: 0.3em;
+        margin-bottom: 0.3em;
+        border-radius: 4px;
+        transition: background 0.3s, transform 0.3s;
+    }
+
+    .edit-btn {
+        display: inline-block;
+        padding: 10px 15px;
+        background: yellow;
+        color: white;
+        text-decoration: none;
+        font-size: 14px;
+        margin-right: 0.3em;
+        border-radius: 4px;
+        transition: background 0.3s, transform 0.3s;
+    }
+
+    .delete-btn {
+        display: inline-block;
+        padding: 10px 15px;
+        background: #ff0000;
+        color: white;
+        text-decoration: none;
+        font-size: 14px;
+        border-radius: 4px;
+        transition: background 0.3s, transform 0.3s;
+    }
+
+    .like-btn {
+        display: inline-block;
+        padding: 10px 15px;
+        background: cyan;
+        color: white;
+        text-decoration: none;
+        font-size: 14px;
+        border-radius: 4px;
+        transition: background 0.3s, transform 0.3s;
+    }
+
+
+    .contact-btn:hover {
+        background: darkgreen;
+        transform: scale(1.05);
+    }
+
+    .edit-btn:hover {
+        background: #8B8000;
+        transform: scale(1.05);
+    }
+
+    .delete-btn:hover {
+        background: darkred;
+        transform: scale(1.05);
+    }
+
+    .like-btn:hover {
+        background: darkcyan;
+        transform: scale(1.05);
+    }
+
+    /* Responsive Design */
+    @media screen and (max-width: 700px) {
+        .vehicle-details {
+            padding: 20px;
+        }
+
+        .vehicle-container {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .vehicle-card {
+            width: 90%;
+            margin-bottom: 20px;
+        }
+
+        .vehicle-details h2 {
+            font-size: 24px;
+        }
+
+        .vehicle-card h3 {
+            font-size: 18px;
+        }
+
+        .vehicle-card .price {
+            font-size: 16px;
+        }
+
+        .vehicle-card .description {
+            font-size: 12px;
+        }
+    }
+
+
+    /* !Details End */
+
+    /* !Error Start */
+    .error-container {
+        max-width: 900px;
+        margin: 50px auto;
+        background: #222;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 0 15px rgba(255, 0, 0, 1);
+        transition: transform 0.3s ease-in-out;
+        text-align: center;
+        text-shadow: 2px 2px #000;
+    }
+
+    .error-container:hover {
+        transform: scale(1.03);
+    }
+
+    .error-container h2 {
+        color: #ff0000;
+        font-size: 32px;
+        margin-bottom: 15px;
+    }
+
+    .error-container p {
+        font-size: 18px;
+        line-height: 1.6;
+        color: #ddd;
+    }
+
+    .error-container .highlight {
+        color: #ff0000;
+        font-weight: bold;
+    }
+
+    .error-container a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .error-container a:hover {
+        text-decoration: underline;
+    }
+
+    .back-home-btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 12px 20px;
+        font-size: 18px;
+        background: #ff0000;
+        color: #fff;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: background 0.3s ease-in-out;
+    }
+
+    .back-home-btn:hover {
+        background: #cc0000;
+    }
+
+    .error-container::after {
+        content: '';
+        display: block;
+        width: 100px;
+        height: 4px;
+        background: #ff0000;
+        margin: 20px auto 0;
+    }
+
+    /* Responsive Design */
+    @media screen and (max-width: 700px) {
+        .error-container {
+            padding: 20px;
+        }
+
+        .error-container h2 {
+            font-size: 24px;
+        }
+
+        .error-container p {
+            font-size: 16px;
+        }
+
+        .back-home-btn {
+            font-size: 16px;
+            padding: 10px 16px;
+        }
+    }
+
+
+    /* !Error End */
+
+    /* !Footer Start */
+
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+    }
+
+    #root {
+        display: flex;
+        flex-direction: column;
+        min-height: 100%;
+    }
+
+    .content {
+        flex: 1;
+    }
+
+    .footer {
+        padding: 40px 0;
+        background: rgb(0, 0, 0, 0.1);
+        margin-top: auto;
+    }
+
+    .footer .social {
+        text-align: center;
+        padding-bottom: 25px;
+        color: #4b4c4d;
+    }
+
+    .footer .social a {
+        font-size: 24px;
+        color: inherit;
+        border: 1px solid #ccc;
+        width: 40px;
+        height: 40px;
+        line-height: 38px;
+        display: inline-block;
+        text-align: center;
+        border-radius: 50%;
+        margin: 0 4px;
+        opacity: 0.75;
+    }
+
+    .footer .social a:hover {
+        opacity: 1;
+    }
+
+    .footer ul {
+        margin-top: 0;
+        padding: 0;
+        list-style: none;
+        font-size: 24px;
+        line-height: 1.6;
+        margin-bottom: 0;
+        text-align: center;
+    }
+
+    .footer ul li a {
+        color: inherit;
+        text-decoration: none;
+        opacity: 0.8;
+    }
+
+    .footer ul li {
+        display: inline-block;
+        padding: 0 15px;
+    }
+
+    .footer ul li a:hover {
+        opacity: 1;
+    }
+
+    .footer .copyright {
+        margin-top: 15px;
+        text-align: center;
+        font-size: 18px;
+        color: red;
+    }
+
+    ul li a.create {
+        color: red;
+    }
+
+    /* !Footer End */

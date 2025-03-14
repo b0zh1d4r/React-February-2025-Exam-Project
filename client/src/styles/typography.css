@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Oswald:wght@200..700&display=swap');
+
+html {
+    font-family: "Oswald", sans-serif;
+}
+
+body, input, button, select, textarea {
+    font: inherit;
+}
