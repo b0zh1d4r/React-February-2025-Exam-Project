@@ -11,7 +11,8 @@ import Create from './components/create/Create'
 import Profile from './components/profile/Profile'
 import Login from './components/login/Login'
 import Register from './components/register/Register'
-import Error from './components/error/Error'
+import ErrorPage from './components/errorPage/ErrorPage'
+import ErrorNotification from './components/errorNotification/ErrorNotification'
 import Footer from './components/footer/Footer'
 
 import './styles/_styles.css'
@@ -32,7 +33,7 @@ function App() {
                 <Route path="/profile" element={<Profile />}></Route>
                 <Route path="/login" element={<Login />}></Route>
                 <Route path="/register" element={<Register />}></Route>
-                <Route path="*" element={<Error />}></Route>
+                <Route path="*" element={<ErrorNotification />}></Route>
             </Routes>
             <Footer />
         </>

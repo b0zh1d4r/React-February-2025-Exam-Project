@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 
-export default function Error() {
+export default function ErrorPage() {
     return (
         <section className="error-container">
             <h2>❌ Error 404: Page Not Found!</h2>

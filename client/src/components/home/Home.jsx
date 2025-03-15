@@ -3,7 +3,6 @@ import { Link } from "react-router";
 export default function Home() {
     return (
         <>
-
             <section className="section main">
                 <div className="inner">
                     <article className="card">
