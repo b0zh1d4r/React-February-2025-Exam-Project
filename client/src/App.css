@@ -1546,6 +1546,9 @@
         opacity: 0;
         transform: translateY(-20px);
         cursor: pointer;
+        position: fixed;
+        top: 65px;
+        right: 20px;
     }
 
     .notification-container.show {
@@ -1597,6 +1600,7 @@
             font-size: 14px;
         }
     }
+
 
     /* !Error Notification End */
 
