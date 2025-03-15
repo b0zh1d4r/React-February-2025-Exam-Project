@@ -13,7 +13,7 @@ export default function Home() {
             </section>
 
             <section className="top-vehicles">
-                {/* <!-- <h2>No vehicles available yet!</h2> --> */}
+                {/* <!-- <h2>No Vehicles Available yet!</h2> --> */}
                 <h2>👑 Top 3 Rated Vehicles This Week: </h2>
                 <div className="vehicles-container">
                     <div className="vehicle-card">

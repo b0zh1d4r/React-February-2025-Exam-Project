@@ -21,7 +21,7 @@ export default function Profile() {
                     </ul>
                 </div>
                 <div className="profile-vehicles">
-                    {/* <!-- <h2>No vehicles available yet!</h2> --> */}
+                    {/* <h2>No Vehicles Available yet!</h2> */}
                     <h2>All Available Vehicles:</h2>
                     <div className="vehicle-item">
                         <img src="../../../public/bmw-m5-e60.jpg" alt="Vehicle Model 1" />

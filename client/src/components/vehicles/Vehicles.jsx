@@ -2,7 +2,7 @@ export default function Vehicles() {
     return (
         <>
             <section className="top-vehicles">
-                {/* <!-- <h2>No vehicles available yet!</h2> --> */}
+                {/* <h2>No Vehicles Available yet!</h2> */}
                 <h2>Find a Vehicle:</h2>
                 <form action="search-results.html" method="GET" className="search-form">
                     <input type="text" name="query" placeholder="Search for Cars..." required />
