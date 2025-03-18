@@ -12,7 +12,7 @@ const app = express();
 const url = 'mongodb://localhost:27017';
 
 mongoose.connect(url, { dbName: 'GaragiX' })
-    .then(() => console.log('Connected to database!'))
+    .then(() => console.log('Successfully connected to database!'))
     .catch((err) => console.log(`Failed to connect to database: ${err}`));
 
 app.engine('hbs', handlebars.engine({

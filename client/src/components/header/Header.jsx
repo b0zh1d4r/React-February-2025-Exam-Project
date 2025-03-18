@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 
 export default function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
+    const location = useLocation();
 
     useEffect(() => {
         const handleResize = () => {
@@ -38,32 +39,28 @@ export default function Header() {
             </a>
             <div className={`nav-menu ${menuOpen ? "active" : ""}`}>
                 <ul>
-                    <li className="nav-menu-link">
-                        <Link to="/" onClick={closeMenu}>Home</Link>
-                    </li>
-                    <li className="nav-menu-link">
-                        <Link to="/about" onClick={closeMenu}>About</Link>
-                    </li>
-                    <li className="nav-menu-link">
-                        <Link to="/vehicles" onClick={closeMenu}>Vehicles</Link>
-                    </li>
-                    <li className="nav-menu-link">
-                        <Link to="/create" className="create" onClick={closeMenu}>Create</Link>
-                    </li>
-                    <li className="nav-menu-link">
-                        <Link to="/profile" onClick={closeMenu}>Profile</Link>
-                    </li>
-                    <li className="nav-menu-link">
-                        <Link to="/logout" onClick={closeMenu}>Logout</Link>
-                    </li>
-                    <li className="nav-menu-link">
-                        <Link to="/login#" onClick={closeMenu}>Login</Link>
-                    </li>
-                    <li className="nav-menu-link">
-                        <Link to="/register" onClick={closeMenu}>Register</Link>
-                    </li>
+                    {[
+                        { path: "/", label: "Home" },
+                        { path: "/about", label: "About" },
+                        { path: "/vehicles", label: "Vehicles" },
+                        { path: "/create", label: "Create" },
+                        { path: "/profile", label: "Profile" },
+                        { path: "/logout", label: "Logout" },
+                        { path: "/login", label: "Login" },
+                        { path: "/register", label: "Register" },
+                    ].map(({ path, label }) => (
+                        <li key={path} className="nav-menu-link">
+                            <Link
+                                to={path}
+                                onClick={closeMenu}
+                                className={location.pathname === path ? "active" : ""}
+                            >
+                                {label}
+                            </Link>
+                        </li>
+                    ))}
                 </ul>
             </div>
         </nav>
     );
-};
+}

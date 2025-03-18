@@ -11,4 +11,4 @@ const jwt = {
     decode
 }
 
-export default jwt
+export default jwt;

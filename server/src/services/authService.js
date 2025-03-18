@@ -4,11 +4,11 @@ import bcrypt from 'bcrypt';
 
 export const authService = {
 
-    async register(email, password, rePass){
+    async register(username, email, phoneNumber, location, password, rePass){
         const user = await User.findOne({ email });
 
         if (password !== rePass){
-            throw new Error('Password missmatch!');
+            throw new Error('Password mismatch!');
         }
 
         if (user){
@@ -16,7 +16,10 @@ export const authService = {
         }
 
         const newUser = await User.create({
+            username,
             email,
+            phoneNumber,
+            location,
             password
         })
 

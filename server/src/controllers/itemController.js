@@ -80,4 +80,4 @@ routes.get('/vehicles/:vehicleId/like', validateObjectId, checkIsNotOwner, check
     }
 })
 
-export default routes
+export default routes;

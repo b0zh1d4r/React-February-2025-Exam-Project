@@ -24,29 +24,29 @@ export default function Create() {
                             </div>
                             <div className="input-group">
                                 <label htmlFor="vehicle-engine">Engine Type:</label>
-                                <select id="vehicle-engine" name="vehicle-engine" required>
-                                    <option defaultValue="" disabled selected>Select Engine Type</option>
-                                    <option defaultValue="petrol">Petrol Engine</option>
-                                    <option defaultValue="diesel">Diesel Engine</option>
-                                    <option defaultValue="hybrid">Hybrid Engine</option>
-                                    <option defaultValue="electric">Electric Engine</option>
+                                <select id="vehicle-engine" name="vehicle-engine" required defaultValue="">
+                                    <option value="" disabled>Select Engine Type</option>
+                                    <option value="petrol">Petrol</option>
+                                    <option value="diesel">Diesel</option>
+                                    <option value="hybrid">Hybrid</option>
+                                    <option value="electric">Electric</option>
                                 </select>
                             </div>
                             <div className="input-group">
                                 <label htmlFor="vehicle-condition">Condition:</label>
-                                <select id="vehicle-condition" name="vehicle-condition" required>
-                                    <option defaultValue="" disabled selected>Select Condition</option>
-                                    <option defaultValue="new">New</option>
-                                    <option defaultValue="used">Used</option>
+                                <select id="vehicle-condition" name="vehicle-condition" required defaultValue="">
+                                    <option value="" disabled>Select Condition</option>
+                                    <option value="new">New</option>
+                                    <option value="used">Used</option>
                                 </select>
                             </div>
                             <div className="input-group">
                                 <label htmlFor="vehicle-transmission">Transmission:</label>
-                                <select id="vehicle-transmission" name="vehicle-transmission" required>
-                                    <option defaultValue="" disabled selected>Select Transmission</option>
-                                    <option defaultValue="manual">Manual</option>
-                                    <option defaultValue="automatic">Automatic</option>
-                                    <option defaultValue="semi-automatic">Semi-Automatic</option>
+                                <select id="vehicle-transmission" name="vehicle-transmission" required defaultValue="">
+                                    <option value="" disabled>Select Transmission</option>
+                                    <option value="manual">Manual</option>
+                                    <option value="automatic">Automatic</option>
+                                    <option value="semi-automatic">Semi-Automatic</option>
                                 </select>
                             </div>
                             <div className="input-group full-width">

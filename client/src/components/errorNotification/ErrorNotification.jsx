@@ -23,9 +23,7 @@ const Notification = ({message}) => {
             className={`notification-container ${isVisible ? "show" : ""} error`}
             onClick={handleClose}
         >
-            <h3>Error</h3>
             <p>Something went wrong!</p>
-            <div className="highlight">Click to dismiss</div>
         </div>
     );
 };

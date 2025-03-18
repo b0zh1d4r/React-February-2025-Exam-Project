@@ -5,9 +5,24 @@ const SALT_ROUNDS = 10;
 
 const userSchema = new Schema({
     
+    username: {
+        type: String,
+        required: [true, 'Username is required'],
+    },
+
     email: {
         type: String,
         required: [true, 'Email is required'],
+    },
+
+    phoneNumber: {
+        type: String,
+        required: [true, 'Phone number is required'],
+    },
+
+    location: {
+        type: String,
+        required: [true, 'Location is required'],
     },
 
     password: {

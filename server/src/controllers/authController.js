@@ -11,10 +11,10 @@ authController.get('/register', isGuest, (req, res) => {
 });
 
 authController.post('/register', isGuest, async (req, res) => {
-    const { email, password, rePass } = req.body;
+    const { username, email, phoneNumber, location, password, rePass } = req.body;
 
     try {
-        const { token, _id, email: userEmail } = await authService.register(email, password, rePass);
+        const { token, _id, email: userEmail } = await authService.register(username, email, phoneNumber, location, password, rePass);
         res.cookie(AUTH_COOKIE_NAME, token, { httpOnly: true });
         res.json({ token, _id, email: userEmail });
     } catch (err) {

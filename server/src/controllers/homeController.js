@@ -6,4 +6,4 @@ homeController.get('/', (req, res) => {
     res.status(204).end();
 });
 
-export default homeController
+export default homeController;
