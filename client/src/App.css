@@ -962,6 +962,7 @@
         scale: 90%;
         display: flex;
         justify-content: center;
+        text-shadow: 2px 2px #000;
         align-items: center;
         padding: 20px;
         margin: 100px 0 100px 0;
@@ -1084,8 +1085,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100%;
-        scale: 80%;
+        text-shadow: 2px 2px #000;
+        scale: 90%;
+        margin: 100px 0 100px 0;
     }
 
     .edit-box {
