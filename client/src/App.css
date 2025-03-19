@@ -176,13 +176,14 @@
 
     .about-container {
         max-width: 900px;
-        margin: 50px auto;
+        margin: 200px auto;
         background: #222;
         padding: 40px;
         border-radius: 10px;
         box-shadow: 0 0 15px rgba(255, 0, 0, 1);
         transition: transform 0.3s ease-in-out;
         text-align: center;
+        position: relative;
         text-shadow: 2px 2px #000;
     }
 
@@ -209,6 +210,15 @@
     .about-container .highlight {
         color: #ff0000;
         font-weight: bold;
+    }
+
+    .about-container::after {
+        content: '';
+        display: block;
+        width: 100px;
+        height: 4px;
+        background: #ff0000;
+        margin: 20px auto 0;
     }
 
     .about-container::after {
@@ -712,7 +722,7 @@
         justify-content: center;
         align-items: center;
         height: 100%;
-        scale: 80%;
+        margin: 200px 0 200px 0;
         text-shadow: 2px 2px #000;
     }
 
@@ -821,11 +831,11 @@
     /* !Register Start */
 
     .register-container {
-        scale: 70%;
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100%;
+        margin: 200px 0 200px 0;
         text-shadow: 2px 2px #000;
     }
 
@@ -971,10 +981,9 @@
         border-radius: 10px;
         box-shadow: 0 0 15px rgba(255, 0, 0, 1);
         transition: transform 0.3s ease-in-out;
-        width: 90%;
-        max-width: 800px;
+        width: auto;
         box-sizing: border-box;
-        scale: 75%;
+        scale: 70%;
     }
 
     h2 {
@@ -1046,6 +1055,7 @@
         .create-box {
             padding: 20px;
             width: 100%;
+            scale: 100%;
         }
 
         .form-grid {
@@ -1070,10 +1080,10 @@
 
     .create-container {
         display: flex;
+        margin: 50px auto;
         justify-content: center;
         align-items: center;
         height: 100%;
-        scale: 80%;
     }
 
     .create-box {
