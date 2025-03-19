@@ -1,8 +1,8 @@
 export default function Edit() {
     return (
         <>
-            <div className="create-container">
-                <div className="create-box">
+            <div className="edit-container">
+                <div className="edit-box">
                     <h2>Edit Vehicle Listing</h2>
                     <form>
                         <div className="input-group">

@@ -176,14 +176,14 @@
 
     .about-container {
         max-width: 900px;
-        margin: 200px auto;
+        margin: 100px auto;
         background: #222;
         padding: 40px;
         border-radius: 10px;
         box-shadow: 0 0 15px rgba(255, 0, 0, 1);
         transition: transform 0.3s ease-in-out;
         text-align: center;
-        position: relative;
+        scale: 90%;
         text-shadow: 2px 2px #000;
     }
 
@@ -210,15 +210,6 @@
     .about-container .highlight {
         color: #ff0000;
         font-weight: bold;
-    }
-
-    .about-container::after {
-        content: '';
-        display: block;
-        width: 100px;
-        height: 4px;
-        background: #ff0000;
-        margin: 20px auto 0;
     }
 
     .about-container::after {
@@ -721,9 +712,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100%;
-        margin: 200px 0 200px 0;
         text-shadow: 2px 2px #000;
+        scale: 90%;
+        margin: 100px 0 100px 0;
     }
 
     .login-box {
@@ -831,11 +822,12 @@
     /* !Register Start */
 
     .register-container {
+        margin: 100px 0 100px 0;
+        scale: 90%;
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100%;
-        margin: 200px 0 200px 0;
         text-shadow: 2px 2px #000;
     }
 
@@ -967,12 +959,12 @@
     /* !Create Start */
 
     .create-container {
+        scale: 90%;
         display: flex;
         justify-content: center;
         align-items: center;
-        min-height: 100vh;
-        width: 100%;
         padding: 20px;
+        margin: 100px 0 100px 0;
     }
 
     .create-box {
@@ -981,9 +973,20 @@
         border-radius: 10px;
         box-shadow: 0 0 15px rgba(255, 0, 0, 1);
         transition: transform 0.3s ease-in-out;
-        width: auto;
         box-sizing: border-box;
-        scale: 70%;
+    }
+
+    .create-box:hover {
+        transform: scale(1.03);
+    }
+
+    .create-box::after {
+        content: '';
+        display: block;
+        width: 100px;
+        height: 4px;
+        background: #ff0000;
+        margin: 20px auto 0;
     }
 
     h2 {
@@ -1055,7 +1058,6 @@
         .create-box {
             padding: 20px;
             width: 100%;
-            scale: 100%;
         }
 
         .form-grid {
@@ -1078,15 +1080,15 @@
 
     /* !Edit Start */
 
-    .create-container {
+    .edit-container {
         display: flex;
-        margin: 50px auto;
         justify-content: center;
         align-items: center;
         height: 100%;
+        scale: 80%;
     }
 
-    .create-box {
+    .edit-box {
         background: #222;
         padding: 40px;
         border-radius: 10px;
@@ -1096,7 +1098,7 @@
         max-width: 500px;
     }
 
-    .create-box:hover {
+    .edit-box:hover {
         transform: scale(1.03);
     }
 
@@ -1156,7 +1158,7 @@
         background-color: #c60000;
     }
 
-    .create-box::after {
+    .edit-box::after {
         content: '';
         display: block;
         width: 100px;
@@ -1168,11 +1170,11 @@
     /* Responsive Styles */
     @media screen and (max-width: 700px) {
 
-        .create-container {
+        .edit-container {
             scale: 70%;
         }
 
-        .create-box {
+        .edit-box {
             padding: 25px;
             width: 100%;
             max-width: 100%;
