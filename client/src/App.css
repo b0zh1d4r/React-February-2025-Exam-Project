@@ -1,4 +1,5 @@
     /* !Navigation Bar Start: */
+
     .nav {
         height: 3.2rem;
         display: flex;
@@ -129,7 +130,7 @@
 
     /* !Navigation Bar End */
 
-    /* !Welcome Start */
+    /* !Welcome Start: */
 
     .inner {
         position: relative;
@@ -172,7 +173,7 @@
 
     /* !Welcome End */
 
-    /* !About Us Start */
+    /* !About Us Start: */
 
     .about-container {
         max-width: 900px;
@@ -221,7 +222,9 @@
         margin: 20px auto 0;
     }
 
-    /* Top Cars Start */
+    /* !About Us End */
+
+    /* Top 3 Rated Vehicles This Week Start: */
     .top-vehicles {
         width: 100%;
         margin: 0 auto;
@@ -337,10 +340,10 @@
         transform: scale(1.05);
     }
 
-    */
-    /* Top Cars End */
+    /* Top 3 Rated Vehicles This Week */
 
-    /* Latest Vehicles Start */
+    /* Latest Vehicles Start: */
+
     .latest-vehicles:hover {
         transform: scale(1.03);
     }
@@ -437,12 +440,9 @@
         transform: scale(1.05);
     }
 
-    */
     /* Latest Vehicles End */
 
-    /* !About Us End */
-
-    /* !Profile Start */
+    /* !Profile Start: */
 
     .profile-container {
         background: #222;
@@ -612,7 +612,7 @@
 
     /* !Profile End */
 
-    /* !Search Start */
+    /* !Search Start: */
 
     .search-container {
         margin: 50px auto;
@@ -706,7 +706,7 @@
 
     /* !Search End */
 
-    /* !Login Start */
+    /* !Login Start: */
 
     .login-container {
         display: flex;
@@ -819,7 +819,7 @@
 
     /* !Login End */
 
-    /* !Register Start */
+    /* !Register Start: */
 
     .register-container {
         margin: 100px 0 100px 0;
@@ -956,7 +956,7 @@
 
     /* !Register End */
 
-    /* !Create Start */
+    /* !Create Start: */
 
     .create-container {
         scale: 90%;
@@ -1079,7 +1079,7 @@
 
     /* !Create End */
 
-    /* !Edit Start */
+    /* !Edit Start: */
 
     .edit-container {
         display: flex;
@@ -1196,7 +1196,7 @@
 
     /* !Edit End */
 
-    /* !Contact Dealer Start */
+    /* !Contact Dealer Start: */
 
     .contact-seller {
         width: 100%;
@@ -1288,7 +1288,8 @@
 
     /* !Contact Dealer End */
 
-    /* !Details Start */
+    /* !Details Start: */
+
     .vehicle-details {
         width: 100%;
         margin: 0 auto;
@@ -1456,7 +1457,8 @@
 
     /* !Details End */
 
-    /* !Error Page Start */
+    /* !Error Page Start: */
+
     .error-container {
         max-width: 900px;
         margin: 50px auto;
@@ -1548,7 +1550,7 @@
 
     /* !Error Page End */
 
-    /* !Error Notification Start */
+    /* !Error Notification Start: */
 
     .notification-container {
         max-width: 700px;
@@ -1606,7 +1608,7 @@
 
     /* !Error Notification End */
 
-    /* !Footer Start */
+    /* !Footer Start: */
 
     html,
     body {

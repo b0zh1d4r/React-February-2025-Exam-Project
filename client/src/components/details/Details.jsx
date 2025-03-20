@@ -7,7 +7,7 @@ export default function Details() {
                 <h2>Vehicle Details:</h2>
                 <div className="vehicle-container">
                     <div className="vehicle-card">
-                        <img src="../../../public/bmw-m3-e46-gtr.jpg" alt="BMW M3 GTR" />
+                        <img src="bmw-m3-e46-gtr.jpg" alt="BMW M3 GTR" />
                         <h3>BMW M3 GTR</h3>
                         <p className="price">$45,000</p>
                         {/* <!-- <p className="rating">⭐ 9.9/10</p> --> */}
