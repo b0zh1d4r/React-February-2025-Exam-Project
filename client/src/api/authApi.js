@@ -1,5 +1,6 @@
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import request from "../utils/request";
+import { UserContext } from "../contexts/UserContext";
 
 const baseUrl = 'http://localhost:8888/auth';
 
@@ -21,15 +22,15 @@ export const useLogin = () => {
     return {
         login
     }
-}
+};
 
 export const useRegister = () => {
     const abortRef = useRef(new AbortController());
 
     const register = async (username, email, phoneNumber, location, password, repeatPassword) => {
 
-        const result = await request.post(`${baseUrl}/register`, { username, email, phoneNumber, location, password, repeatPassword}, { signal: abortRef.current.signal })
-                
+        const result = await request.post(`${baseUrl}/register`, { username, email, phoneNumber, location, password, repeatPassword }, { signal: abortRef.current.signal })
+
         return result;
     }
 
@@ -41,5 +42,20 @@ export const useRegister = () => {
 
     return {
         register
+    }
+};
+
+export const useLogout = () => {
+    const { accessToken } = useContext(UserContext);
+    
+    const options = {
+        headers: {
+            'X-Authorization': accessToken
+        }
+    }
+    const logout = () => request.get(`${baseUrl}/logout`, null, options)
+
+    return {
+        logout
     }
 }

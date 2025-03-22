@@ -44,6 +44,7 @@ function App() {
                     <Route path="/profile" element={<Profile />}></Route>
                     <Route path="/login" element={<Login onLogin={userLoginHandler} />}></Route>
                     <Route path="/register" element={<Register />}></Route>
+                    <Route path="/logout" element={<Logout />}></Route>
                     <Route path="*" element={<ErrorNotification />}></Route>
                 </Routes>
                 <Footer />

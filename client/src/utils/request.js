@@ -7,6 +7,7 @@ const request = async (method, url, data, options = {}) => {
         options = {
             ...options,
             headers: {
+                ...options.headers,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(data),
