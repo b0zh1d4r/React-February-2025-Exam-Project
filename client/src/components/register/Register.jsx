@@ -1,12 +1,35 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { useRegister } from "../../api/authApi";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function Register() {
+    const navigate = useNavigate();
+    const { register } = useRegister();
+    const { userLoginHandler } = useContext(UserContext);
+
+    const registerHandler = async (formData) => {
+        const { username, email, phoneNumber, location, password, repeatPassword } = Object.fromEntries(formData);
+
+        if (password !== repeatPassword) {
+            console.log('Password mismatch!');
+
+            return;
+        }
+
+        const authData = await register(username, email, phoneNumber, location, password);
+
+        userLoginHandler(authData);
+
+        navigate('/');
+    }
+
     return (
         <>
             <div className="register-container">
                 <div className="register-box">
                     <h2>Register</h2>
-                    <form>
+                    <form action={registerHandler}>
                         <div className="textbox">
                             <input type="text" placeholder="Username" name="username" required />
                             <i className="icon fa-solid fa-user"></i>
@@ -28,7 +51,7 @@ export default function Register() {
                             <i className="icon fa-solid fa-key"></i>
                         </div>
                         <div className="textbox">
-                            <input type="password" placeholder="Repeat Password" name="repeat-password" required />
+                            <input type="password" placeholder="Repeat Password" name="repeatPassword" required />
                             <i className="icon fa-solid fa-key"></i>
                         </div>
                         <div className="register-btn">
