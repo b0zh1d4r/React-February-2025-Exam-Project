@@ -14,6 +14,7 @@ import Create from './components/create/Create'
 import Profile from './components/profile/Profile'
 import Login from './components/login/Login'
 import Register from './components/register/Register'
+import Logout from './components/logout/Logout'
 import ErrorPage from './components/errorPage/ErrorPage'
 import ErrorNotification from './components/errorNotification/ErrorNotification'
 import Footer from './components/footer/Footer'
@@ -29,8 +30,12 @@ function App() {
         setAuthData(resultData);
     };
 
+    const userLogoutHandler = () => {
+        setAuthData({});
+    };
+
     return (
-        <UserContext.Provider value={{ ...authData, userLoginHandler }}>
+        <UserContext.Provider value={{ ...authData, userLoginHandler, userLogoutHandler }}>
             <>
                 <Header />
                 <Routes>
@@ -50,7 +55,8 @@ function App() {
                 <Footer />
             </>
         </UserContext.Provider>
-    )
+    );
 }
+
 
 export default App
