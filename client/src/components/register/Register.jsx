@@ -1,57 +1,61 @@
-import { Link, useNavigate } from "react-router";
-import { useRegister } from "../../api/authApi";
-import { useContext } from "react";
-import { UserContext } from "../../contexts/UserContext";
+import { useRegister } from "../../hooks/useAuth.js"
+import { useForm } from "../../hooks/useForm"
+import { useState } from "react"
+import { Link, useNavigate } from "react-router"
+
+const initialValues = { email: '', password: '', rePass: '' }
 
 export default function Register() {
-    const navigate = useNavigate();
-    const { register } = useRegister();
-    const { userLoginHandler } = useContext(UserContext);
 
-    const registerHandler = async (formData) => {
-        const { username, email, phoneNumber, location, password, repeatPassword } = Object.fromEntries(formData);
+    const [_, setError] = useState('')
+    const register = useRegister()
+    const navigate = useNavigate()
 
-        if (password !== repeatPassword) {
-            console.log('Password mismatch!');
+    const registerHandler = async (values) => {
 
-            return;
+        if(values.password !== values.rePass){
+            return setError('Password mismatch!')
         }
 
-        const authData = await register(username, email, phoneNumber, location, password);
+        try {
+            await register(values.email, values.password, values.rePass)
+            navigate('/')
+        } catch (err) {
+            setError(err.error || 'Registration failed');
+        }
+    } 
 
-        userLoginHandler(authData);
+    const {values, changeHandler, onSubmit } = useForm(initialValues, registerHandler)
 
-        navigate('/');
-    }
 
     return (
         <>
             <div className="register-container">
                 <div className="register-box">
                     <h2>Register</h2>
-                    <form action={registerHandler}>
+                    <form onSubmit={onSubmit}>
                         <div className="textbox">
-                            <input type="text" placeholder="Username" name="username" required />
+                            <input type="text" placeholder="Username" name="username" required value={values.username} onChange={changeHandler} />
                             <i className="icon fa-solid fa-user"></i>
                         </div>
                         <div className="textbox">
-                            <input type="email" placeholder="Email" name="email" required />
+                            <input type="email" placeholder="Email" name="email" required value={values.email} onChange={changeHandler} />
                             <i className="icon fa-solid fa-envelope"></i>
                         </div>
                         <div className="textbox">
-                            <input type="tel" placeholder="Phone Number" name="phoneNumber" required />
+                            <input type="tel" placeholder="Phone Number" name="phoneNumber" required value={values.phoneNumber} onChange={changeHandler} />
                             <i className="icon fa-solid fa-phone"></i>
                         </div>
                         <div className="textbox">
-                            <input type="text" placeholder="Location" name="location" required />
+                            <input type="text" placeholder="Location" name="location" required value={values.location} onChange={changeHandler} />
                             <i className="icon fa-solid fa-location-dot"></i>
                         </div>
                         <div className="textbox">
-                            <input type="password" placeholder="Password" name="password" required />
+                            <input type="password" placeholder="Password" name="password" required value={values.password} onChange={changeHandler} />
                             <i className="icon fa-solid fa-key"></i>
                         </div>
                         <div className="textbox">
-                            <input type="password" placeholder="Repeat Password" name="repeatPassword" required />
+                            <input type="password" placeholder="Repeat Password" name="repeatPassword" required value={values.repeatPassword} onChange={changeHandler} />
                             <i className="icon fa-solid fa-key"></i>
                         </div>
                         <div className="register-btn">

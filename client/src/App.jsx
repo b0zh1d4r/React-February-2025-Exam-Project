@@ -1,7 +1,6 @@
-import { useState } from 'react'
 import { Routes, Route } from 'react-router'
 
-import { UserContext } from './contexts/UserContext'
+import { AuthContextProvider } from './contexts/AuthContext'
 
 import Header from './components/header/Header'
 import Home from './components/home/Home'
@@ -24,18 +23,9 @@ import './styles/_styles.css'
 import './App.css'
 
 function App() {
-    const [authData, setAuthData] = useState({});
-
-    const userLoginHandler = (resultData) => {
-        setAuthData(resultData);
-    };
-
-    const userLogoutHandler = () => {
-        setAuthData({});
-    };
 
     return (
-        <UserContext.Provider value={{ ...authData, userLoginHandler, userLogoutHandler }}>
+        <AuthContextProvider>
             <>
                 <Header />
                 <Routes>
@@ -47,16 +37,15 @@ function App() {
                     <Route path="/contact-dealer" element={<ContactDealer />}></Route>
                     <Route path="/create" element={<Create />}></Route>
                     <Route path="/profile" element={<Profile />}></Route>
-                    <Route path="/login" element={<Login onLogin={userLoginHandler} />}></Route>
+                    <Route path="/login" element={<Login />}></Route>
                     <Route path="/register" element={<Register />}></Route>
                     <Route path="/logout" element={<Logout />}></Route>
                     <Route path="*" element={<ErrorNotification />}></Route>
                 </Routes>
                 <Footer />
             </>
-        </UserContext.Provider>
-    );
+        </AuthContextProvider>
+    )
 }
-
 
 export default App

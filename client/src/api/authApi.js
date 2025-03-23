@@ -1,43 +1,23 @@
-import { useContext } from "react";
-import { UserContext } from "../contexts/UserContext";
-import request from "../utils/request";
+import requester from "./requester.js"
 
-const baseUrl = "http://localhost:8888/auth";
+const BASE_URL = "http://localhost:8888/auth"
 
-export const useLogin = () => {
-    const login = async (email, password) => {
-        return await request.post(`${baseUrl}/login`, { email, password });
-    };
+export const login = (email, password) => {
 
-    return { login };
-};
+    const authData = requester.post(`${BASE_URL}/login`, { email, password })
+    
+    return authData
+}
 
-export const useRegister = () => {
-    const register = async (username, email, phoneNumber, location, password, repeatPassword) => {
-        return await request.post(`${baseUrl}/register`, { username, email, phoneNumber, location, password, repeatPassword });
-    };
+export const register = (email, password, rePass) => {
+    const authData = requester.post(`${BASE_URL}/register`, { email, password, rePass })
 
-    return { register };
-};
+    return authData
 
-export const useLogout = () => {
-    const { userLogoutHandler } = useContext(UserContext);
+}
 
-    const logout = async () => {
-        try {
-            const response = await fetch(`${baseUrl}/logout`, {
-                method: "GET",
-                credentials: "include",
-            });
+export const logout = () => {
 
-            if (response.ok) {
-                userLogoutHandler();
-            }
-        } catch (error) {
-            console.error("Logout failed:", error);
-        }
-    };
+    return requester.get(`${BASE_URL}/logout`);
 
-    return logout;
-};
-
+}

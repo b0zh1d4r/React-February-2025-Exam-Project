@@ -8,7 +8,7 @@ const routes = Router();
 
 routes.use(homeController);
 routes.use('/auth', authController);
-routes.use('/item', itemController);
+routes.use('/vehicles', itemController);
 routes.use('/me', userController);
 
 routes.all('*', (req, res) => {

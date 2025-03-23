@@ -6,7 +6,7 @@ import { checkIsLiked, checkIsNotOwner, checkIsOwner } from "../middlewares/owne
 
 const routes = Router()
 
-routes.get('/vehicles', async (req, res) => {
+routes.get('/', async (req, res) => {
     try {
         const items = await itemService.getAll().lean()
         
@@ -20,19 +20,25 @@ routes.get('/create', async (req, res) => {
     res.status(204).end(); 
 })
 
-routes.post('/create', async (req, res) => {
-    const item = req.body 
-    const userId = req.user._id
-    try {
-        const createdItem = await itemService.create(item, userId); 
+routes.post('/create', isAuth, async (req, res) => {
+    console.log("User:", req.user);
+    if (!req.user) {
+        return res.status(401).json({ error: "Unauthorized" });
+    }
 
+    const item = req.body;
+    const userId = req.user._id;
+
+    try {
+        const createdItem = await itemService.create(item, userId);
         res.json(createdItem);
     } catch (err) {
         res.status(400).json({ error: getErrorMassage(err) });
     }
-})
+});
 
-routes.get('/vehicles/:vehicleId', validateObjectId, async (req, res) => {
+
+routes.get('/:vehicleId', validateObjectId, async (req, res) => {
 
     const item = await itemService.getItem(req.params.itemId).lean()  
     
@@ -44,7 +50,7 @@ routes.get('/vehicles/:vehicleId', validateObjectId, async (req, res) => {
 
 })
 
-routes.delete('/vehicles/:vehicleId', validateObjectId, isAuth, checkIsOwner, async (req, res) => {
+routes.delete('/:vehicleId/delete', validateObjectId, isAuth, checkIsOwner, async (req, res) => {
 
     const itemId = req.params.itemId 
     try {
@@ -56,7 +62,7 @@ routes.delete('/vehicles/:vehicleId', validateObjectId, isAuth, checkIsOwner, as
 
 })
 
-routes.put('/vehicles/:vehicleId/edit', validateObjectId, isAuth, checkIsOwner, async (req, res) => {
+routes.put('/:vehicleId/edit', validateObjectId, isAuth, checkIsOwner, async (req, res) => {
     const itemId = req.params.itemId 
     const body = req.body
     try {
@@ -67,7 +73,7 @@ routes.put('/vehicles/:vehicleId/edit', validateObjectId, isAuth, checkIsOwner, 
     }
 })
 
-routes.get('/vehicles/:vehicleId/like', validateObjectId, checkIsNotOwner, checkIsLiked, isAuth, async (req, res) => {
+routes.get('/:vehicleId/like', validateObjectId, checkIsNotOwner, checkIsLiked, isAuth, async (req, res) => {
     
     const itemId = req.params.itemId 
     const userId = req.user._id 

@@ -1,41 +1,42 @@
-import { useActionState, useContext } from "react";
 import { Link, useNavigate } from "react-router";
-import { useLogin } from "../../api/authApi";
-import { UserContext } from "../../contexts/UserContext";
+import { useLogin } from "../../hooks/useAuth.js";
+import { useForm } from "../../hooks/useForm.js";
+import { useState } from "react";
+
+const initialValues = { email: '', password: '' }
 
 export default function Login() {
-    const navigate = useNavigate();
-    const { userLoginHandler } = useContext(UserContext);
-    const { login } = useLogin();
+    const [_, setError] = useState('')
+    const login = useLogin()
+    const navigate = useNavigate()
 
-    const loginHandler = async (_, formData) => {
-        const values = Object.fromEntries(formData);
+    const loginHandler = async ({ email, password }) => {
+        try {
+            await login(email, password)
+            navigate('/')
+        } catch (err) {
+            setError(err.error || 'Login failed');
+        }
+    }
 
-        const authData = await login(values.email, values.password);
-
-        userLoginHandler(authData);
-
-        navigate('/');
-    };
-
-    const [_, loginAction, isPending] = useActionState(loginHandler, { email: '', password: '' });
+    const { values, changeHandler, onSubmit } = useForm(initialValues, loginHandler)
 
     return (
         <>
             <div className="login-container">
                 <div className="login-box">
                     <h2>Login</h2>
-                    <form action={loginAction}>
+                    <form onSubmit={onSubmit}>
                         <div className="textbox">
-                            <input type="email" placeholder="Email" name="email" required />
+                            <input type="email" placeholder="Email" name="email" required value={values.email} onChange={changeHandler} />
                             <i className="icon fa-solid fa-envelope"></i>
                         </div>
                         <div className="textbox">
-                            <input type="password" placeholder="Password" name="password" required />
+                            <input type="password" placeholder="Password" name="password" required value={values.password} onChange={changeHandler} />
                             <i className="icon fa-solid fa-key"></i>
                         </div>
                         <div className="login-btn">
-                            <button type="submit" disabled={isPending}>Login</button>
+                            <button type="submit">Login</button>
                         </div>
                         <div className="notRegisteredYet">
                             <Link to="/register">Not registered yet?</Link>
