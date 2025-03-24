@@ -1,24 +1,24 @@
 import { useEffect, useState } from "react";
-import { create, getAll, getOne } from "../api/vehicleApi.js";
+import { create, getAll, getOne } from "../api/vehicleApi";
 import { useNavigate } from "react-router";
 
-export function useGetAllItems() {
+export function useGetAllVehicles() {
 
-    const [items, setItems] = useState([])
+    const [vehicles, setVehicles] = useState([]);
 
     useEffect(() => {
         async function fetchData() {
             const result = await getAll();
-            setItems(result);
+            setVehicles(result);
         }
         fetchData();
     }, []);
 
-    return [items, setItems]
+    return [vehicles, setVehicles];
 }
 
 export function useGetOneItem(itemId) {
-    const [item, setItem] = useState({})
+    const [item, setItem] = useState({});
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
@@ -31,13 +31,13 @@ export function useGetOneItem(itemId) {
             } catch (err) {
                 setError("Item not found or invalid route.");
                 setItem(null);
-                navigate("*")
+                navigate("*");
             }
         }
         fetchData();
     }, [itemId]);
 
-    return [item, setItem, error]
+    return [item, setItem, error];
 }
 
 export function useCreateItem() {

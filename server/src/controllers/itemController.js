@@ -21,7 +21,9 @@ routes.get('/create', async (req, res) => {
 })
 
 routes.post('/create', isAuth, async (req, res) => {
-    console.log("User:", req.user);
+    console.log("🚀 Received Body:", req.body);
+    console.log("🔐 User:", req.user);
+
     if (!req.user) {
         return res.status(401).json({ error: "Unauthorized" });
     }
@@ -33,6 +35,7 @@ routes.post('/create', isAuth, async (req, res) => {
         const createdItem = await itemService.create(item, userId);
         res.json(createdItem);
     } catch (err) {
+        console.error("❌ Error:", err);
         res.status(400).json({ error: getErrorMassage(err) });
     }
 });
@@ -40,7 +43,7 @@ routes.post('/create', isAuth, async (req, res) => {
 
 routes.get('/:vehicleId', validateObjectId, async (req, res) => {
 
-    const item = await itemService.getItem(req.params.itemId).lean()  
+    const item = await itemService.getItem(req.params.vehicleId).lean()  
     
     const isOwner = item.owner == req.user?._id
 
@@ -52,9 +55,9 @@ routes.get('/:vehicleId', validateObjectId, async (req, res) => {
 
 routes.delete('/:vehicleId/delete', validateObjectId, isAuth, checkIsOwner, async (req, res) => {
 
-    const itemId = req.params.itemId 
+    const vehicleId = req.params.vehicleId 
     try {
-        const item = await itemService.remove(itemId)
+        const item = await itemService.remove(vehicleId)
         res.json(item)
     } catch (err) {
         res.status(400).json({ error: getErrorMassage(err) });
@@ -63,10 +66,10 @@ routes.delete('/:vehicleId/delete', validateObjectId, isAuth, checkIsOwner, asyn
 })
 
 routes.put('/:vehicleId/edit', validateObjectId, isAuth, checkIsOwner, async (req, res) => {
-    const itemId = req.params.itemId 
+    const vehicleId = req.params.vehicleId 
     const body = req.body
     try {
-        const item = await itemService.edit(itemId, body)
+        const item = await itemService.edit(vehicleId, body)
         res.json(item)
     } catch (err) {
         res.status(400).json({ error: getErrorMassage(err) });
@@ -75,11 +78,11 @@ routes.put('/:vehicleId/edit', validateObjectId, isAuth, checkIsOwner, async (re
 
 routes.get('/:vehicleId/like', validateObjectId, checkIsNotOwner, checkIsLiked, isAuth, async (req, res) => {
     
-    const itemId = req.params.itemId 
+    const vehicleId = req.params.vehicleId 
     const userId = req.user._id 
 
     try {
-        const updatedItem = await itemService.like(itemId, userId)
+        const updatedItem = await itemService.like(vehicleId, userId)
         res.json(updatedItem);
     } catch (err) {
         res.status(400).json({ error: getErrorMassage(err) });

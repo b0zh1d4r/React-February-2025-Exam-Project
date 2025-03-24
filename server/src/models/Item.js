@@ -19,7 +19,7 @@ const itemSchema = new Schema ({
         min: [0, 'Price must be a positive number!']
     },
 
-    image: {
+    imageUrl: {
         type: String,
         required: [true, 'Image field is required!'],
     },
@@ -30,21 +30,21 @@ const itemSchema = new Schema ({
         minLength: [10, 'Description must be at least 10 characters long!']
     },
 
-    engineType: {
+    engine: {
         type: String,
-        enum: ['Petrol', 'Diesel', 'Hybrid', 'Electric'],
+        enum: ['petrol', 'diesel', 'hybrid', 'electric'],
         required: true
     },
 
     condition: {
         type: String,
-        enum: ['New', 'Used'],
+        enum: ['new', 'used'],
         required: true
     },
 
     transmission: {
         type: String,
-        enum: ['Manual', 'Automatic', 'Semi-Automatic'],
+        enum: ['manual', 'automatic', 'semi-automatic'],
         required: true
     },
 

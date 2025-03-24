@@ -15,14 +15,14 @@ const initialValues = {
 };
 
 export default function Sell() {
-    const [error, setError] = useState('');
+    const [_, setError] = useState('');
     const navigate = useNavigate();
     const createItem = useCreateItem();
 
     const createHandler = async (values) => {
         try {
             await createItem(values);
-            navigate(`/catalog`);
+            navigate(`/vehicles`);
         } catch (err) {
             setError(err.error || 'Create failed');
         }

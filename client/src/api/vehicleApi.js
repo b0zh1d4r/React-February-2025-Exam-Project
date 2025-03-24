@@ -12,9 +12,7 @@ export const getOne = async (vehicleId) => {
     return result;
 };
 
-export const create = async (vehicleData) => {
-    console.log(vehicleData);
-    
+export const create = async (vehicleData) => {    
     const result = await requester.post(`${BASE_URL}/create`, vehicleData);
     
     return result;
