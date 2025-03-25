@@ -4,29 +4,43 @@ import bcrypt from 'bcrypt';
 
 export const authService = {
 
-    async register(username, email, phoneNumber, location, password, rePass){
-                
-        const user = await User.findOne({ email });
-
-        if (user){
-            throw new Error("User already exists!");
+    async register(username, email, phoneNumber, location, password, repeatPassword) {
+        try {
+            console.log("🔵 Checking for existing user with email:", email);
+    
+            const existingUser = await User.findOne({ email });
+    
+            if (existingUser) {
+                throw new Error("User with this email already exists!");
+            }
+    
+            if (password !== repeatPassword) {
+                throw new Error("Passwords do not match!");
+            }
+    
+            console.log("✅ No existing user found. Creating new user...");
+            const newUser = await User.create({
+                username,
+                email,
+                phoneNumber,
+                location,
+                password
+            });
+    
+            console.log("✅ New user created successfully:", newUser);
+    
+            return { 
+                token: await this.generateToken(newUser), 
+                _id: newUser._id, 
+                email: newUser.email 
+            };
+    
+        } catch (err) {
+            console.error("❌ Error in register service:", err);
+            throw err; // This will be caught by `authController`
         }
-
-        const newUser = await User.create({
-            username,
-            email,
-            phoneNumber,
-            location,
-            password
-        })
-
-        return { 
-            token: await this.generateToken(newUser), 
-            _id: newUser._id, 
-            email: newUser.email 
-        };
-
     },
+    
 
     async login(email, password){
         const user = await User.findOne({ email });
@@ -49,16 +63,19 @@ export const authService = {
 
     },
 
-    async generateToken(user){
-        const payLoad = {
+    async generateToken(user) {
+        if (!process.env.JWT_SECRET) {
+            throw new Error("JWT_SECRET is missing from environment variables!");
+        }
+    
+        const payload = {
             _id: user._id,
             email: user.email
-        }
-
-        const headers = { expiresIn: '2h' };
-        const token = await jwt.sign(payLoad, process.env.JWT_SECRET, headers);
-        return token;
+        };
+    
+        return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '2h' });
     }
+    
 
 }
 

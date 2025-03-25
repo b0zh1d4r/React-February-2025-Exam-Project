@@ -11,17 +11,30 @@ authController.get('/register', isGuest, (req, res) => {
 });
 
 authController.post('/register', isGuest, async (req, res) => {
-    const { username, email, phoneNumber, location, password, rePass } = req.body;
+    console.log("🔵 Register request received:", req.body);
 
     try {
-        const { token, _id, email: userEmail } = await authService.register(username, email, phoneNumber, location, password, rePass);
-        res.cookie(AUTH_COOKIE_NAME, token, { httpOnly: true });
-        res.json({ token, _id, email: userEmail });
-    } catch (err) {
-        res.status(409).json({ error: getErrorMassage(err) });
-    }
+        const { token, _id, email: userEmail } = await authService.register(
+            req.body.username,
+            req.body.email,
+            req.body.phoneNumber,
+            req.body.location,
+            req.body.password,
+            req.body.repeatPassword
+        );
 
-})
+        res.cookie(AUTH_COOKIE_NAME, token, { httpOnly: true });
+
+        console.log("✅ User registered successfully:", { _id, userEmail });
+
+        res.json({ token, _id, email: userEmail });
+
+    } catch (err) {
+        console.error("❌ Registration failed:", err); // This prints full error details
+
+        res.status(409).json({ error: err.message || "Registration failed!" });
+    }
+});
 
 authController.get('/login', isGuest, (req, res) => {
     res.status(204).end(); 

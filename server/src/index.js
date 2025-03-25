@@ -37,8 +37,8 @@ app.use(cors({
     origin: 'http://localhost:5173'
 }));
 
-app.use(authMiddleware);
 app.use(express.json());
+app.use(authMiddleware);
 app.use(routes);
 
 app.listen(8888, () => console.log('Server is running on: http://localhost:8888'));

@@ -1,32 +1,36 @@
-import { useRegister } from "../../hooks/useAuth.js"
-import { useForm } from "../../hooks/useForm"
-import { useState } from "react"
-import { Link, useNavigate } from "react-router"
+import { Link, useNavigate } from "react-router";
+import { useRegister } from "../../hooks/useAuth.js";
+import { useForm } from "../../hooks/useForm";
+import { useState } from "react";
 
-const initialValues = { email: '', password: '', rePass: '' }
+const initialValues = { 
+    username: '', 
+    email: '', 
+    phoneNumber: '', 
+    location: '', 
+    password: '', 
+    repeatPassword: ''
+};
 
 export default function Register() {
-
-    const [_, setError] = useState('')
-    const register = useRegister()
-    const navigate = useNavigate()
+    const [_, setError] = useState('');
+    const register = useRegister();
+    const navigate = useNavigate();
 
     const registerHandler = async (values) => {
-
-        if(values.password !== values.rePass){
-            return setError('Password mismatch!')
+        if (values.password !== values.repeatPassword) {
+            return setError('Password mismatch!');
         }
 
         try {
-            await register(values.email, values.password, values.rePass)
-            navigate('/')
+            await register(values.username, values.email, values.phoneNumber, values.location, values.password, values.repeatPassword);
+            navigate('/');
         } catch (err) {
             setError(err.error || 'Registration failed');
         }
-    } 
+    };
 
-    const {values, changeHandler, onSubmit } = useForm(initialValues, registerHandler)
-
+    const { values, changeHandler, onSubmit } = useForm(initialValues, registerHandler);
 
     return (
         <>
@@ -69,4 +73,4 @@ export default function Register() {
             </div>
         </>
     );
-};
+}

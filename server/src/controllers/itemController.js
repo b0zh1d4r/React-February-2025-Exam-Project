@@ -21,9 +21,6 @@ routes.get('/create', async (req, res) => {
 })
 
 routes.post('/create', isAuth, async (req, res) => {
-    console.log("🚀 Received Body:", req.body);
-    console.log("🔐 User:", req.user);
-
     if (!req.user) {
         return res.status(401).json({ error: "Unauthorized" });
     }
