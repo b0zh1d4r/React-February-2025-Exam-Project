@@ -6,8 +6,6 @@ export const authService = {
 
     async register(username, email, phoneNumber, location, password, repeatPassword) {
         try {
-            console.log("🔵 Checking for existing user with email:", email);
-    
             const existingUser = await User.findOne({ email });
     
             if (existingUser) {
@@ -18,7 +16,6 @@ export const authService = {
                 throw new Error("Passwords do not match!");
             }
     
-            console.log("✅ No existing user found. Creating new user...");
             const newUser = await User.create({
                 username,
                 email,
@@ -27,8 +24,6 @@ export const authService = {
                 password
             });
     
-            console.log("✅ New user created successfully:", newUser);
-    
             return { 
                 token: await this.generateToken(newUser), 
                 _id: newUser._id, 
@@ -36,7 +31,6 @@ export const authService = {
             };
     
         } catch (err) {
-            console.error("❌ Error in register service:", err);
             throw err; // This will be caught by `authController`
         }
     },
