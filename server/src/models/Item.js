@@ -32,19 +32,19 @@ const itemSchema = new Schema ({
 
     engine: {
         type: String,
-        enum: ['petrol', 'diesel', 'hybrid', 'electric'],
+        enum: ['Petrol', 'Diesel', 'Hybrid', 'Electric'],
         required: true
     },
 
     condition: {
         type: String,
-        enum: ['new', 'used'],
+        enum: ['New', 'Used'],
         required: true
     },
 
     transmission: {
         type: String,
-        enum: ['manual', 'automatic', 'semi-automatic'],
+        enum: ['Manual', 'Automatic', 'Semi-Automatic'],
         required: true
     },
 

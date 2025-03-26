@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router";
 import { useForm } from "../../hooks/useForm";
-import { useCreateItem } from "../../hooks/useService";
+import { useCreateVehicle } from "../../hooks/useService";
 import { useState } from "react";
 
 const initialValues = {
-    name: '',         // changed 'title' to 'name' to match the input field
+    name: '',
     price: '',
     year: '',
     imageUrl: '',
@@ -17,11 +17,11 @@ const initialValues = {
 export default function Sell() {
     const [_, setError] = useState('');
     const navigate = useNavigate();
-    const createItem = useCreateItem();
+    const createVehicle = useCreateVehicle();
 
     const createHandler = async (values) => {
         try {
-            await createItem(values);
+            await createVehicle(values);
             navigate(`/vehicles`);
         } catch (err) {
             setError(err.error || 'Create failed');
@@ -60,27 +60,27 @@ export default function Sell() {
                             <label htmlFor="engine">Engine Type:</label>
                             <select id="engine" name="engine" value={values.engine || ''} onChange={changeHandler} required>
                                 <option value="" disabled>Select Engine Type</option>
-                                <option value="petrol">Petrol</option>
-                                <option value="diesel">Diesel</option>
-                                <option value="hybrid">Hybrid</option>
-                                <option value="electric">Electric</option>
+                                <option value="Petrol">Petrol</option>
+                                <option value="Diesel">Diesel</option>
+                                <option value="Hybrid">Hybrid</option>
+                                <option value="Electric">Electric</option>
                             </select>
                         </div>
                         <div className="input-group">
                             <label htmlFor="condition">Condition:</label>
                             <select id="condition" name="condition" value={values.condition || ''} onChange={changeHandler} required>
                                 <option value="" disabled>Select Condition</option>
-                                <option value="new">New</option>
-                                <option value="used">Used</option>
+                                <option value="New">New</option>
+                                <option value="Used">Used</option>
                             </select>
                         </div>
                         <div className="input-group">
                             <label htmlFor="transmission">Transmission:</label>
                             <select id="transmission" name="transmission" value={values.transmission || ''} onChange={changeHandler} required>
                                 <option value="" disabled>Select Transmission</option>
-                                <option value="manual">Manual</option>
-                                <option value="automatic">Automatic</option>
-                                <option value="semi-automatic">Semi-Automatic</option>
+                                <option value="Manual">Manual</option>
+                                <option value="Automatic">Automatic</option>
+                                <option value="Semi-Automatic">Semi-Automatic</option>
                             </select>
                         </div>
                         <div className="input-group full-width">

@@ -17,34 +17,34 @@ export function useGetAllVehicles() {
     return [vehicles, setVehicles];
 }
 
-export function useGetOneItem(itemId) {
-    const [item, setItem] = useState({});
+export function useGetOneVehicle(vehicleId) {
+    const [vehicle, setVehicle] = useState({});
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchData() {
             try {
-                const result = await getOne(itemId);
-                setItem(result);
+                const result = await getOne(vehicleId);
+                setVehicle(result);
                 setError(null);
             } catch (err) {
-                setError("Item not found or invalid route.");
-                setItem(null);
+                setError("Vehicle not found or invalid route.");
+                setVehicle(null);
                 navigate("*");
             }
         }
         fetchData();
-    }, [itemId]);
+    }, [vehicleId]);
 
-    return [item, setItem, error];
+    return [vehicle, setVehicle, error];
 }
 
-export function useCreateItem() {
+export function useCreateVehicle() {
 
-    const itemGetHandler = async (data) => {
+    const vehicleGetHandler = async (data) => {
         return await create(data);
     };
 
-    return itemGetHandler;
+    return vehicleGetHandler;
 }

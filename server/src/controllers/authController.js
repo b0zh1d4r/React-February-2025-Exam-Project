@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import authService from '../services/authService.js';
 import { AUTH_COOKIE_NAME } from '../constants.js';
-import { getErrorMassage } from '../utils/errorUtils.js';
+import { getErrorMessage } from '../utils/errorUtils.js';
 import { isAuth, isGuest } from '../middlewares/authMiddleware.js';
 
 const authController = Router();
@@ -46,7 +46,7 @@ authController.post('/login', isGuest, async (req, res) => {
         res.json({ token, _id, email: userEmail });
 
     } catch (err) {
-        res.status(400).json({ error: getErrorMassage(err) });
+        res.status(400).json({ error: getErrorMessage(err) });
     }
 });
 

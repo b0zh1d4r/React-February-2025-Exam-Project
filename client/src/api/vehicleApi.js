@@ -14,7 +14,6 @@ export const getOne = async (vehicleId) => {
 
 export const create = async (vehicleData) => {    
     const result = await requester.post(`${BASE_URL}/create`, vehicleData);
-    
     return result;
 };
 

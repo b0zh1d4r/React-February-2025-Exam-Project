@@ -11,15 +11,16 @@ export default function Login() {
     const navigate = useNavigate()
 
     const loginHandler = async ({ email, password }) => {
+        console.log('Form values:', { email, password });  // Debug log
         try {
             await login(email, password);
             navigate('/');
         } catch (err) {
             setError(err.error || 'Login failed');
         }
-    }
+    };
 
-    const { values, changeHandler, onSubmit } = useForm(initialValues, loginHandler)
+    const { values, changeHandler, onSubmit } = useForm(initialValues, loginHandler);
 
     return (
         <>

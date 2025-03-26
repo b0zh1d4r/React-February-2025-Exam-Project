@@ -1,4 +1,5 @@
-import Item from "../models/Item.js"
+import Item from "../models/Item.js";
+import User from "../models/User.js";  // Import User model to update the user's vehicle list
 
 export const itemService = {
 
@@ -12,8 +13,22 @@ export const itemService = {
         return items;
     },
 
-    create(data, ownerId) {
-        return Item.create({ ...data, owner: ownerId });
+    // Create item and add it to the user's vehicle list
+    async create(data, ownerId) {
+        // Create the new item (vehicle)
+        const createdItem = await Item.create({ ...data, owner: ownerId });
+
+        // Find the user by ID and add the newly created item to the user's vehicle list
+        const user = await User.findById(ownerId);
+        if (!user) {
+            throw new Error('User not found');
+        }
+
+        // Add the created vehicle to the user's vehicles array
+        user.vehicles.push(createdItem._id);
+        await user.save();
+
+        return createdItem;
     },
 
     edit(itemId, userId) {
@@ -61,7 +76,7 @@ export const itemService = {
         return sortedItems;
     },
 
-     getUserCreatedItems(userId) {
+    getUserCreatedItems(userId) {
         return Item.find({ owner: userId });
     },
 };
@@ -88,3 +103,5 @@ export const itemService = {
 //         // Sort by rating (descending) and return top 3
 //         return ratedItems.sort((a, b) => b.rating - a.rating).slice(0, 3);
 // }
+
+export default itemService;

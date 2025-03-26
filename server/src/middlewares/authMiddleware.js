@@ -65,9 +65,9 @@ export const isGuest = (req, res, next) => {
 }
 
 export const validateObjectId = (req, res, next) => {
-    const { itemId } = req.params;
+    const { vehicleId } = req.params;
 
-    if (!Types.ObjectId.isValid(itemId)) {
+    if (!Types.ObjectId.isValid(vehicleId.trim())) {
         return res.status(400).json({ error: 'Invalid item ID format!' });
     }
 

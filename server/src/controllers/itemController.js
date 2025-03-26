@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { itemService } from "../services/itemService.js";
-import { getErrorMassage } from "../utils/errorUtils.js";
+import { getErrorMessage } from "../utils/errorUtils.js";
 import { isAuth, validateObjectId } from "../middlewares/authMiddleware.js";
 import { checkIsLiked, checkIsNotOwner, checkIsOwner } from "../middlewares/ownerMiddleware.js";
 
@@ -12,7 +12,7 @@ routes.get('/', async (req, res) => {
         
         res.json(items)
     } catch (err) {
-        res.status(400).json({ error: getErrorMassage(err) })
+        res.status(400).json({ error: getErrorMessage(err) })
     }
 })
 
@@ -20,7 +20,7 @@ routes.get('/create', async (req, res) => {
     res.status(204).end(); 
 })
 
-routes.post('/create', isAuth, async (req, res) => {
+routes.post('/create', async (req, res) => {
     if (!req.user) {
         return res.status(401).json({ error: "Unauthorized" });
     }
@@ -32,15 +32,14 @@ routes.post('/create', isAuth, async (req, res) => {
         const createdItem = await itemService.create(item, userId);
         res.json(createdItem);
     } catch (err) {
-        console.error("❌ Error:", err);
-        res.status(400).json({ error: getErrorMassage(err) });
+        res.status(400).json({ error: getErrorMessage(err) });
     }
 });
 
 
 routes.get('/:vehicleId', validateObjectId, async (req, res) => {
 
-    const item = await itemService.getItem(req.params.vehicleId).lean()  
+    const item = await itemService.getItem(req.params.vehicleId).lean();
     
     const isOwner = item.owner == req.user?._id
 
@@ -57,7 +56,7 @@ routes.delete('/:vehicleId/delete', validateObjectId, isAuth, checkIsOwner, asyn
         const item = await itemService.remove(vehicleId)
         res.json(item)
     } catch (err) {
-        res.status(400).json({ error: getErrorMassage(err) });
+        res.status(400).json({ error: getErrorMessage(err) });
     }
 
 })
@@ -69,7 +68,7 @@ routes.put('/:vehicleId/edit', validateObjectId, isAuth, checkIsOwner, async (re
         const item = await itemService.edit(vehicleId, body)
         res.json(item)
     } catch (err) {
-        res.status(400).json({ error: getErrorMassage(err) });
+        res.status(400).json({ error: getErrorMessage(err) });
     }
 })
 
@@ -82,7 +81,7 @@ routes.get('/:vehicleId/like', validateObjectId, checkIsNotOwner, checkIsLiked, 
         const updatedItem = await itemService.like(vehicleId, userId)
         res.json(updatedItem);
     } catch (err) {
-        res.status(400).json({ error: getErrorMassage(err) });
+        res.status(400).json({ error: getErrorMessage(err) });
     }
 })
 

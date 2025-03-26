@@ -28,16 +28,19 @@ const userSchema = new Schema({
     password: {
         type: String, 
         required: [true, 'Password is required'],
-    }
+    },
 
-}) 
+    vehicles: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Item'
+    }]
 
-userSchema.pre('save', async function(){
+});
 
+userSchema.pre('save', async function() {
     const hash = await bcrypt.hash(this.password, SALT_ROUNDS);
     this.password = hash;
-
-})
+});
 
 const User = model('User', userSchema);
 

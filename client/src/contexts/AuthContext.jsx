@@ -5,6 +5,9 @@ import usePersistedState from "../hooks/usePersistedState.js";
 export const AuthContext = createContext({
     userId: '',
     email: '',
+    username: '',
+    phoneNumber: '',
+    location: '',
     isAuthenticated: false,
     changeAuthState: () => null,
     logout: () => null
@@ -18,14 +21,13 @@ export function AuthContextProvider({ children }) {
             try {
                 const user = await requester.get("http://localhost:8888/me"); 
                 setAuthState(user);
-
             } catch {
                 setAuthState(null); 
             }
         }
         fetchUser();
     }, []);
-
+    
     const changeAuthState = (state) => {
         setAuthState(state); 
     };
@@ -38,11 +40,13 @@ export function AuthContextProvider({ children }) {
     const contextData = {
         userId: authState?._id,
         email: authState?.email,
+        username: authState?.username,
+        phoneNumber: authState?.phoneNumber,
+        location: authState?.location,
         isAuthenticated: !!authState?.email,
         changeAuthState,
         logout
     };
-
 
     return <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>;
 }

@@ -7,15 +7,15 @@ export const authService = {
     async register(username, email, phoneNumber, location, password, repeatPassword) {
         try {
             const existingUser = await User.findOne({ email });
-    
+
             if (existingUser) {
                 throw new Error("User with this email already exists!");
             }
-    
+
             if (password !== repeatPassword) {
                 throw new Error("Passwords do not match!");
             }
-    
+
             const newUser = await User.create({
                 username,
                 email,
@@ -23,18 +23,17 @@ export const authService = {
                 location,
                 password
             });
-    
+
             return { 
                 token: await this.generateToken(newUser), 
                 _id: newUser._id, 
                 email: newUser.email 
             };
-    
+
         } catch (err) {
-            throw err; // This will be caught by `authController`
+            throw err;
         }
     },
-    
 
     async login(email, password){
         const user = await User.findOne({ email });
@@ -54,7 +53,6 @@ export const authService = {
             _id: user._id, 
             email: user.email 
         };
-
     },
 
     async generateToken(user) {
@@ -69,21 +67,27 @@ export const authService = {
     
         return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '2h' });
     }
-    
-
-}
+};
 
 export const getUserById = async (id) => {
-    let user = await User.findById(id);
+    const user = await User.findById(id).lean();
 
-    return user.email;
+    if (!user) {
+        throw new Error("User not found!");
+    }
+
+    return user;
 }
 
 export const getAllUsersByIds = async (ids) => {
-    let users = await User.find({ _id: { $in: ids } });
 
-    return users.map(userId => userId.email);
+    const users = await User.find({ _id: { $in: ids } }).lean();
 
+    if (!users || users.length === 0) {
+        throw new Error("No users found!");
+    }
+
+    return users;
 }
 
 export default authService;
