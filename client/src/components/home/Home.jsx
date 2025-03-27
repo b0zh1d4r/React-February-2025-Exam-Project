@@ -1,6 +1,16 @@
-import { Link } from "react-router";
+import { useGetAllVehicles } from "../../hooks/useService.js";
+import LatestVehicle from "./latestVehicle/latestVehicle.jsx";
+import TopVehicle from "./topVehicle/TopVehicle.jsx";
 
 export default function Home() {
+    const [vehicles] = useGetAllVehicles();
+
+    const topLikedVehicles = vehicles
+        .sort((a, b) => b.likes - a.likes)
+        .slice(0, 3);
+
+    const latestVehicles = vehicles.slice(-3);
+
     return (
         <>
             <section className="section main">
@@ -12,62 +22,32 @@ export default function Home() {
             </section>
 
             <section className="top-vehicles">
-                {/* <!-- <h2>No Vehicles Available yet!</h2> --> */}
-                <h2>👑 Top 3 Rated Vehicles This Week: </h2>
+                <h2>👑 Top 3 Most Liked Vehicles: </h2>
                 <div className="vehicles-container">
-                    <div className="vehicle-card">
-                        <img src="bmw-m3-e46-gtr.jpg" alt="Car 1" />
-                        <h3>#1: BMW M3 GTR</h3>
-                        <p className="price">$45,000</p>
-                        {/* <!-- <p className="rating">⭐ 9.9/10</p> --> */}
-                        <Link to="#" className="read-more-btn">Read More</Link>
-                    </div>
-                    <div className="vehicle-card">
-                        <img src="ford-mustang-gt.jpg" alt="Car 2" />
-                        <h3>#2: Ford Mustang GT</h3>
-                        <p className="price">$55,000</p>
-                        {/* <!-- <p className="rating">⭐ 9.8/10</p> --> */}
-                        <Link to="#" className="read-more-btn">Read More</Link>
-                    </div>
-                    <div className="vehicle-card">
-                        <img src="audi-rs6.avif" alt="Car 3" />
-                        <h3>#3: Audi RS6</h3>
-                        <p className="price">$60,000</p>
-                        {/* <!-- <p className="rating">⭐ 9.7/10</p> --> */}
-                        <Link to="#" className="read-more-btn">Read More</Link>
-                    </div>
+                    {topLikedVehicles.length ? (
+                        topLikedVehicles.map(vehicle => (
+                            <TopVehicle key={vehicle._id} {...vehicle} />
+                        ))
+                    ) : (
+                        <h2>No Vehicles Available yet!</h2>
+                    )}
                 </div>
             </section>
 
             <hr />
 
             <section className="top-vehicles">
-                {/* <!-- <h2>No vehicles available yet!</h2> --> */}
                 <h2>Latest Vehicles: </h2>
                 <div className="vehicles-container">
-                    <div className="vehicle-card">
-                        <img src="bmw-m3-e46-gtr.jpg" alt="Car 1" />
-                        <h3>BMW M3 GTR</h3>
-                        <p className="price">$45,000</p>
-                        {/* <!-- <p className="rating">⭐ 9.9/10</p> --> */}
-                        <a href="#" className="read-more-btn">Read More</a>
-                    </div>
-                    <div className="vehicle-card">
-                        <img src="ford-mustang-gt.jpg" alt="Car 2" />
-                        <h3>Ford Mustang GT</h3>
-                        <p className="price">$55,000</p>
-                        {/* <!-- <p className="rating">⭐ 9.8/10</p> --> */}
-                        <a href="#" className="read-more-btn">Read More</a>
-                    </div>
-                    <div className="vehicle-card">
-                        <img src="audi-rs6.avif" alt="Car 3" />
-                        <h3>Audi RS6</h3>
-                        <p className="price">$60,000</p>
-                        {/* <!-- <p className="rating">⭐ 9.7/10</p> --> */}
-                        <a href="#" className="read-more-btn">Read More</a>
-                    </div>
+                    {latestVehicles.length ? (
+                        latestVehicles.map(vehicle => (
+                            <LatestVehicle key={vehicle._id} {...vehicle} />
+                        ))
+                    ) : (
+                        <h2>No Vehicles Available yet!</h2>
+                    )}
                 </div>
             </section>
         </>
     );
-};
+}

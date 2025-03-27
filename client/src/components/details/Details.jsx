@@ -46,6 +46,7 @@ export default function Details() {
                     <p className="description">Engine Type: {vehicle.engine}</p>
                     <p className="description">Condition: {vehicle.condition}</p>
                     <p className="description">Transmission: {vehicle.transmission}</p>
+                    <p className="description">Likes: {vehicle.likes || 0}</p>
 
                     {!isOwner && (
                         <Link to={`/vehicles/contact-dealer/${data?.item?.owner}`} className="contact-btn">Contact Dealer</Link>

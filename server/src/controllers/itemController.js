@@ -72,10 +72,10 @@ routes.put('/:vehicleId/edit', validateObjectId, isAuth, checkIsOwner, async (re
     }
 })
 
-routes.get('/:vehicleId/like', validateObjectId, checkIsNotOwner, checkIsLiked, isAuth, async (req, res) => {
+routes.get('/:vehicleId/like', isAuth, async (req, res) => {
     
-    const vehicleId = req.params.vehicleId 
-    const userId = req.user._id 
+    const vehicleId = req.params.vehicleId; 
+    const userId = req.user._id;
 
     try {
         const updatedItem = await itemService.like(vehicleId, userId)
