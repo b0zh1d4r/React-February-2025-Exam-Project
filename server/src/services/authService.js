@@ -69,6 +69,10 @@ export const authService = {
     }
 };
 
+export async function getAllUsers() {
+    return await User.find().lean();
+}
+
 export const getUserById = async (id) => {
     const user = await User.findById(id).lean();
 

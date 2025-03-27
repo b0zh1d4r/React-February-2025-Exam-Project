@@ -37,10 +37,15 @@ const userSchema = new Schema({
 
 });
 
-userSchema.pre('save', async function() {
-    const hash = await bcrypt.hash(this.password, SALT_ROUNDS);
-    this.password = hash;
+userSchema.pre('save', async function(next) {
+    if (!this.isModified('password')) {
+        return next();
+    }
+
+    this.password = await bcrypt.hash(this.password, SALT_ROUNDS);
+    next();
 });
+
 
 const User = model('User', userSchema);
 

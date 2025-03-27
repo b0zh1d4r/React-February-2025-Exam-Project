@@ -19,7 +19,7 @@ export function AuthContextProvider({ children }) {
     useEffect(() => {
         async function fetchUser() {
             try {
-                const user = await requester.get("http://localhost:8888/me"); 
+                const user = await requester.get("http://localhost:8888/users"); 
                 setAuthState(user);
             } catch {
                 setAuthState(null); 

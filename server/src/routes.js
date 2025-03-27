@@ -9,7 +9,7 @@ const routes = Router();
 routes.use(homeController);
 routes.use('/auth', authController);
 routes.use('/vehicles', itemController);
-routes.use('/me', userController);
+routes.use('/users', userController);
 
 routes.all('*', (req, res) => {
     res.status(404).json({ error: "Not Found!" });

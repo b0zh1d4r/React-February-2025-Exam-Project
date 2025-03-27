@@ -59,7 +59,7 @@ export default function Details() {
                     ) : (
                         userId && (
                             isLiked ? (
-                                <p className="liked-text">You have already liked this vehicle!</p>
+                                <p className="like-btn">You have already liked this vehicle!</p>
                             ) : (
                                 <button onClick={vehicleLikeHandler} className="like-btn">Like</button>
                             )

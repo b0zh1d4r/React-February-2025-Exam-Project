@@ -1376,6 +1376,8 @@
         color: white;
         text-decoration: none;
         font-size: 14px;
+        border: none;
+        cursor: pointer;
         margin-right: 0.3em;
         margin-bottom: 0.3em;
         border-radius: 4px;
@@ -1387,7 +1389,10 @@
         padding: 10px 15px;
         background: yellow;
         color: white;
+        text-shadow: 2px 2px #000;
         text-decoration: none;
+        border: none;
+        cursor: pointer;
         font-size: 14px;
         margin-right: 0.3em;
         border-radius: 4px;
@@ -1398,7 +1403,10 @@
         display: inline-block;
         padding: 10px 15px;
         background: #ff0000;
+        text-shadow: 2px 2px #000;
         color: white;
+        border: none;
+        cursor: pointer;
         text-decoration: none;
         font-size: 14px;
         border-radius: 4px;
@@ -1409,8 +1417,10 @@
         display: inline-block;
         padding: 10px 15px;
         background: cyan;
+        cursor: pointer;
         color: white;
         text-decoration: none;
+        border: none;
         font-size: 14px;
         border-radius: 4px;
         transition: background 0.3s, transform 0.3s;

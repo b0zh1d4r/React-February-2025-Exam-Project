@@ -1,7 +1,7 @@
 import requester from "./requester.js";
 
 const BASE_URL = "http://localhost:8888/auth";
-const ME_URL = "http://localhost:8888/me"
+const ME_URL = "http://localhost:8888/users"
 
 export const login = (email, password) => {
     return requester.post(`${BASE_URL}/login`, { email, password });

@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import { getUserById } from "../../api/authApi";
 
 export default function ContactDealer() {
-    const { ownerId } = useParams();
+    const { dealerId } = useParams();
     const [dealer, setDealer] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -11,7 +11,7 @@ export default function ContactDealer() {
     useEffect(() => {
         const fetchDealerInfo = async () => {
             try {
-                const data = await getUserById(ownerId);
+                const data = await getUserById(dealerId);
                 setDealer(data);
                 
             } catch (err) {
@@ -21,10 +21,10 @@ export default function ContactDealer() {
             }
         };
 
-        if (ownerId) {
+        if (dealerId) {
             fetchDealerInfo();
         }
-    }, [ownerId]);
+    }, [dealerId]);
     
 
     return (

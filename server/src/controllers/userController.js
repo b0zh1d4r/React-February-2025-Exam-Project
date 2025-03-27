@@ -1,16 +1,21 @@
 import { Router } from "express";
-import { checkIfUser } from "../middlewares/authMiddleware.js";
-import { getUserById } from "../services/authService.js";
+import { getUserById, getAllUsers } from "../services/authService.js";
 
 const userController = Router();
 
-userController.get('/', checkIfUser, (req, res) => {
-    res.json(req.user);
+// Get all users
+userController.get('/', async (req, res) => {
+    try {
+        const users = await getAllUsers();
+        res.json(users);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
-userController.get('/:id', checkIfUser, async (req, res) => {
+userController.get('/:userId', async (req, res) => {
     try {
-        const user = await getUserById(req.params.id);        
+        const user = await getUserById(req.params.userId);
         res.json(user);
     } catch (err) {
         res.status(404).json({ error: err.message });
@@ -18,3 +23,4 @@ userController.get('/:id', checkIfUser, async (req, res) => {
 });
 
 export default userController;
+

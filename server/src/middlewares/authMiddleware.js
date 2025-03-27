@@ -33,7 +33,7 @@ export const checkIfUser = async (req, res, next) => {
     const token = req.cookies[AUTH_COOKIE_NAME];
 
     if (!token) {
-        return res.redirect("/auth/login");
+        return res.status(401).json({ error: "Unauthorized: No token provided" });
     }
 
     try {
@@ -42,9 +42,10 @@ export const checkIfUser = async (req, res, next) => {
         next();
     } catch (err) {
         res.clearCookie(AUTH_COOKIE_NAME);
-        return res.redirect("/auth/login");
+        return res.status(403).json({ error: "Invalid token" });
     }
-}
+};
+
 
 export const isAuth = (req, res, next) => {
 
