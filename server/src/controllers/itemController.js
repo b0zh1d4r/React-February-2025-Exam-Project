@@ -41,15 +41,15 @@ routes.get('/:vehicleId', validateObjectId, async (req, res) => {
 
     const item = await itemService.getItem(req.params.vehicleId).lean();
     
-    const isOwner = item.owner == req.user?._id
+    const isOwner = item?.owner == req.user?._id
 
-    const isLiked = item.userList.some(userId => userId == req.user?._id)
+    const isLiked = item?.userList.some(userId => userId == req.user?._id)
 
     res.json({ item, isOwner, isLiked });
 
 })
 
-routes.delete('/:vehicleId/delete', validateObjectId, isAuth, checkIsOwner, async (req, res) => {
+routes.delete('/:vehicleId', validateObjectId, isAuth, checkIsOwner, async (req, res) => {
 
     const vehicleId = req.params.vehicleId 
     try {

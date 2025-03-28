@@ -3,7 +3,6 @@ import { create, getAll, getOne } from "../api/vehicleApi";
 import { useNavigate } from "react-router";
 
 export function useGetAllVehicles() {
-
     const [vehicles, setVehicles] = useState([]);
 
     useEffect(() => {
@@ -41,7 +40,6 @@ export function useGetOneVehicle(vehicleId) {
 }
 
 export function useCreateVehicle() {
-
     const vehicleGetHandler = async (data) => {
         return await create(data);
     };

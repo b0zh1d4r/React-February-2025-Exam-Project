@@ -2,10 +2,11 @@ import { itemService } from "../services/itemService.js";
 
 export const checkIsOwner = async (req, res, next) => {
     try {
-        const itemId = req.params.itemId; 
-        const item = await itemService.getItem(itemId).lean();
 
-        if (!item) {
+        const vehicleId = req.params.vehicleId; 
+        const vehicle = await itemService.getItem(vehicleId).lean();
+
+        if (!vehicle) {
             return res.status(404).json({ message: "Item not found!" });
         }
 
@@ -13,7 +14,7 @@ export const checkIsOwner = async (req, res, next) => {
             return res.status(401).json({ message: "Unauthorized! Please log in." });
         }
 
-        if (item.owner.toString() === req.user._id.toString()) {
+        if (vehicle.owner.toString() === req.user._id.toString()) {
             return next();
         }
 

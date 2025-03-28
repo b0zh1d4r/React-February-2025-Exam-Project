@@ -14,7 +14,7 @@ const initialValues = {
     description: '',
 };
 
-export default function Sell() {
+export default function Edit() {
     const [_, setError] = useState('');
     const navigate = useNavigate();
     const createVehicle = useCreateVehicle();
@@ -38,12 +38,12 @@ export default function Sell() {
                     <div className="form-grid">
                         <div className="input-group">
                             <label htmlFor="name">Vehicle Name:</label>
-                            <input type="text" id="name" name="name" placeholder="Enter Car Name"
+                            <input type="text" id="name" name="name" placeholder="Enter Vehicle Name"
                                 value={values.name || ''} onChange={changeHandler} required />
                         </div>
                         <div className="input-group">
                             <label htmlFor="price">Price in USD:</label>
-                            <input type="number" id="price" name="price" placeholder="Enter Car Price"
+                            <input type="number" id="price" name="price" placeholder="Enter Vehicle Price"
                                 value={values.price || ''} onChange={changeHandler} required />
                         </div>
                         <div className="input-group">
@@ -85,7 +85,7 @@ export default function Sell() {
                         </div>
                         <div className="input-group full-width">
                             <label htmlFor="description">Vehicle Description:</label>
-                            <textarea id="description" name="description" placeholder="Describe the Car"
+                            <textarea id="description" name="description" placeholder="Describe the Vehicle"
                                 value={values.description || ''} onChange={changeHandler} required></textarea>
                         </div>
                     </div>

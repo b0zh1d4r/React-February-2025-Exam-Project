@@ -8,7 +8,7 @@ export default function LatestVehicle({ _id, name, price, imageUrl }) {
                 <h3>{name}</h3>
                 <p className="price">${price}</p>
                 {/* <!-- <p className="rating">⭐ 9.7/10</p> --> */}
-                <Link to={`/vehicles/${_id}/details`} className="read-more-btn">Read More</Link>
+                <Link to={`/vehicles/${_id}`} className="read-more-btn">Read More</Link>
             </div>
         </>
     )

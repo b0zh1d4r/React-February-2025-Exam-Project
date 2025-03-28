@@ -6,7 +6,7 @@ export default function VehicleProfile({ _id, name, price, imageUrl }) {
             <div className="vehicle-item">
                 <img src={imageUrl} alt="Vehicle Model 1" />
                 <p><strong>{name}</strong> - ${price}</p>
-                <Link to={`/vehicles${_id}`} className="read-more-btn">Read More</Link>
+                <Link to={`/vehicles/${_id}`} className="read-more-btn">Read More</Link>
             </div>
         </>
     )

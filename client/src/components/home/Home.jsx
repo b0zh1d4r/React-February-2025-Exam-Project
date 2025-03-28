@@ -6,7 +6,7 @@ export default function Home() {
     const [vehicles] = useGetAllVehicles();
 
     const topLikedVehicles = vehicles
-        .sort((a, b) => b.likes - a.likes)
+        .sort((a, b) => b.userList.length - a.userList.length)
         .slice(0, 3);
 
     const latestVehicles = vehicles.slice(-3);
