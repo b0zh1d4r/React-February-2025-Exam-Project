@@ -17,9 +17,9 @@ export const logout = () => {
 
 export const getUserById = async (userId) => {
     try {
-        const user = await requester.get(`${ME_URL}/${userId}`);
+        const user = await requester.get(`${ME_URL}/all/${userId}`);
         return user;
     } catch (error) {
-        throw new Error("Error fetching user.");
+        throw new Error(error);
     }
 };

@@ -1,10 +1,14 @@
 import { Router } from "express";
 import { getUserById, getAllUsers } from "../services/authService.js";
+import { checkIfUser } from "../middlewares/authMiddleware.js";
 
 const userController = Router();
 
-// Get all users
-userController.get('/', async (req, res) => {
+userController.get('/me', checkIfUser, (req, res) => {
+    res.json(req.user); 
+});
+
+userController.get('/all', async (req, res) => {
     try {
         const users = await getAllUsers();
         res.json(users);
@@ -13,7 +17,7 @@ userController.get('/', async (req, res) => {
     }
 });
 
-userController.get('/:userId', async (req, res) => {
+userController.get('/all/:userId', async (req, res) => {
     try {
         const user = await getUserById(req.params.userId);
         res.json(user);
