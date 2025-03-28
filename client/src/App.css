@@ -1308,7 +1308,6 @@
     .vehicle-details {
         width: 100%;
         margin: 0 auto;
-        max-width: 3840px;
         background: #222;
         padding: 40px;
         text-align: center;
