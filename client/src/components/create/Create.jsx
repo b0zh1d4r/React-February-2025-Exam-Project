@@ -43,12 +43,12 @@ export default function Create() {
                         <div className="form-grid">
                             <div className="input-group">
                                 <label htmlFor="name">Vehicle Name:</label>
-                                <input type="text" id="name" name="name" placeholder="Enter Vehicle Name"
+                                <input type="text" id="name" name="name" placeholder="Enter Vehicle's Name"
                                     value={values.name || ''} onChange={changeHandler} required />
                             </div>
                             <div className="input-group">
                                 <label htmlFor="price">Price in USD:</label>
-                                <input type="number" id="price" name="price" placeholder="Enter Vehicle Price"
+                                <input type="number" id="price" name="price" placeholder="Enter Vehicle's Price"
                                     value={values.price || ''} onChange={changeHandler} required />
                             </div>
                             <div className="input-group">
@@ -63,15 +63,15 @@ export default function Create() {
                             </div>
                             <div className="input-group">
                                 <label htmlFor="engine">Engine:</label>
-                                <input type="text" id="engine" name="engine" placeholder="Enter Engine" required value={values.engine} onChange={changeHandler} />
+                                <input type="text" id="engine" name="engine" placeholder="Enter Vehicle's Engine" required value={values.engine} onChange={changeHandler} />
                             </div>
                             <div className="input-group">
                                 <label htmlFor="condition">Condition:</label>
-                                <input type="text" id="condition" name="condition"  placeholder="Enter Condition" required value={values.condition} onChange={changeHandler} />
+                                <input type="text" id="condition" name="condition"  placeholder="Enter Vehicle's Condition" required value={values.condition} onChange={changeHandler} />
                             </div>
                             <div className="input-group">
                                 <label htmlFor="transmission">Transmission:</label>
-                                <input type="text" id="transmission" name="transmission" placeholder="Enter Transmission" required value={values.transmission} onChange={changeHandler} />
+                                <input type="text" id="transmission" name="transmission" placeholder="Enter Vehicle's Transmission" required value={values.transmission} onChange={changeHandler} />
                             </div>
                             <div className="input-group full-width">
                                 <label htmlFor="description">Vehicle Description:</label>

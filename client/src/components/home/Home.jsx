@@ -5,30 +5,25 @@ import TopVehicle from "./topVehicle/TopVehicle.jsx";
 import ErrorNotification from "../errorNotification/ErrorNotification.jsx";
 
 export default function Home() {
-    const [vehicles, error] = useGetAllVehicles() || [[], null];  // Ensure fallback values
-    const [errorMessage, setErrorMessage] = useState('');
+    const [vehicles, error] = useGetAllVehicles();
+    const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
         if (error) {
-            setErrorMessage(error.message || "Failed to load vehicles.");
-        } else {
-            setErrorMessage("");
+            setErrorMessage(error.message);
         }
-    }, [error, vehicles]);
-
-    const clearError = () => {
-        setErrorMessage('');
-    };
+    }, [error]);
 
     const topLikedVehicles = vehicles
         .sort((a, b) => b.userList.length - a.userList.length)
         .slice(0, 3);
 
     const latestVehicles = vehicles.slice(-3);
+    
 
     return (
         <>
-            {errorMessage && <ErrorNotification message={errorMessage} clearError={clearError} />}
+            {errorMessage && <ErrorNotification message={errorMessage} clearError={() => setErrorMessage("")} />}
 
             <section className="section main">
                 <div className="inner">
@@ -39,7 +34,7 @@ export default function Home() {
             </section>
 
             <section className="top-vehicles">
-                <h2>👑 Top 3 Most Rated Vehicles: </h2>
+                <h2>👑 Top 3 Most Liked Vehicles: </h2>
                 <div className="vehicles-container">
                     {topLikedVehicles.length ? (
                         topLikedVehicles.map(vehicle => (

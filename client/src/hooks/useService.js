@@ -4,27 +4,20 @@ import { useNavigate } from "react-router";
 
 export function useGetAllVehicles() {
     const [vehicles, setVehicles] = useState([]);
-    const [error, setError] = useState(null);
 
     useEffect(() => {
         async function fetchData() {
-            try {
-                const result = await getAll();
-                setVehicles(result);
-                setError(null);
-            } catch (err) {
-                setError("Failed to load vehicles. Please try again.");
-                setVehicles([]);
-            }
+            const result = await getAll();
+            setVehicles(result);
         }
         fetchData();
     }, []);
 
-    return [vehicles, error, setVehicles];
+    return [vehicles, setVehicles];
 }
 
 export function useGetOneVehicle(vehicleId) {
-    const [vehicle, setVehicle] = useState(null);
+    const [vehicle, setVehicle] = useState({});
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
@@ -32,9 +25,6 @@ export function useGetOneVehicle(vehicleId) {
         async function fetchData() {
             try {
                 const result = await getOne(vehicleId);
-                if (!result) {
-                    throw new Error("Vehicle not found.");
-                }
                 setVehicle(result);
                 setError(null);
             } catch (err) {
@@ -44,19 +34,15 @@ export function useGetOneVehicle(vehicleId) {
             }
         }
         fetchData();
-    }, [vehicleId, navigate]);
+    }, [vehicleId]);
 
-    return [vehicle, error, setVehicle];
+    return [vehicle, setVehicle, error];
 }
 
 export function useCreateVehicle() {
-    const vehicleCreateHandler = async (data) => {
-        try {
-            return await create(data);
-        } catch (err) {
-            throw new Error("Failed to create vehicle. Please try again.");
-        }
+    const vehicleGetHandler = async (data) => {
+        return await create(data);
     };
 
-    return vehicleCreateHandler;
+    return vehicleGetHandler;
 }

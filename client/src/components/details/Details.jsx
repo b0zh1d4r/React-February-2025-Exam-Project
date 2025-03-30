@@ -58,11 +58,11 @@ export default function Details() {
                         <h3>{vehicle.name}</h3>
                         <p className="price">${vehicle.price}</p>
                         <p className="description">{vehicle.description}</p>
-                        <p className="description">Year: {vehicle.year}</p>
-                        <p className="description">Engine Type: {vehicle.engine}</p>
-                        <p className="description">Condition: {vehicle.condition}</p>
-                        <p className="description">Transmission: {vehicle.transmission}</p>
-                        <p className="description">Likes: {vehicle.userList?.length || 0}</p>
+                        <p className="description">Year: <span className="others">{vehicle.year}</span></p>
+                        <p className="description">Engine: <span className="others">{vehicle.engine}</span></p>
+                        <p className="description">Condition: <span className="others">{vehicle.condition}</span></p>
+                        <p className="description">Transmission: <span className="others">{vehicle.transmission}</span></p>
+                        <p className="description">Likes: <span className="others">{vehicle.userList?.length || 0}</span></p>
 
                         {!isOwner && (
                             <Link to={`/vehicles/contact-dealer/${data?.item?.owner}`} className="contact-btn">Contact Dealer</Link>
