@@ -46,10 +46,6 @@ export default function Details() {
         }
     };
 
-    console.log(vehicle);
-    
-    
-
     return (
         <>
             {error && <ErrorNotification message={error} clearError={() => setError(null)} />}
