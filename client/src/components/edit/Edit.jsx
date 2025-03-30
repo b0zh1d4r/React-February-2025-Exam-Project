@@ -71,31 +71,16 @@ export default function Edit() {
                             <input type="text" id="imageUrl" name="imageUrl" required value={values.imageUrl} onChange={changeHandler} />
                         </div>
                         <div className="input-group">
-                            <label htmlFor="engine">Engine Type:</label>
-                            <select id="engine" name="engine" required value={values.engine} onChange={changeHandler} >
-                                <option value="" disabled>Select Engine Type</option>
-                                <option value="petrol">Petrol</option>
-                                <option value="diesel">Diesel</option>
-                                <option value="hybrid">Hybrid</option>
-                                <option value="electric">Electric</option>
-                            </select>
+                            <label htmlFor="engine">Engine:</label>
+                            <input type="text" id="engine" name="engine" required value={values.engine} onChange={changeHandler} />
                         </div>
                         <div className="input-group">
                             <label htmlFor="condition">Condition:</label>
-                            <select id="condition" name="condition" required value={values.condition} onChange={changeHandler} >
-                                <option value="" disabled>Select Condition</option>
-                                <option value="new">New</option>
-                                <option value="used">Used</option>
-                            </select>
+                            <input type="text" id="condition" name="condition" required value={values.condition} onChange={changeHandler} />
                         </div>
                         <div className="input-group">
                             <label htmlFor="transmission">Transmission:</label>
-                            <select id="transmission" name="transmission" required value={values.transmission} onChange={changeHandler} >
-                                <option value="" disabled>Select Transmission</option>
-                                <option value="manual">Manual</option>
-                                <option value="automatic">Automatic</option>
-                                <option value="semi-automatic">Semi-Automatic</option>
-                            </select>
+                            <input type="text" id="transmission" name="transmission" required value={values.transmission} onChange={changeHandler} />
                         </div>
                         <div className="submit-btn">
                             <button type="submit">Edit Listing</button>

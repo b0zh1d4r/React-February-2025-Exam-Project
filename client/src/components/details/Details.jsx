@@ -3,6 +3,7 @@ import { like, remove } from "../../api/vehicleApi";
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import { Link, useNavigate, useParams } from "react-router";
+import ErrorNotification from "../errorNotification/ErrorNotification";
 
 export default function Details() {
     const { vehicleId } = useParams();
@@ -13,8 +14,8 @@ export default function Details() {
     const vehicle = data?.item || {};
     const isOwner = data?.item?.owner === userId;
 
-    // Initialize isLiked based on whether userId is in the userList
     const [isLiked, setIsLiked] = useState(false);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         if (vehicle.userList && userId) {
@@ -27,6 +28,7 @@ export default function Details() {
             await like(vehicleId);
             setIsLiked(true);
         } catch (err) {
+            setError("Failed to like the vehicle.");
             console.log(err.message);
         }
     };
@@ -34,46 +36,51 @@ export default function Details() {
     const vehicleDeleteHandler = async () => {
         const confirmDelete = window.confirm("Are you sure?");
         if (!confirmDelete) return;
-    
+
         try {
             await remove(vehicleId);
             navigate('/vehicles');
         } catch (err) {
+            setError("Failed to delete the vehicle.");
             console.error(err.message);
         }
     };
 
     return (
-        <section className="vehicle-details">
-            <h2>Vehicle Details:</h2>
-            <div className="vehicle-container">
-                <div className="vehicle-card">
-                    <img src={vehicle.imageUrl} alt={vehicle.name} />
-                    <h3>{vehicle.name}</h3>
-                    <p className="price">${vehicle.price}</p>
-                    <p className="description">{vehicle.description}</p>
-                    <p className="description">Year: {vehicle.year}</p>
-                    <p className="description">Engine Type: {vehicle.engine}</p>
-                    <p className="description">Condition: {vehicle.condition}</p>
-                    <p className="description">Transmission: {vehicle.transmission}</p>
-                    <p className="description">Likes: {vehicle.userList?.length || 0}</p>
+        <>
+            {error && <ErrorNotification message={error} clearError={() => setError(null)} />}
 
-                    {!isOwner && (
-                        <Link to={`/vehicles/contact-dealer/${data?.item?.owner}`} className="contact-btn">Contact Dealer</Link>
-                    )}
+            <section className="vehicle-details">
+                <h2>Vehicle Details:</h2>
+                <div className="vehicle-container">
+                    <div className="vehicle-card">
+                        <img src={vehicle.imageUrl} alt={vehicle.name} />
+                        <h3>{vehicle.name}</h3>
+                        <p className="price">${vehicle.price}</p>
+                        <p className="description">{vehicle.description}</p>
+                        <p className="description">Year: {vehicle.year}</p>
+                        <p className="description">Engine Type: {vehicle.engine}</p>
+                        <p className="description">Condition: {vehicle.condition}</p>
+                        <p className="description">Transmission: {vehicle.transmission}</p>
+                        <p className="description">Likes: {vehicle.userList?.length || 0}</p>
 
-                    {isOwner ? (
-                        <>
-                            <Link to={`/vehicles/${vehicleId}/edit`} className="edit-btn">Edit</Link>
-                            <button onClick={vehicleDeleteHandler} className="delete-btn">Delete</button>
-                        </>
-                    ) : (
-                        userId && !isLiked && (
-                            <button onClick={vehicleLikeHandler} className="like-btn">Like</button>
-                        )
-                    )}
+                        {!isOwner && (
+                            <Link to={`/vehicles/contact-dealer/${data?.item?.owner}`} className="contact-btn">Contact Dealer</Link>
+                        )}
+
+                        {isOwner ? (
+                            <>
+                                <Link to={`/vehicles/${vehicleId}/edit`} className="edit-btn">Edit</Link>
+                                <button onClick={vehicleDeleteHandler} className="delete-btn">Delete</button>
+                            </>
+                        ) : (
+                            userId && !isLiked && (
+                                <button onClick={vehicleLikeHandler} className="like-btn">Like</button>
+                            )
+                        )}
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </>
     );
 }

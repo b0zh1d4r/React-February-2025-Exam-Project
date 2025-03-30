@@ -8,26 +8,32 @@ const userSchema = new Schema({
     username: {
         type: String,
         required: [true, 'Username is required'],
+        minlength: [3, 'Username must be at least 3 characters long']
     },
 
     email: {
         type: String,
         required: [true, 'Email is required'],
+        unique: true,
+        match: [/^\S+@\S+\.\S+$/, 'Please enter a valid email address']
     },
 
     phoneNumber: {
         type: String,
-        required: [true, 'Phone number is required'],
+        required: [true, 'Phone number is required!'],
+        match: [/^\+?\d{7,15}$/, 'Invalid phone number format!']
     },
 
     location: {
         type: String,
-        required: [true, 'Location is required'],
+        required: [true, 'Location is required!'],
+        minlength: [3, 'Location must be at least 3 characters long!']
     },
 
     password: {
         type: String, 
-        required: [true, 'Password is required'],
+        required: [true, 'Password is required!'],
+        match: [/(?=.*[A-Z])(?=.*[a-z])(?=.*\d)/, 'Password must contain at least one uppercase letter, one lowercase letter, and one number!']
     },
 
     vehicles: [{

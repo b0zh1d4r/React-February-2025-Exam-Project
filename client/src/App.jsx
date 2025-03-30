@@ -18,6 +18,8 @@ import ErrorPage from './components/errorPage/ErrorPage'
 import ErrorNotification from './components/errorNotification/ErrorNotification'
 import Footer from './components/footer/Footer'
 
+import RouteGuard from './components/common/RouteGuard'
+import GuestGuard from "./components/common/GuestGuard"
 
 import './styles/_styles.css'
 import './App.css'
@@ -33,14 +35,14 @@ function App() {
                     <Route path="/about" element={<About />}></Route>
                     <Route path="/vehicles" element={<Vehicles />}></Route>
                     <Route path="/vehicles/:vehicleId" element={<Details />}></Route>
-                    <Route path="/vehicles/:vehicleId/edit" element={<Edit />}></Route>
+                    <Route path="/vehicles/:vehicleId/edit" element={<RouteGuard> <Edit /> </RouteGuard>}></Route>
                     <Route path="/vehicles/contact-dealer/:dealerId" element={<ContactDealer />}></Route>
-                    <Route path="/create" element={<Create />}></Route>
-                    <Route path="/profile" element={<Profile />}></Route>
-                    <Route path="/login" element={<Login />}></Route>
-                    <Route path="/register" element={<Register />}></Route>
-                    <Route path="/logout" element={<Logout />}></Route>
-                    <Route path="*" element={<ErrorNotification />}></Route>
+                    <Route path="/create" element={<RouteGuard> <Create /> </RouteGuard>}></Route>
+                    <Route path="/profile" element={<RouteGuard> <Profile /> </RouteGuard>}></Route>
+                    <Route path="/login" element={<GuestGuard> <Login /> </GuestGuard>}></Route>
+                    <Route path="/register" element={<GuestGuard> <Register /> </GuestGuard>}></Route>
+                    <Route path="/logout" element={<RouteGuard> <Logout /> </RouteGuard>}></Route>
+                    <Route path="*" element={<ErrorPage />}></Route>
                 </Routes>
                 <Footer />
             </>

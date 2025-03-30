@@ -1,11 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useGetAllVehicles } from "../../hooks/useService.js";
 import Vehicle from "./vehicle/Vehicle.jsx";
+import ErrorNotification from "../errorNotification/ErrorNotification.jsx";
 
 export default function Catalog() {
-    const [vehicles] = useGetAllVehicles();
+    const [error, setError] = useState(null);
     const [sortBy, setSortBy] = useState("most-popular");
     const [searchQuery, setSearchQuery] = useState("");
+
+    const [vehicles, setVehicles] = useGetAllVehicles();
+
+    useEffect(() => {
+        if (!vehicles) {
+            setError("Failed to fetch vehicles. Please try again later.");
+        }
+    }, [vehicles]);
 
     const sortVehicles = (vehicles, sortBy) => {
         switch (sortBy) {
@@ -38,10 +47,15 @@ export default function Catalog() {
 
     const filteredVehicles = filterVehicles(vehicles, searchQuery);
     const sortedVehicles = sortVehicles(filteredVehicles, sortBy);
-    
+
+    const clearError = () => {
+        setError(null);
+    };
 
     return (
         <>
+            {error && <ErrorNotification message={error} clearError={clearError} />} 
+
             <section className="top-vehicles">
                 <h2>All Our Vehicles: </h2>
                 <form action="search-results.html" method="GET" className="search-form">

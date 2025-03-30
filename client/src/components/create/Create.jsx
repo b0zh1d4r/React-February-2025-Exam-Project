@@ -2,6 +2,7 @@ import { useNavigate } from "react-router";
 import { useForm } from "../../hooks/useForm";
 import { useCreateVehicle } from "../../hooks/useService";
 import { useState } from "react";
+import ErrorNotification from "../errorNotification/ErrorNotification.jsx";
 
 const initialValues = {
     name: '',
@@ -14,13 +15,15 @@ const initialValues = {
     description: '',
 };
 
-export default function Edit() {
-    const [_, setError] = useState('');
+export default function Create() {
+    const [error, setError] = useState('');
     const navigate = useNavigate();
     const createVehicle = useCreateVehicle();
 
     const createHandler = async (values) => {
         try {
+            setError("");
+
             await createVehicle(values);
             navigate(`/vehicles`);
         } catch (err) {
@@ -31,69 +34,57 @@ export default function Edit() {
     const { values, changeHandler, onSubmit } = useForm(initialValues, createHandler);
 
     return (
-        <div className="create-container">
-            <div className="create-box">
-                <h2>Create a New Vehicle Listing</h2>
-                <form onSubmit={onSubmit}>
-                    <div className="form-grid">
-                        <div className="input-group">
-                            <label htmlFor="name">Vehicle Name:</label>
-                            <input type="text" id="name" name="name" placeholder="Enter Vehicle Name"
-                                value={values.name || ''} onChange={changeHandler} required />
+        <>
+            {error && <ErrorNotification message={error} clearError={() => setError('')} />}
+            <div className="create-container">
+                <div className="create-box">
+                    <h2>Create a New Vehicle Listing</h2>
+                    <form onSubmit={onSubmit}>
+                        <div className="form-grid">
+                            <div className="input-group">
+                                <label htmlFor="name">Vehicle Name:</label>
+                                <input type="text" id="name" name="name" placeholder="Enter Vehicle Name"
+                                    value={values.name || ''} onChange={changeHandler} required />
+                            </div>
+                            <div className="input-group">
+                                <label htmlFor="price">Price in USD:</label>
+                                <input type="number" id="price" name="price" placeholder="Enter Vehicle Price"
+                                    value={values.price || ''} onChange={changeHandler} required />
+                            </div>
+                            <div className="input-group">
+                                <label htmlFor="year">Year:</label>
+                                <input type="number" id="year" name="year" placeholder="Enter Year of Manufacture"
+                                    value={values.year || ''} onChange={changeHandler} required />
+                            </div>
+                            <div className="input-group">
+                                <label htmlFor="imageUrl">Vehicle Image:</label>
+                                <input type="text" id="imageUrl" name="imageUrl" placeholder="Enter Image URL"
+                                    value={values.imageUrl || ''} onChange={changeHandler} required />
+                            </div>
+                            <div className="input-group">
+                                <label htmlFor="engine">Engine:</label>
+                                <input type="text" id="engine" name="engine" placeholder="Enter Engine" required value={values.engine} onChange={changeHandler} />
+                            </div>
+                            <div className="input-group">
+                                <label htmlFor="condition">Condition:</label>
+                                <input type="text" id="condition" name="condition"  placeholder="Enter Condition" required value={values.condition} onChange={changeHandler} />
+                            </div>
+                            <div className="input-group">
+                                <label htmlFor="transmission">Transmission:</label>
+                                <input type="text" id="transmission" name="transmission" placeholder="Enter Transmission" required value={values.transmission} onChange={changeHandler} />
+                            </div>
+                            <div className="input-group full-width">
+                                <label htmlFor="description">Vehicle Description:</label>
+                                <textarea id="description" name="description" placeholder="Describe the Vehicle"
+                                    value={values.description || ''} onChange={changeHandler} required></textarea>
+                            </div>
                         </div>
-                        <div className="input-group">
-                            <label htmlFor="price">Price in USD:</label>
-                            <input type="number" id="price" name="price" placeholder="Enter Vehicle Price"
-                                value={values.price || ''} onChange={changeHandler} required />
+                        <div className="submit-btn full-width">
+                            <button type="submit">Create Listing</button>
                         </div>
-                        <div className="input-group">
-                            <label htmlFor="year">Year:</label>
-                            <input type="number" id="year" name="year" placeholder="Enter Year of Manufacture"
-                                value={values.year || ''} onChange={changeHandler} required />
-                        </div>
-                        <div className="input-group">
-                            <label htmlFor="imageUrl">Vehicle Image:</label>
-                            <input type="text" id="imageUrl" name="imageUrl" placeholder="Enter Image URL"
-                                value={values.imageUrl || ''} onChange={changeHandler} required />
-                        </div>
-                        <div className="input-group">
-                            <label htmlFor="engine">Engine Type:</label>
-                            <select id="engine" name="engine" value={values.engine || ''} onChange={changeHandler} required>
-                                <option value="" disabled>Select Engine Type</option>
-                                <option value="Petrol">Petrol</option>
-                                <option value="Diesel">Diesel</option>
-                                <option value="Hybrid">Hybrid</option>
-                                <option value="Electric">Electric</option>
-                            </select>
-                        </div>
-                        <div className="input-group">
-                            <label htmlFor="condition">Condition:</label>
-                            <select id="condition" name="condition" value={values.condition || ''} onChange={changeHandler} required>
-                                <option value="" disabled>Select Condition</option>
-                                <option value="New">New</option>
-                                <option value="Used">Used</option>
-                            </select>
-                        </div>
-                        <div className="input-group">
-                            <label htmlFor="transmission">Transmission:</label>
-                            <select id="transmission" name="transmission" value={values.transmission || ''} onChange={changeHandler} required>
-                                <option value="" disabled>Select Transmission</option>
-                                <option value="Manual">Manual</option>
-                                <option value="Automatic">Automatic</option>
-                                <option value="Semi-Automatic">Semi-Automatic</option>
-                            </select>
-                        </div>
-                        <div className="input-group full-width">
-                            <label htmlFor="description">Vehicle Description:</label>
-                            <textarea id="description" name="description" placeholder="Describe the Vehicle"
-                                value={values.description || ''} onChange={changeHandler} required></textarea>
-                        </div>
-                    </div>
-                    <div className="submit-btn full-width">
-                        <button type="submit">Create Listing</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
+        </>
     );
 };

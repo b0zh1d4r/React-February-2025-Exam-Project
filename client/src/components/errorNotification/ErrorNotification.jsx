@@ -1,31 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../../App.css";
 
-const Notification = ({message}) => {
+const ErrorNotification = ({ message, clearError }) => {
     const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
-        setIsVisible(true);
+        if (message) {
+            setIsVisible(true);
+            const timer = setTimeout(() => {
+                setIsVisible(false);
+                clearError();
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [message]);
 
-        const timer = setTimeout(() => {
-            setIsVisible(false);
-        }, 3000);
-
-        return () => clearTimeout(timer);
-    }, []);
-
-    const handleClose = () => {
-        setIsVisible(false);
-    };
+    if (!isVisible) return null;
 
     return (
-        <div
-            className={`notification-container ${isVisible ? "show" : ""} error`}
-            onClick={handleClose}
-        >
-            <p>Something went wrong!</p>
+        <div className="notification-container show error" onClick={clearError}>
+            <p>{message}</p>
         </div>
     );
 };
 
-export default Notification;
+export default ErrorNotification;

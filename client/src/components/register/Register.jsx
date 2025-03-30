@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router";
 import { useRegister } from "../../hooks/useAuth.js";
 import { useForm } from "../../hooks/useForm";
 import { useState } from "react";
+import ErrorNotification from "../errorNotification/ErrorNotification.jsx"; //
 
 const initialValues = { 
     username: '', 
@@ -13,7 +14,7 @@ const initialValues = {
 };
 
 export default function Register() {
-    const [_, setError] = useState('');
+    const [error, setError] = useState('');
     const register = useRegister();
     const navigate = useNavigate();
 
@@ -23,6 +24,8 @@ export default function Register() {
         }
 
         try {
+            setError("");
+
             await register(values.username, values.email, values.phoneNumber, values.location, values.password, values.repeatPassword);
             navigate('/');
         } catch (err) {
@@ -34,6 +37,7 @@ export default function Register() {
 
     return (
         <>
+            {error && <ErrorNotification message={error} clearError={() => setError('')} />}
             <div className="register-container">
                 <div className="register-box">
                     <h2>Register</h2>
