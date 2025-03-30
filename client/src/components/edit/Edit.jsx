@@ -1,8 +1,9 @@
-import { useNavigate, useParams } from "react-router"
-import { useGetOneVehicle } from "../../hooks/useService"
-import { useForm } from "../../hooks/useForm"
-import { update } from "../../api/vehicleApi"
-import { useEffect, useState } from "react"
+import { useNavigate, useParams } from "react-router";
+import { useGetOneVehicle } from "../../hooks/useService";
+import { useForm } from "../../hooks/useForm";
+import { update } from "../../api/vehicleApi";
+import { useEffect, useState } from "react";
+import ErrorNotification from "../errorNotification/ErrorNotification";
 
 const initialValues = {
     name: '',
@@ -16,30 +17,33 @@ const initialValues = {
 };
 
 export default function Edit() {
-    const [_, setError] = useState('')
-    const navigate = useNavigate()
-    const { vehicleId } = useParams()
-    const [vehicle] = useGetOneVehicle(vehicleId)
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
+    const { vehicleId } = useParams();
+    const [vehicle] = useGetOneVehicle(vehicleId);
 
-    const { changeHandler, onSubmit, values, changeValues } = useForm(Object.assign(initialValues, vehicle.item), async (values) => {
-        try {
-            await update(vehicleId, values)
-            navigate(`/vehicles/${vehicleId}`);
-        } catch (err) {
-            setError(err.error || 'Update failed');
-            changeValues(values); 
+    const { changeHandler, onSubmit, values, changeValues } = useForm(
+        Object.assign(initialValues, vehicle.item), 
+        async (values) => {
+            try {
+                await update(vehicleId, values);
+                navigate(`/vehicles/${vehicleId}`);
+            } catch (err) {
+                setError(err.error || 'Update failed');
+                changeValues(values);
+            }
         }
-    })
+    );
 
     useEffect(() => {
         if (vehicle?.vehicle) {
             changeValues({ ...vehicle.item });
         }
     }, [vehicle]);
-    
-    
+
     return (
         <>
+            {error && <ErrorNotification message={error} clearError={() => setError('')} />}
             <div className="edit-container">
                 <div className="edit-box">
                     <h2>Edit Vehicle Listing</h2>

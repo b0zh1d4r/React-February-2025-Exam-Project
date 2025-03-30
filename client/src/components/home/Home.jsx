@@ -1,9 +1,24 @@
+import { useEffect, useState } from "react";
 import { useGetAllVehicles } from "../../hooks/useService.js";
 import LatestVehicle from "./latestVehicle/latestVehicle.jsx";
 import TopVehicle from "./topVehicle/TopVehicle.jsx";
+import ErrorNotification from "../errorNotification/ErrorNotification.jsx";
 
 export default function Home() {
-    const [vehicles] = useGetAllVehicles();
+    const [vehicles, error] = useGetAllVehicles() || [[], null];  // Ensure fallback values
+    const [errorMessage, setErrorMessage] = useState('');
+
+    useEffect(() => {
+        if (error) {
+            setErrorMessage(error.message || "Failed to load vehicles.");
+        } else {
+            setErrorMessage("");
+        }
+    }, [error, vehicles]);
+
+    const clearError = () => {
+        setErrorMessage('');
+    };
 
     const topLikedVehicles = vehicles
         .sort((a, b) => b.userList.length - a.userList.length)
@@ -13,6 +28,8 @@ export default function Home() {
 
     return (
         <>
+            {errorMessage && <ErrorNotification message={errorMessage} clearError={clearError} />}
+
             <section className="section main">
                 <div className="inner">
                     <article className="card">

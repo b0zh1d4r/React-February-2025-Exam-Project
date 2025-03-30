@@ -15,15 +15,7 @@ export default function Login() {
         try {
             setError("");
 
-            if (!email || !password) {
-                throw new Error("Email and password are required.");
-            }
-
-            const response = await login(email, password);
-
-            if (!response || response.error) {
-                throw new Error(response?.error || "Invalid email or password.");
-            }
+            await login(email, password);
 
             navigate("/");
         } catch (err) {

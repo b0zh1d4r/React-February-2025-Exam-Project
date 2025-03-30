@@ -4,20 +4,27 @@ import { useNavigate } from "react-router";
 
 export function useGetAllVehicles() {
     const [vehicles, setVehicles] = useState([]);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         async function fetchData() {
-            const result = await getAll();
-            setVehicles(result);
+            try {
+                const result = await getAll();
+                setVehicles(result);
+                setError(null);
+            } catch (err) {
+                setError("Failed to load vehicles. Please try again.");
+                setVehicles([]);
+            }
         }
         fetchData();
     }, []);
 
-    return [vehicles, setVehicles];
+    return [vehicles, error, setVehicles];
 }
 
 export function useGetOneVehicle(vehicleId) {
-    const [vehicle, setVehicle] = useState({});
+    const [vehicle, setVehicle] = useState(null);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
@@ -25,6 +32,9 @@ export function useGetOneVehicle(vehicleId) {
         async function fetchData() {
             try {
                 const result = await getOne(vehicleId);
+                if (!result) {
+                    throw new Error("Vehicle not found.");
+                }
                 setVehicle(result);
                 setError(null);
             } catch (err) {
@@ -34,15 +44,19 @@ export function useGetOneVehicle(vehicleId) {
             }
         }
         fetchData();
-    }, [vehicleId]);
+    }, [vehicleId, navigate]);
 
-    return [vehicle, setVehicle, error];
+    return [vehicle, error, setVehicle];
 }
 
 export function useCreateVehicle() {
-    const vehicleGetHandler = async (data) => {
-        return await create(data);
+    const vehicleCreateHandler = async (data) => {
+        try {
+            return await create(data);
+        } catch (err) {
+            throw new Error("Failed to create vehicle. Please try again.");
+        }
     };
 
-    return vehicleGetHandler;
+    return vehicleCreateHandler;
 }
