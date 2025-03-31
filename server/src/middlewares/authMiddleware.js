@@ -30,22 +30,39 @@ export const authMiddleware = async (req, res, next) => {
 }
 
 export const checkIfUser = async (req, res, next) => {
-    const token = req.cookies[AUTH_COOKIE_NAME];
+    const token = req.cookies?.[AUTH_COOKIE_NAME];
 
     if (!token) {
-        return res.status(401).json({ error: "Unauthorized: No token provided" });
+        req.user = null; // Ensure user is explicitly set to null
+        return next();
     }
 
     try {
-        const decoded = await jwt.verify(token, process.env.JWT_SECRET);
-        req.user = decoded;
-        next();
-    } catch (err) {
-        res.clearCookie(AUTH_COOKIE_NAME);
-        return res.status(403).json({ error: "Invalid token" });
+        req.user = await jwt.verify(token, process.env.JWT_SECRET);
+    } catch {
+        req.user = null;
     }
+
+    next();
 };
 
+
+// export const checkIfUser = async (req, res, next) => {
+//     const token = req.cookies[AUTH_COOKIE_NAME];
+
+//     if (!token) {
+//         return res.status(401).json({ error: "Unauthorized: No token provided" });
+//     }
+
+//     try {
+//         const decoded = await jwt.verify(token, process.env.JWT_SECRET);
+//         req.user = decoded;
+//         next();
+//     } catch (err) {
+//         res.clearCookie(AUTH_COOKIE_NAME);
+//         return res.status(403).json({ error: "Invalid token" });
+//     }
+// };
 
 export const isAuth = (req, res, next) => {
 

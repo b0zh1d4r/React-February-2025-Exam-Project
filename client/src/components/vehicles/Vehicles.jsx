@@ -67,7 +67,6 @@ export default function Catalog() {
                         value={searchQuery}
                         onChange={handleSearchChange}
                     />
-                    <button type="submit">Search</button>
                 </form>
                 <br />
 
