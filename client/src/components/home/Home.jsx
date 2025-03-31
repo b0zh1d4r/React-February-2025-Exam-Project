@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useGetAllVehicles } from "../../hooks/useService.js";
-import LatestVehicle from "./latestVehicle/latestVehicle.jsx";
+import LatestVehicle from "./latestVehicle/LatestVehicle.jsx";
 import TopVehicle from "./topVehicle/TopVehicle.jsx";
 import ErrorNotification from "../errorNotification/ErrorNotification.jsx";
 
