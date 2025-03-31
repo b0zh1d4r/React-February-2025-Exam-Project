@@ -1,31 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 export const useForm = (initialValues, onSubmitHandler) => {
     const [values, setValues] = useState(initialValues);
 
     useEffect(() => {
-        setValues(initialValues)
-    }, [initialValues])
+        setValues(initialValues);
+    }, [initialValues]);
 
-    const changeHandler = (e) => {
-        setValues(state => ({...state, [e.target.name]: e.target.value}));
-    };
+    const changeHandler = useCallback((e) => {
+        const { name, value } = e.target;
+        setValues(prevValues => ({ ...prevValues, [name]: value }));
+    }, []);
 
-    const onSubmit = (e) => {
+    const onSubmit = useCallback((e) => {
         e.preventDefault();
-
         onSubmitHandler(values);
-    };
+    }, [values, onSubmitHandler]);
 
-    const changeValues = (newValues) => {
-        
+    const changeValues = useCallback((newValues) => {
         setValues(newValues);
-    };
+    }, []);
 
-    return {
-        values,
-        changeHandler,
-        onSubmit,
-        changeValues,
-    };
+    return { values, changeHandler, onSubmit, changeValues };
 };

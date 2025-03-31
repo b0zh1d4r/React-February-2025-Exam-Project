@@ -12,34 +12,30 @@ export default function Details() {
     const navigate = useNavigate();
 
     const vehicle = data?.item || {};
-    const isOwner = data?.item?.owner === userId;
-
-    const [isLiked, setIsLiked] = useState(false);
+    const isOwner = vehicle.owner === userId;
+    const [isLiked, setIsLiked] = useState(vehicle.userList?.includes(userId) || false);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        if (vehicle.userList && userId) {
-            setIsLiked(vehicle.userList.includes(userId));
-        }
+        setIsLiked(vehicle.userList?.includes(userId) || false);
     }, [vehicle.userList, userId]);
 
-    const vehicleLikeHandler = async () => {
+    const handleLike = async () => {
         try {
             await like(vehicleId);
             setIsLiked(true);
         } catch (err) {
             setError("Failed to like the vehicle.");
-            console.log(err.message);
+            console.error(err.message);
         }
     };
 
-    const vehicleDeleteHandler = async () => {
-        const confirmDelete = window.confirm("Are you sure?");
-        if (!confirmDelete) return;
+    const handleDelete = async () => {
+        if (!window.confirm("Are you sure?")) return;
 
         try {
             await remove(vehicleId);
-            navigate('/vehicles');
+            navigate("/vehicles");
         } catch (err) {
             setError("Failed to delete the vehicle.");
             console.error(err.message);
@@ -71,11 +67,11 @@ export default function Details() {
                         {isOwner ? (
                             <>
                                 <Link to={`/vehicles/${vehicleId}/edit`} className="edit-btn">Edit</Link>
-                                <button onClick={vehicleDeleteHandler} className="delete-btn">Delete</button>
+                                <button onClick={handleDelete} className="delete-btn">Delete</button>
                             </>
                         ) : (
                             userId && !isLiked && (
-                                <button onClick={vehicleLikeHandler} className="like-btn">Like</button>
+                                <button onClick={handleLike} className="like-btn">Like</button>
                             )
                         )}
                     </div>

@@ -44,6 +44,7 @@ export default function Edit() {
     return (
         <>
             {error && <ErrorNotification message={error} clearError={() => setError('')} />}
+                
             <div className="edit-container">
                 <div className="edit-box">
                     <h2>Edit Vehicle Listing</h2>

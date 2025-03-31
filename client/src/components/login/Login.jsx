@@ -28,6 +28,7 @@ export default function Login() {
     return (
         <>
             {error && <ErrorNotification message={error} clearError={() => setError("")} />}
+                
             <div className="login-container">
                 <div className="login-box">
                     <h2>Login</h2>

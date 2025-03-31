@@ -3,6 +3,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { getUserById } from "../../api/authApi";
 import { getOne } from "../../api/vehicleApi";
 import VehicleProfile from "./vehicleProfile/VehicleProfile";
+import ErrorNotification from "../errorNotification/ErrorNotification";
 
 export default function Profile() {
     const { userId } = useContext(AuthContext);
@@ -12,17 +13,14 @@ export default function Profile() {
 
     const fetchUserDetails = useCallback(async () => {
         try {
-            const data = await getUserById(userId + `?timestamp=${new Date().getTime()}`);
+            const data = await getUserById(`${userId}?timestamp=${Date.now()}`);
             setUserDetails(data);
 
             if (data?.vehicles?.length) {
-                const vehiclePromises = data.vehicles.map((vehicleId) =>
-                    getOne(vehicleId + `?timestamp=${new Date().getTime()}`)
+                const vehiclesData = await Promise.all(
+                    data.vehicles.map(vehicleId => getOne(`${vehicleId}?timestamp=${Date.now()}`))
                 );
-                const vehiclesData = await Promise.all(vehiclePromises);
-
-                const filteredVehicles = vehiclesData.filter(vehicle => vehicle?.item);
-                setVehicles(filteredVehicles);
+                setVehicles(vehiclesData.filter(vehicle => vehicle?.item));
             } else {
                 setVehicles([]);
             }
@@ -33,11 +31,10 @@ export default function Profile() {
     }, [userId]);
 
     useEffect(() => {
-        if (userId) {
-            fetchUserDetails();
-            const interval = setInterval(fetchUserDetails, 10000);
-            return () => clearInterval(interval);
-        }
+        if (!userId) return;
+        fetchUserDetails();
+        const interval = setInterval(fetchUserDetails, 10000);
+        return () => clearInterval(interval);
     }, [userId, fetchUserDetails]);
 
     return (

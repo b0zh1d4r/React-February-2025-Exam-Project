@@ -5,29 +5,28 @@ import { useState } from "react";
 import ErrorNotification from "../errorNotification/ErrorNotification.jsx";
 
 const initialValues = {
-    name: '',
-    price: '',
-    year: '',
-    imageUrl: '',
-    engine: '',
-    condition: '',
-    transmission: '',
-    description: '',
+    name: "",
+    price: "",
+    year: "",
+    imageUrl: "",
+    engine: "",
+    condition: "",
+    transmission: "",
+    description: "",
 };
 
 export default function Create() {
-    const [error, setError] = useState('');
+    const [error, setError] = useState("");
     const navigate = useNavigate();
     const createVehicle = useCreateVehicle();
 
     const createHandler = async (values) => {
         try {
             setError("");
-
             await createVehicle(values);
-            navigate(`/vehicles`);
+            navigate("/vehicles");
         } catch (err) {
-            setError(err.error || 'Create failed');
+            setError(err?.error || "Create failed");
         }
     };
 
@@ -35,48 +34,44 @@ export default function Create() {
 
     return (
         <>
-            {error && <ErrorNotification message={error} clearError={() => setError('')} />}
+            {error && <ErrorNotification message={error} clearError={() => setError("")} />}
             <div className="create-container">
                 <div className="create-box">
                     <h2>Create a New Vehicle Listing</h2>
                     <form onSubmit={onSubmit}>
                         <div className="form-grid">
-                            <div className="input-group">
-                                <label htmlFor="name">Vehicle Name:</label>
-                                <input type="text" id="name" name="name" placeholder="Enter Vehicle's Name"
-                                    value={values.name || ''} onChange={changeHandler} required />
-                            </div>
-                            <div className="input-group">
-                                <label htmlFor="price">Price in USD:</label>
-                                <input type="number" id="price" name="price" placeholder="Enter Vehicle's Price"
-                                    value={values.price || ''} onChange={changeHandler} required />
-                            </div>
-                            <div className="input-group">
-                                <label htmlFor="year">Year:</label>
-                                <input type="number" id="year" name="year" placeholder="Enter Year of Manufacture"
-                                    value={values.year || ''} onChange={changeHandler} required />
-                            </div>
-                            <div className="input-group">
-                                <label htmlFor="imageUrl">Vehicle Image:</label>
-                                <input type="text" id="imageUrl" name="imageUrl" placeholder="Enter Image URL"
-                                    value={values.imageUrl || ''} onChange={changeHandler} required />
-                            </div>
-                            <div className="input-group">
-                                <label htmlFor="engine">Engine:</label>
-                                <input type="text" id="engine" name="engine" placeholder="Enter Vehicle's Engine" required value={values.engine} onChange={changeHandler} />
-                            </div>
-                            <div className="input-group">
-                                <label htmlFor="condition">Condition:</label>
-                                <input type="text" id="condition" name="condition"  placeholder="Enter Vehicle's Condition" required value={values.condition} onChange={changeHandler} />
-                            </div>
-                            <div className="input-group">
-                                <label htmlFor="transmission">Transmission:</label>
-                                <input type="text" id="transmission" name="transmission" placeholder="Enter Vehicle's Transmission" required value={values.transmission} onChange={changeHandler} />
-                            </div>
+                            {[
+                                { label: "Vehicle Name", name: "name", type: "text", placeholder: "Enter Vehicle's Name" },
+                                { label: "Price in USD", name: "price", type: "number", placeholder: "Enter Vehicle's Price" },
+                                { label: "Year", name: "year", type: "number", placeholder: "Enter Year of Manufacture" },
+                                { label: "Vehicle Image", name: "imageUrl", type: "text", placeholder: "Enter Image URL" },
+                                { label: "Engine", name: "engine", type: "text", placeholder: "Enter Vehicle's Engine" },
+                                { label: "Condition", name: "condition", type: "text", placeholder: "Enter Vehicle's Condition" },
+                                { label: "Transmission", name: "transmission", type: "text", placeholder: "Enter Vehicle's Transmission" },
+                            ].map(({ label, name, type, placeholder }) => (
+                                <div className="input-group" key={name}>
+                                    <label htmlFor={name}>{label}:</label>
+                                    <input
+                                        type={type}
+                                        id={name}
+                                        name={name}
+                                        placeholder={placeholder}
+                                        value={values[name] || ""}
+                                        onChange={changeHandler}
+                                        required
+                                    />
+                                </div>
+                            ))}
                             <div className="input-group full-width">
                                 <label htmlFor="description">Vehicle Description:</label>
-                                <textarea id="description" name="description" placeholder="Describe the Vehicle"
-                                    value={values.description || ''} onChange={changeHandler} required></textarea>
+                                <textarea
+                                    id="description"
+                                    name="description"
+                                    placeholder="Describe the Vehicle"
+                                    value={values.description || ""}
+                                    onChange={changeHandler}
+                                    required
+                                />
                             </div>
                         </div>
                         <div className="submit-btn full-width">
@@ -87,4 +82,4 @@ export default function Create() {
             </div>
         </>
     );
-};
+}
