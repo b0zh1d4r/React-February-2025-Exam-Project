@@ -4,6 +4,7 @@ import { useCreateVehicle } from "../../hooks/useService";
 import { useState } from "react";
 import ErrorNotification from "../errorNotification/ErrorNotification.jsx";
 
+// Initial values for the form:
 const initialValues = {
     name: "",
     price: "",
@@ -16,31 +17,34 @@ const initialValues = {
 };
 
 export default function Create() {
-    const [error, setError] = useState("");
-    const navigate = useNavigate();
-    const createVehicle = useCreateVehicle();
+    const [error, setError] = useState(""); // State for errors.
+    const navigate = useNavigate(); // Hook for navigation.
+    const createVehicle = useCreateVehicle(); // Function to create a vehicle.
 
+    // Function to handle form submission when creating a new vehicle:
     const createHandler = async (values) => {
         try {
-            setError("");
-            await createVehicle(values);
+            setError(""); // Clear any existing error before making the request.
+            await createVehicle(values); // Send the request to create a new vehicle.
             navigate("/vehicles");
         } catch (err) {
-            setError(err?.error || "Create failed");
+            setError(err?.error || "Create failed"); // Store the error message if any.
         }
     };
 
+    // Using the useForm hook to manage form values:
     const { values, changeHandler, onSubmit } = useForm(initialValues, createHandler);
 
     return (
         <>
             {error && <ErrorNotification message={error} clearError={() => setError("")} />}
+            
             <div className="create-container">
                 <div className="create-box">
                     <h2>Create a New Vehicle Listing</h2>
                     <form onSubmit={onSubmit}>
                         <div className="form-grid">
-                            {[
+                            {[ 
                                 { label: "Vehicle Name", name: "name", type: "text", placeholder: "Enter Vehicle's Name" },
                                 { label: "Price in USD", name: "price", type: "number", placeholder: "Enter Vehicle's Price" },
                                 { label: "Year", name: "year", type: "number", placeholder: "Enter Year of Manufacture" },
@@ -62,6 +66,7 @@ export default function Create() {
                                     />
                                 </div>
                             ))}
+                            
                             <div className="input-group full-width">
                                 <label htmlFor="description">Vehicle Description:</label>
                                 <textarea
@@ -74,6 +79,7 @@ export default function Create() {
                                 />
                             </div>
                         </div>
+                
                         <div className="submit-btn full-width">
                             <button type="submit">Create Listing</button>
                         </div>

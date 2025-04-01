@@ -5,6 +5,7 @@ import { update } from "../../api/vehicleApi";
 import { useEffect, useState } from "react";
 import ErrorNotification from "../errorNotification/ErrorNotification";
 
+// Initial values for the form fields:
 const initialValues = {
     name: '',
     price: '',
@@ -17,11 +18,12 @@ const initialValues = {
 };
 
 export default function Edit() {
-    const [error, setError] = useState('');
+    const [error, setError] = useState(''); // State for handling errors.
     const navigate = useNavigate();
     const { vehicleId } = useParams();
     const [vehicle] = useGetOneVehicle(vehicleId);
 
+    // useForm hook for handling form inputs and submission:
     const { changeHandler, onSubmit, values, changeValues } = useForm(
         Object.assign(initialValues, vehicle.item), 
         async (values) => {
@@ -29,12 +31,13 @@ export default function Edit() {
                 await update(vehicleId, values);
                 navigate(`/vehicles/${vehicleId}`);
             } catch (err) {
-                setError(err.error || 'Update failed');
-                changeValues(values);
+                setError(err.error || 'Update failed'); // Handle errors.
+                changeValues(values); // Retain form values in case of an error.
             }
         }
     );
 
+    // Effect to update form values when vehicle data is available:
     useEffect(() => {
         if (vehicle?.vehicle) {
             changeValues({ ...vehicle.item });
@@ -87,6 +90,7 @@ export default function Edit() {
                             <label htmlFor="transmission">Transmission:</label>
                             <input type="text" id="transmission" name="transmission" required value={values.transmission} onChange={changeHandler} />
                         </div>
+                        
                         <div className="submit-btn">
                             <button type="submit">Edit Listing</button>
                         </div>

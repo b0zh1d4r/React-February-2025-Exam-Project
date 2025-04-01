@@ -7,29 +7,33 @@ import ErrorNotification from "../errorNotification/ErrorNotification";
 
 export default function Details() {
     const { vehicleId } = useParams();
-    const [data] = useGetOneVehicle(vehicleId);
+    const [data] = useGetOneVehicle(vehicleId); // Fetch vehicle data.
     const { userId } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const vehicle = data?.item || {};
     const isOwner = vehicle.owner === userId;
-    const [isLiked, setIsLiked] = useState(vehicle.userList?.includes(userId) || false);
-    const [error, setError] = useState(null);
+    
+    const [isLiked, setIsLiked] = useState(vehicle.userList?.includes(userId) || false); // State to track if the vehicle is liked by the user.
+    const [error, setError] = useState(null); // State to track errors.
 
+    // Update the like status when vehicle.userList changes.
     useEffect(() => {
         setIsLiked(vehicle.userList?.includes(userId) || false);
     }, [vehicle.userList, userId]);
 
+    // Handle liking the vehicle.
     const handleLike = async () => {
         try {
             await like(vehicleId);
-            setIsLiked(true);
+            setIsLiked(true); // Update state to reflect the like.
         } catch (err) {
             setError("Failed to like the vehicle.");
             console.error(err.message);
         }
     };
 
+    // Handle deleting the vehicle.
     const handleDelete = async () => {
         if (!window.confirm("Are you sure?")) return;
 

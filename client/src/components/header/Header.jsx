@@ -3,23 +3,24 @@ import { Link, useLocation } from "react-router";
 import { AuthContext } from "../../contexts/AuthContext";
 
 export default function Header() {
-    const [menuOpen, setMenuOpen] = useState(false);
-    const location = useLocation();
-    const { userId: _id } = useContext(AuthContext); // Check if user is logged in
+    const [menuOpen, setMenuOpen] = useState(false); // State to control if the mobile menu is open
+    const location = useLocation(); // Hook to get the current URL
+    const { userId: _id } = useContext(AuthContext); // Get logged-in user ID from AuthContext
 
     useEffect(() => {
+        // Handle window resizing to close the mobile menu on narrow screens
         const handleResize = () => {
             if (window.innerWidth <= 700) {
-                setMenuOpen(false);
+                setMenuOpen(false); // Close menu if screen width is less than or equal to 700px
             }
         };
 
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
+        window.addEventListener("resize", handleResize); // Add resize event listener
+        return () => window.removeEventListener("resize", handleResize); // Clean up event listener on component unmount
     }, []);
 
-    const toggleMenu = () => setMenuOpen(!menuOpen);
-    const closeMenu = () => setMenuOpen(false);
+    const toggleMenu = () => setMenuOpen(!menuOpen); // Toggle mobile menu visibility
+    const closeMenu = () => setMenuOpen(false); // Close the mobile menu
 
     return (
         <nav className="nav">
@@ -28,13 +29,16 @@ export default function Header() {
                     <img src="../../../public/garagix-logo.png" alt="GaragiX Logo" />
                 </Link>
             </div>
+            {/* Hamburger icon for mobile navigation */}
             <a href="#" className={`nav-hamburger ${menuOpen ? "active" : ""}`} onClick={toggleMenu}>
                 <span className="nav-hamburger-line"></span>
                 <span className="nav-hamburger-line"></span>
                 <span className="nav-hamburger-line"></span>
             </a>
+            {/* Navigation menu, shown when menuOpen is true */}
             <div className={`nav-menu ${menuOpen ? "active" : ""}`}>
                 <ul>
+                    {/* Menu item links */}
                     <li className="nav-menu-link">
                         <Link to="/" onClick={closeMenu} className={location.pathname === "/" ? "active" : ""}>
                             Home
@@ -51,7 +55,7 @@ export default function Header() {
                         </Link>
                     </li>
 
-                    {/* Logged-in Users */}
+                    {/* Conditional rendering for logged-in users */}
                     {_id ? (
                         <div className="nav-authenticated">
                             <li className="nav-menu-link">
@@ -71,7 +75,7 @@ export default function Header() {
                             </li>
                         </div>
                     ) : (
-                        // Not Logged-in Users
+                        // Menu items for guests (not logged-in users)
                         <div className="nav-guest">
                             <li className="nav-menu-link">
                                 <Link to="/login" onClick={closeMenu} className={location.pathname === "/login" ? "active" : ""}>
@@ -90,4 +94,3 @@ export default function Header() {
         </nav>
     );
 }
-
