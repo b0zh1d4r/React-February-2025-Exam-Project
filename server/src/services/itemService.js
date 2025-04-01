@@ -54,6 +54,13 @@ export const itemService = {
         );
     },
 
+    undoLike(itemId, userId) {
+        return Item.updateOne(
+            { _id: itemId },
+            { $pull: { userList: userId } }
+        );
+    },
+
     getByOwner(ownerId) {
         return Item.find({ owner: ownerId });
     },

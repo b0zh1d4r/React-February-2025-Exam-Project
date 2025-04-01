@@ -1,5 +1,5 @@
 import { useGetOneVehicle } from "../../hooks/useService";
-import { like, remove } from "../../api/vehicleApi";
+import { like, remove, undoLike } from "../../api/vehicleApi";
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import { Link, useNavigate, useParams } from "react-router";
@@ -13,27 +13,43 @@ export default function Details() {
 
     const vehicle = data?.item || {};
     const isOwner = vehicle.owner === userId;
-    
-    const [isLiked, setIsLiked] = useState(vehicle.userList?.includes(userId) || false); // State to track if the vehicle is liked by the user.
-    const [error, setError] = useState(null); // State to track errors.
 
-    // Update the like status when vehicle.userList changes.
+    // State to track like status and count
+    const [isLiked, setIsLiked] = useState(vehicle.userList?.includes(userId) || false);
+    const [likeCount, setLikeCount] = useState(vehicle.userList?.length || 0);
+    const [error, setError] = useState(null);
+
+    // Update the like status and count when vehicle data changes
     useEffect(() => {
         setIsLiked(vehicle.userList?.includes(userId) || false);
+        setLikeCount(vehicle.userList?.length || 0);
     }, [vehicle.userList, userId]);
 
-    // Handle liking the vehicle.
+    // Handle liking the vehicle
     const handleLike = async () => {
         try {
             await like(vehicleId);
-            setIsLiked(true); // Update state to reflect the like.
+            setIsLiked(true);
+            setLikeCount(prev => prev + 1); // Increase like count
         } catch (err) {
             setError("Failed to like the vehicle.");
             console.error(err.message);
         }
     };
 
-    // Handle deleting the vehicle.
+    // Handle undo like the vehicle
+    const handleUndoLike = async () => {
+        try {
+            await undoLike(vehicleId);
+            setIsLiked(false);
+            setLikeCount(prev => Math.max(0, prev - 1)); // Decrease like count
+        } catch (err) {
+            setError("Failed to unlike the vehicle.");
+            console.error(err.message);
+        }
+    };
+
+    // Handle deleting the vehicle
     const handleDelete = async () => {
         if (!window.confirm("Are you sure?")) return;
 
@@ -62,7 +78,7 @@ export default function Details() {
                         <p className="description">Engine: <span className="others">{vehicle.engine}</span></p>
                         <p className="description">Condition: <span className="others">{vehicle.condition}</span></p>
                         <p className="description">Transmission: <span className="others">{vehicle.transmission}</span></p>
-                        <p className="description">Likes: <span className="others">{vehicle.userList?.length || 0}</span></p>
+                        <p className="description">Likes: <span className="others">{likeCount}</span></p>
 
                         {!isOwner && (
                             <Link to={`/vehicles/contact-dealer/${data?.item?.owner}`} className="contact-btn">Contact Dealer</Link>
@@ -74,8 +90,12 @@ export default function Details() {
                                 <button onClick={handleDelete} className="delete-btn">Delete</button>
                             </>
                         ) : (
-                            userId && !isLiked && (
-                                <button onClick={handleLike} className="like-btn">Like</button>
+                            userId && (
+                                isLiked ? (
+                                    <button onClick={handleUndoLike} className="like-btn">Undo Like</button>
+                                ) : (
+                                    <button onClick={handleLike} className="like-btn">Like</button>
+                                )
                             )
                         )}
                     </div>

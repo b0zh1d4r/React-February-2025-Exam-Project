@@ -5,16 +5,18 @@ import ErrorNotification from "../errorNotification/ErrorNotification.jsx";
 
 export default function Catalog() {
     const [error, setError] = useState(null);
-    const [sortBy, setSortBy] = useState("most-popular");
+    const [sortBy, setSortBy] = useState("best-rating");
     const [searchQuery, setSearchQuery] = useState("");
-
-    const [vehicles, setVehicles] = useGetAllVehicles();
+    const [vehicles] = useGetAllVehicles();
+    const [sortedVehicles, setSortedVehicles] = useState([]);
 
     useEffect(() => {
         if (!vehicles) {
             setError("Failed to fetch vehicles. Please try again later.");
+        } else {
+            setSortedVehicles(sortVehicles(filterVehicles(vehicles, searchQuery), sortBy));
         }
-    }, [vehicles]);
+    }, [vehicles, sortBy, searchQuery]); // Re-run when sortBy or searchQuery changes
 
     const sortVehicles = (vehicles, sortBy) => {
         switch (sortBy) {
@@ -31,8 +33,8 @@ export default function Catalog() {
 
     const filterVehicles = (vehicles, query) => {
         return vehicles.filter(vehicle => {
-            const name = vehicle.name ? vehicle.name.toLowerCase() : '';
-            const model = vehicle.model ? vehicle.model.toLowerCase() : '';
+            const name = vehicle.name ? vehicle.name.toLowerCase() : "";
+            const model = vehicle.model ? vehicle.model.toLowerCase() : "";
             return name.includes(query.toLowerCase()) || model.includes(query.toLowerCase());
         });
     };
@@ -44,9 +46,6 @@ export default function Catalog() {
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value);
     };
-
-    const filteredVehicles = filterVehicles(vehicles, searchQuery);
-    const sortedVehicles = sortVehicles(filteredVehicles, sortBy);
 
     const clearError = () => {
         setError(null);
@@ -89,4 +88,4 @@ export default function Catalog() {
             </section>
         </>
     );
-};
+}

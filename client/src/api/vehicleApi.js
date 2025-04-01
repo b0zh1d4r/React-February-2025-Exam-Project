@@ -28,3 +28,7 @@ export const update = async (vehicleId, vehicleData) => {
 export const like = async (vehicleId) => {
     return await requester.get(`${BASE_URL}/${vehicleId}/like`);
 };
+
+export const undoLike = async (vehicleId) => {
+    return await requester.get(`${BASE_URL}/${vehicleId}/undoLike`);
+};

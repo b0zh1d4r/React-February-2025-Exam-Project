@@ -112,4 +112,20 @@ routes.get('/:vehicleId/like', isAuth, async (req, res) => {
     }
 });
 
+// GET route to undo like an item (only for authenticated users):
+routes.get('/:vehicleId/undoLike', isAuth, async (req, res) => {
+    const vehicleId = req.params.vehicleId;
+    const userId = req.user._id;
+
+    try {
+        // Attempt to undo like the item
+        const updatedItem = await itemService.undoLike(vehicleId, userId);
+         // Return the updated item as a JSON response:
+        res.json(updatedItem);
+    } catch (err) {
+        // If there's an error, return an error message with a 400 status code:
+        res.status(400).json({ error: getErrorMessage(err) });
+    }
+});
+
 export default routes;
