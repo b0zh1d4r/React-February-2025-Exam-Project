@@ -4,35 +4,35 @@ import { checkIfUser } from "../middlewares/authMiddleware.js";
 
 const userController = Router();
 
+// Route to fetch the current user's data:
 userController.get('/me', checkIfUser, (req, res) => {
     try {
-        res.json(req.user);
+        res.json(req.user); // Return user data.
     } catch (err) {
-        console.error("Error fetching user:", err);
-        res.status(500).json({ error: "Failed to retrieve user data" });
+        res.status(500).json({ error: "Failed to retrieve user data" }); // Handle errors.
     }
 });
 
+// Route to fetch all users:
 userController.get('/all', async (req, res) => {
     try {
-        const users = await getAllUsers();
-        res.json(users);
+        const users = await getAllUsers(); // Get all users.
+        res.json(users); // Return all users as JSON.
     } catch (err) {
-        console.error("Error fetching all users:", err);
-        res.status(500).json({ error: "Failed to retrieve users" });
+        res.status(500).json({ error: "Failed to retrieve users" }); // Handle errors.
     }
 });
 
+// Route to fetch a user by their ID:
 userController.get('/all/:userId', async (req, res) => {
     try {
-        const user = await getUserById(req.params.userId);
+        const user = await getUserById(req.params.userId); // Get user by ID.
         if (!user) {
-            return res.status(404).json({ error: "User not found" });
+            return res.status(404).json({ error: "User not found" }); // Handle if user doesn't exist.
         }
-        res.json(user);
+        res.json(user); // Return user data
     } catch (err) {
-        console.error(`Error fetching user with ID ${req.params.userId}:`, err);
-        res.status(500).json({ error: "Failed to retrieve user" });
+        res.status(500).json({ error: "Failed to retrieve user" }); // Handle errors.
     }
 });
 

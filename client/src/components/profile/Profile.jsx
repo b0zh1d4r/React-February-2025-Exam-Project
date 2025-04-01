@@ -6,35 +6,41 @@ import VehicleProfile from "./vehicleProfile/VehicleProfile";
 import ErrorNotification from "../errorNotification/ErrorNotification";
 
 export default function Profile() {
-    const { userId } = useContext(AuthContext);
-    const [userDetails, setUserDetails] = useState(null);
-    const [vehicles, setVehicles] = useState([]);
-    const [error, setError] = useState(null);
+    const { userId } = useContext(AuthContext); // Get userId from AuthContext to fetch user-specific data.
+    const [userDetails, setUserDetails] = useState(null); // State to store user details.
+    const [vehicles, setVehicles] = useState([]); // State to store user's vehicles.
+    const [error, setError] = useState(null); // State to store error messages.
 
+    // useCallback hook to prevent re-fetching user details unless userId changes:
     const fetchUserDetails = useCallback(async () => {
         try {
+            // Fetch user data based on userId:
             const data = await getUserById(`${userId}?timestamp=${Date.now()}`);
-            setUserDetails(data);
+            setUserDetails(data); // Store user details in state.
 
+            // If the user has vehicles, fetch each vehicle's data:
             if (data?.vehicles?.length) {
                 const vehiclesData = await Promise.all(
                     data.vehicles.map(vehicleId => getOne(`${vehicleId}?timestamp=${Date.now()}`))
                 );
+                // Filter out any undefined or null vehicles:
                 setVehicles(vehiclesData.filter(vehicle => vehicle?.item));
             } else {
-                setVehicles([]);
+                setVehicles([]); // If no vehicles, set empty array.
             }
         } catch (err) {
+            // Handle errors and set an error message:
             setError("Failed to fetch user details or vehicles.");
             console.error(err);
         }
     }, [userId]);
 
+    // useEffect hook to fetch user details and vehicle data on mount, and every 10 seconds thereafter:
     useEffect(() => {
-        if (!userId) return;
-        fetchUserDetails();
-        const interval = setInterval(fetchUserDetails, 10000);
-        return () => clearInterval(interval);
+        if (!userId) return; // If userId is not available, do nothing.
+        fetchUserDetails(); // Fetch user details and vehicles initially.
+        const interval = setInterval(fetchUserDetails, 10000); // Refetch every 10 seconds.
+        return () => clearInterval(interval); // Clean up interval on component unmount.
     }, [userId, fetchUserDetails]);
 
     return (
@@ -51,6 +57,7 @@ export default function Profile() {
                         <p>Vehicles Dealer @GaragiX</p>
                     </div>
                 </div>
+
                 <div className="profile-details">
                     <h2>Contact Information:</h2>
                     <ul>
@@ -60,6 +67,7 @@ export default function Profile() {
                         <li><strong>Location:</strong> {userDetails?.location}</li>
                     </ul>
                 </div>
+
                 <div className="profile-vehicles">
                     <h2>All Your Vehicle Listings:</h2>
                     {vehicles.length > 0 ? (
@@ -72,6 +80,5 @@ export default function Profile() {
                 </div>
             </div>
         </>
-
     );
 }

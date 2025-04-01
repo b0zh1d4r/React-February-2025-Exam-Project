@@ -4,25 +4,28 @@ import { useForm } from "../../hooks/useForm.js";
 import { useState } from "react";
 import ErrorNotification from "../errorNotification/ErrorNotification.jsx";
 
+// Initial form values for email and password:
 const initialValues = { email: "", password: "" };
 
 export default function Login() {
-    const [error, setError] = useState("");
-    const login = useLogin();
-    const navigate = useNavigate();
+    const [error, setError] = useState(""); // State to manage error messages.
+    const login = useLogin(); // Custom hook for handling login.
+    const navigate = useNavigate(); // Hook for navigation after successful login.
 
+    // Handler function for login, takes email and password:
     const loginHandler = async ({ email, password }) => {
         try {
-            setError("");
+            setError(""); // Reset error message before trying to log in.
 
             await login(email, password);
 
-            navigate("/");
+            navigate("/"); 
         } catch (err) {
-            setError(err.message || "Login failed. Please try again.");
+            setError(err.message || "Login failed. Please try again."); // Display error if login fails.
         }
     };
 
+    // useForm hook for managing form values and handling submit:
     const { values, changeHandler, onSubmit } = useForm(initialValues, loginHandler);
 
     return (
@@ -55,9 +58,11 @@ export default function Login() {
                             />
                             <i className="icon fa-solid fa-key"></i>
                         </div>
+
                         <div className="login-btn">
                             <button type="submit">Login</button>
                         </div>
+
                         <div className="notRegisteredYet">
                             <Link to="/register">Not registered yet?</Link>
                         </div>

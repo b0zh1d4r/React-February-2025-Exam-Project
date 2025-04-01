@@ -5,21 +5,24 @@ import TopVehicle from "./topVehicle/TopVehicle.jsx";
 import ErrorNotification from "../errorNotification/ErrorNotification.jsx";
 
 export default function Home() {
+    // Fetch all vehicles and handle errors:
     const [vehicles, error] = useGetAllVehicles();
-    const [errorMessage, setErrorMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState(""); // State to manage error message.
 
+    // Update error message if error occurs:
     useEffect(() => {
         if (error) {
-            setErrorMessage(error.message);
+            setErrorMessage(error.message); // Set error message to show in notification.
         }
-    }, [error]);
+    }, [error]); // Effect depends on the error value.
 
+    // Get top 3 most liked vehicles by sorting based on userList length (likes):
     const topLikedVehicles = vehicles
-        .sort((a, b) => b.userList.length - a.userList.length)
-        .slice(0, 3);
+        .sort((a, b) => b.userList.length - a.userList.length) // Sort by number of likes (userList).
+        .slice(0, 3); // Take top 3.
 
-    const latestVehicles = vehicles.slice(-3);
-    
+    // Get the latest 3 vehicles:
+    const latestVehicles = vehicles.slice(-3); // Slice the last 3 vehicles.
 
     return (
         <>
@@ -28,7 +31,7 @@ export default function Home() {
             <section className="section main">
                 <div className="inner">
                     <article className="card">
-                        <img src="toyota-supra.png" alt="Toyota Supra" />
+                        <img src="toyota-supra.png" alt="Toyota Supra" /> {/* Example car image */}
                     </article>
                 </div>
             </section>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { create, getAll, getOne } from "../api/vehicleApi";
 import { useNavigate } from "react-router";
 
+// Custom hook to get all vehicles:
 export function useGetAllVehicles() {
     const [vehicles, setVehicles] = useState([]);
 
@@ -16,6 +17,7 @@ export function useGetAllVehicles() {
     return [vehicles, setVehicles];
 }
 
+// Custom hook to get a single vehicle by its ID:
 export function useGetOneVehicle(vehicleId) {
     const [vehicle, setVehicle] = useState({});
     const [error, setError] = useState(null);
@@ -39,6 +41,7 @@ export function useGetOneVehicle(vehicleId) {
     return [vehicle, setVehicle, error];
 }
 
+// Custom hook to create a new vehicle:
 export function useCreateVehicle() {
     const vehicleGetHandler = async (data) => {
         return await create(data);

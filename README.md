@@ -9,6 +9,7 @@ A dynamic platform for buying and selling vehicles, built with React and JSX.
 - Advanced search and filtering options.
 - Responsive and modern design.
 - Open-source and customizable.
+- Code explanations.
 
 ## 🛠 Installation:
 
