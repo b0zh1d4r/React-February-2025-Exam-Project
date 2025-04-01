@@ -4,49 +4,65 @@ import Vehicle from "./vehicle/Vehicle.jsx";
 import ErrorNotification from "../errorNotification/ErrorNotification.jsx";
 
 export default function Catalog() {
+    // State for handling errors:
     const [error, setError] = useState(null);
+
+    // State for sorting (default: "best-rating"):
     const [sortBy, setSortBy] = useState("best-rating");
+
+    // State for search input:
     const [searchQuery, setSearchQuery] = useState("");
+
+    // Fetch all vehicles using a custom hook:
     const [vehicles] = useGetAllVehicles();
+
+    // State to store sorted and filtered vehicles:
     const [sortedVehicles, setSortedVehicles] = useState([]);
 
+    // Effect hook to update the vehicle list when vehicles, sorting, or search query changes:
     useEffect(() => {
         if (!vehicles) {
-            setError("Failed to fetch vehicles. Please try again later.");
+            setError("Failed to fetch vehicles. Please try again later."); // Handle fetch failure.
         } else {
+            // First, filter vehicles based on search query, then sort them accordingly.
             setSortedVehicles(sortVehicles(filterVehicles(vehicles, searchQuery), sortBy));
         }
-    }, [vehicles, sortBy, searchQuery]); // Re-run when sortBy or searchQuery changes
+    }, [vehicles, sortBy, searchQuery]); // Dependencies: runs whenever vehicles, sortBy, or searchQuery changes.
 
+    // Function to sort vehicles based on the selected sorting option:
     const sortVehicles = (vehicles, sortBy) => {
         switch (sortBy) {
             case "best-rating":
-                return [...vehicles].sort((a, b) => b.userList.length - a.userList.length);
+                return [...vehicles].sort((a, b) => b.userList.length - a.userList.length); // Sort by number of likes (descending).
             case "price-low-high":
-                return [...vehicles].sort((a, b) => a.price - b.price);
+                return [...vehicles].sort((a, b) => a.price - b.price); // Sort by price (low to high).
             case "price-high-low":
-                return [...vehicles].sort((a, b) => b.price - a.price);
+                return [...vehicles].sort((a, b) => b.price - a.price); // Sort by price (high to low).
             default:
-                return [...vehicles].sort((a, b) => new Date(b.year) - new Date(a.year));
+                return [...vehicles].sort((a, b) => new Date(b.year) - new Date(a.year)); // Sort by year (newest first).
         }
     };
 
+    // Function to filter vehicles based on the search query:
     const filterVehicles = (vehicles, query) => {
         return vehicles.filter(vehicle => {
-            const name = vehicle.name ? vehicle.name.toLowerCase() : "";
-            const model = vehicle.model ? vehicle.model.toLowerCase() : "";
-            return name.includes(query.toLowerCase()) || model.includes(query.toLowerCase());
+            const name = vehicle.name ? vehicle.name.toLowerCase() : ""; // Convert name to lowercase for case-insensitive search.
+            const model = vehicle.model ? vehicle.model.toLowerCase() : ""; // Convert model to lowercase.
+            return name.includes(query.toLowerCase()) || model.includes(query.toLowerCase()); // Match name or model.
         });
     };
 
+    // Handles sorting option change.
     const handleSortChange = (event) => {
         setSortBy(event.target.value);
     };
 
+    // Handles search input change.
     const handleSearchChange = (event) => {
         setSearchQuery(event.target.value);
     };
 
+    // Clears error messages.
     const clearError = () => {
         setError(null);
     };
@@ -56,7 +72,8 @@ export default function Catalog() {
             {error && <ErrorNotification message={error} clearError={clearError} />} 
 
             <section className="top-vehicles">
-                <h2>All Our Vehicles: </h2>
+                <h2>All Our Vehicles:</h2>
+
                 <form action="search-results.html" method="GET" className="search-form">
                     <input
                         type="text"
