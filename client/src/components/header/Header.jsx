@@ -3,30 +3,30 @@ import { Link, useLocation } from "react-router";
 import { AuthContext } from "../../contexts/AuthContext";
 
 export default function Header() {
-    const [menuOpen, setMenuOpen] = useState(false); // State to control if the mobile menu is open
-    const location = useLocation(); // Hook to get the current URL
-    const { userId: _id } = useContext(AuthContext); // Get logged-in user ID from AuthContext
+    const [menuOpen, setMenuOpen] = useState(false); // State to control if the mobile menu is open.
+    const location = useLocation(); // Hook to get the current URL.
+    const { userId: _id } = useContext(AuthContext); // Get logged-in user ID from AuthContext.
 
     useEffect(() => {
-        // Handle window resizing to close the mobile menu on narrow screens
+        // Handle window resizing to close the mobile menu on narrow screens:
         const handleResize = () => {
             if (window.innerWidth <= 700) {
-                setMenuOpen(false); // Close menu if screen width is less than or equal to 700px
+                setMenuOpen(false); // Close menu if screen width is less than or equal to 700px.
             }
         };
 
-        window.addEventListener("resize", handleResize); // Add resize event listener
-        return () => window.removeEventListener("resize", handleResize); // Clean up event listener on component unmount
+        window.addEventListener("resize", handleResize); // Add resize event listener.
+        return () => window.removeEventListener("resize", handleResize); // Clean up event listener on component unmount.
     }, []);
 
-    const toggleMenu = () => setMenuOpen(!menuOpen); // Toggle mobile menu visibility
-    const closeMenu = () => setMenuOpen(false); // Close the mobile menu
+    const toggleMenu = () => setMenuOpen(!menuOpen); // Toggle mobile menu visibility.
+    const closeMenu = () => setMenuOpen(false); // Close the mobile menu.
 
     return (
         <nav className="nav">
             <div className="nav-logo">
                 <Link to="/">
-                    <img src="../../../public/garagix-logo.png" alt="GaragiX Logo" />
+                    <img src="/garagix-logo.png" alt="GaragiX Logo" />
                 </Link>
             </div>
             {/* Hamburger icon for mobile navigation */}
