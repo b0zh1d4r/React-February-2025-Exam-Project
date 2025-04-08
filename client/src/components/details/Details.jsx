@@ -55,6 +55,7 @@ export default function Details() {
 
         try {
             await remove(vehicleId);
+            alert("Vehicle has been deleted successfully.");
             navigate("/vehicles");
         } catch (err) {
             setError("Failed to delete the vehicle.");

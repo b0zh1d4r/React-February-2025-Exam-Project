@@ -61,7 +61,6 @@ export default function Profile() {
                 <div className="profile-details">
                     <h2>Contact Information:</h2>
                     <ul>
-                        <li><strong>ID:</strong> {userDetails?._id}</li>
                         <li><strong>Email:</strong> {userDetails?.email}</li>
                         <li><strong>Phone Number:</strong> {userDetails?.phoneNumber}</li>
                         <li><strong>Location:</strong> {userDetails?.location}</li>
