@@ -9,11 +9,11 @@ const ErrorNotification = ({ message, clearError }) => {
         if (message) {
             setIsVisible(true); // Show the notification when there is an error message.
             
-            // Automatically hide the notification after 3 seconds:
+            // Automatically hide the notification after 5 seconds:
             const timer = setTimeout(() => {
                 setIsVisible(false);
                 clearError(); // Clear the error message after hiding the notification.
-            }, 3000);
+            }, 5000);
             
             return () => clearTimeout(timer); // Cleanup the timer when the component unmounts or updates.
         }
