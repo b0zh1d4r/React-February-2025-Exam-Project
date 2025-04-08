@@ -30,7 +30,7 @@ export default function Edit() {
         if (!values.price || values.price <= 0) return "Price must be a positive number!";
         const currentYear = new Date().getFullYear();
         if (!values.year || values.year < 1886 || values.year > currentYear) {
-            return `Year must be between 1886 and ${currentYear}.`;
+            return `Enter a year between 1886 and ${currentYear}.`;
         }
         if (!values.imageUrl.trim() || !/^https?:\/\/.+/.test(values.imageUrl)) {
             return "Enter a valid Image URL (starting with http/https).";

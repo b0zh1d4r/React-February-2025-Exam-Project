@@ -28,9 +28,10 @@ export default function Create() {
         if (values.name.length < 2) return setError("Name must be at least 2 characters long!");
         if (!values.price.trim()) return setError("Price is required.");
         if (values.price < 0) return setError("Price must be a positive number!");
-        if (!values.year.trim()) return setError("Year is required.")
-        if (values.year < 1886 || values.year > new Date().getFullYear()) {
-            return setError("Enter a valid year.");
+        if (!values.year.trim()) return setError("Year is required.");
+        const currentYear = new Date().getFullYear();
+        if (values.year < 1886 || values.year > currentYear) {
+            return setError(`Enter a year between 1886 and ${currentYear}.`);
         }
 
         if (!values.imageUrl.trim()) return setError("Image URL is required.");

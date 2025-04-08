@@ -5,21 +5,20 @@ import { useState } from "react";
 import ErrorNotification from "../errorNotification/ErrorNotification.jsx";
 
 // Initial form values:
-const initialValues = { 
-    username: '', 
-    email: '', 
-    phoneNumber: '', 
-    location: '', 
-    password: '', 
+const initialValues = {
+    username: '',
+    email: '',
+    phoneNumber: '',
+    location: '',
+    password: '',
     repeatPassword: ''
 };
 
 export default function Register() {
-    const [error, setError] = useState(''); // State to store any error messages.
+    const [error, setError] = useState('');
     const register = useRegister();
     const navigate = useNavigate();
 
-    // Validation function:
     const validate = ({ username, email, phoneNumber, location, password, repeatPassword }) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const passwordRegex = /(?=.*[A-Z])(?=.*[a-z])(?=.*\d)/;
@@ -37,26 +36,54 @@ export default function Register() {
         if (!passwordRegex.test(password)) return "Password must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number!";
         if (password !== repeatPassword) return "Passwords do not match.";
 
-        return null; // No errors.
+        return null;
     };
 
-    // Register handler function:
     const registerHandler = async (values) => {
         const validationError = validate(values);
-        if (validationError) return setError(validationError);
+
+        if (validationError) {
+            setError(validationError);
+
+            // Clear password fields on validation error
+            if (
+                validationError.includes("Password") ||
+                validationError.includes("Passwords do not match")
+            ) {
+                changeValues(prev => ({
+                    ...prev,
+                    password: '',
+                    repeatPassword: ''
+                }));
+            }
+
+            return;
+        }
 
         try {
-            setError(""); // Clear previous errors.
-
-            await register(values.username, values.email, values.phoneNumber, values.location, values.password, values.repeatPassword);
-            navigate('/'); // Redirect after successful registration.
+            setError("");
+            await register(
+                values.username,
+                values.email,
+                values.phoneNumber,
+                values.location,
+                values.password,
+                values.repeatPassword
+            );
+            navigate('/');
         } catch (err) {
-            setError(err.error || 'Registration failed'); // Set error message if registration fails.
+            setError(err.error || 'Registration failed');
+
+            // Clear password fields on server error
+            changeValues(prev => ({
+                ...prev,
+                password: '',
+                repeatPassword: ''
+            }));
         }
     };
 
-    // useForm hook to manage form state and handle form submission:
-    const { values, changeHandler, onSubmit } = useForm(initialValues, registerHandler);
+    const { values, changeHandler, onSubmit, changeValues } = useForm(initialValues, registerHandler);
 
     return (
         <>
@@ -70,7 +97,7 @@ export default function Register() {
                             <input type="text" placeholder="Username" name="username" required value={values.username} onChange={changeHandler} />
                             <i className="icon fa-solid fa-user"></i>
                         </div>
-                        
+
                         <div className="textbox">
                             <input type="email" placeholder="Email" name="email" required value={values.email} onChange={changeHandler} />
                             <i className="icon fa-solid fa-envelope"></i>

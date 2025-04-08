@@ -54,7 +54,11 @@ export default function Profile() {
                     </div>
                     <div className="profile-info">
                         <h1>{userDetails?.username}</h1>
-                        <p>Vehicles Dealer @GaragiX</p>
+                        {vehicles.length > 0 ? (
+                            <p>Vehicle Dealer @ Garagix</p>
+                        ) : (
+                            <p>User @ GaragiX</p>
+                        )}
                     </div>
                 </div>
 
