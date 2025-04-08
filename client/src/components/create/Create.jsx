@@ -45,7 +45,7 @@ export default function Create() {
         if (values.transmission.length < 2) return setError("Transmission must be at least 2 characters long!");
         if (!values.description.trim()) return setError("Description is required.");
         if (values.description.length < 10) {
-            return setError("Description must be at least 10 characters long.");
+            return setError("Description must be at least 10 characters long!");
         }
     
         try {

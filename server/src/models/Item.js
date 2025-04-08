@@ -30,7 +30,7 @@ const itemSchema = new Schema ({
     description: {
         type: String,
         required: [true, 'Description is required.'],
-        minLength: [10, 'Description must be at least 10 characters long.']
+        minLength: [10, 'Description must be at least 10 characters long!']
     },
 
     engine: {

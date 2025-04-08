@@ -26,7 +26,7 @@ export default function Edit() {
     const validate = (values) => {
         if (!values.name.trim()) return "Name is required.";
         if (values.name.trim().length < 2) return "Name must be at least 2 characters!";
-        if (!values.price || values.price <= 0) return "Price must be a positive number.";
+        if (!values.price || values.price <= 0) return "Price must be a positive number!";
         const currentYear = new Date().getFullYear();
         if (!values.year || values.year < 1886 || values.year > currentYear) {
             return `Year must be between 1886 and ${currentYear}.`;
