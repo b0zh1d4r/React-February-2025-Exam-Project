@@ -4,7 +4,7 @@ import { useForm } from "../../hooks/useForm";
 import { useState } from "react";
 import ErrorNotification from "../errorNotification/ErrorNotification.jsx";
 
-// Initial form values
+// Initial form values:
 const initialValues = { 
     username: '', 
     email: '', 
@@ -15,11 +15,11 @@ const initialValues = {
 };
 
 export default function Register() {
-    const [error, setError] = useState(''); // State to store any error messages
+    const [error, setError] = useState(''); // State to store any error messages.
     const register = useRegister();
     const navigate = useNavigate();
 
-    // Validation function
+    // Validation function:
     const validate = ({ username, email, phoneNumber, location, password, repeatPassword }) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const passwordRegex = /(?=.*[A-Z])(?=.*[a-z])(?=.*\d)/;
@@ -37,25 +37,25 @@ export default function Register() {
         if (!passwordRegex.test(password)) return "Password must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number!";
         if (password !== repeatPassword) return "Passwords do not match.";
 
-        return null; // No errors
+        return null; // No errors.
     };
 
-    // Register handler function
+    // Register handler function:
     const registerHandler = async (values) => {
         const validationError = validate(values);
         if (validationError) return setError(validationError);
 
         try {
-            setError(""); // Clear previous errors
+            setError(""); // Clear previous errors.
 
             await register(values.username, values.email, values.phoneNumber, values.location, values.password, values.repeatPassword);
-            navigate('/'); // Redirect after successful registration
+            navigate('/'); // Redirect after successful registration.
         } catch (err) {
-            setError(err.error || 'Registration failed'); // Set error message if registration fails
+            setError(err.error || 'Registration failed'); // Set error message if registration fails.
         }
     };
 
-    // useForm hook to manage form state and handle form submission
+    // useForm hook to manage form state and handle form submission:
     const { values, changeHandler, onSubmit } = useForm(initialValues, registerHandler);
 
     return (

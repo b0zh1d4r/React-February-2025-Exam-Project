@@ -11,6 +11,7 @@ export default function Login() {
     const login = useLogin();
     const navigate = useNavigate();
 
+    // Validations:
     const validate = ({ email, password }) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const passwordRegex = /(?=.*[A-Z])(?=.*[a-z])(?=.*\d)/;

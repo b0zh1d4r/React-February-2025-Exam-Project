@@ -23,6 +23,7 @@ export default function Edit() {
     const { vehicleId } = useParams();
     const [vehicle] = useGetOneVehicle(vehicleId);
 
+    // Validations:
     const validate = (values) => {
         if (!values.name.trim()) return "Name is required.";
         if (values.name.trim().length < 2) return "Name must be at least 2 characters!";
@@ -46,21 +47,32 @@ export default function Edit() {
         return null;
     };
 
+    // Destructuring the useForm hook to extract changeHandler, onSubmit, values, and changeValues:
     const { changeHandler, onSubmit, values, changeValues } = useForm(
+        // Merging the initial values with the vehicle item data.
         Object.assign(initialValues, vehicle.item),
+
+        // The callback function that will be executed when the form is submitted:
         async (values) => {
+            // Validate the form values and check if any error occurs.
             const validationError = validate(values);
+            // If there's a validation error, return and display it.
             if (validationError) return setError(validationError);
 
             try {
+                // Attempt to update the vehicle data by calling the update function with vehicleId and form values.
                 await update(vehicleId, values);
+                // If successful, navigate to the vehicle details page using the vehicleId.
                 navigate(`/vehicles/${vehicleId}`);
             } catch (err) {
+                // If an error occurs during the update process, set the error message.
                 setError(err.error || "Update failed");
+                // Restore the form values to the state before the error occurred.
                 changeValues(values);
             }
         }
     );
+
 
     useEffect(() => {
         if (vehicle?.vehicle) {
