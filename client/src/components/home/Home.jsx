@@ -22,7 +22,7 @@ export default function Home() {
         .slice(0, 3); // Take top 3.
 
     // Get the latest 3 vehicles:
-    const latestVehicles = vehicles.slice(-3); // Slice the last 3 vehicles.
+    const latestVehicles = vehicles.slice(-3).reverse(); // Slice the last 3 vehicles (reversed).
 
     return (
         <>

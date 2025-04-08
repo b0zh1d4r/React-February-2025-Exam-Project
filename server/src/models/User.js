@@ -7,33 +7,33 @@ const userSchema = new Schema({
     
     username: {
         type: String,
-        required: [true, 'Username is required'],
-        minlength: [3, 'Username must be at least 3 characters long']
+        required: [true, 'Username is required.'],
+        minlength: [2, 'Username must be at least 2 characters long!']
     },
 
     email: {
         type: String,
-        required: [true, 'Email is required'],
+        required: [true, 'Email is required.'],
         unique: true,
-        match: [/^\S+@\S+\.\S+$/, 'Please enter a valid email address']
+        match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Invalid email format.']
     },
 
     phoneNumber: {
         type: String,
-        required: [true, 'Phone number is required!'],
-        match: [/^\+?\d{7,15}$/, 'Invalid phone number format!']
+        required: [true, 'Phone number is required.'],
+        match: [/^\+?\d{7,15}$/, 'Invalid phone number format.']
     },
 
     location: {
         type: String,
-        required: [true, 'Location is required!'],
-        minlength: [3, 'Location must be at least 3 characters long!']
+        required: [true, 'Location is required.'],
+        minlength: [1, 'Location must be at least 2 character long!']
     },
 
     password: {
         type: String, 
-        required: [true, 'Password is required!'],
-        match: [/(?=.*[A-Z])(?=.*[a-z])(?=.*\d)/, 'Password must contain at least one uppercase letter, one lowercase letter, and one number!']
+        required: [true, 'Password is required.'],
+        match: [/(?=.*[A-Z])(?=.*[a-z])(?=.*\d)/, 'Password must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number!'],
     },
 
     vehicles: [{

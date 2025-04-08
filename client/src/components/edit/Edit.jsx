@@ -18,26 +18,50 @@ const initialValues = {
 };
 
 export default function Edit() {
-    const [error, setError] = useState(''); // State for handling errors.
+    const [error, setError] = useState('');
     const navigate = useNavigate();
     const { vehicleId } = useParams();
     const [vehicle] = useGetOneVehicle(vehicleId);
 
-    // useForm hook for handling form inputs and submission:
+    const validate = (values) => {
+        if (!values.name.trim()) return "Name is required.";
+        if (values.name.trim().length < 2) return "Name must be at least 2 characters!";
+        if (!values.price || values.price <= 0) return "Price must be a positive number.";
+        const currentYear = new Date().getFullYear();
+        if (!values.year || values.year < 1886 || values.year > currentYear) {
+            return `Year must be between 1886 and ${currentYear}.`;
+        }
+        if (!values.imageUrl.trim() || !/^https?:\/\/.+/.test(values.imageUrl)) {
+            return "Enter a valid Image URL (starting with http/https).";
+        }
+        if (!values.engine.trim()) return "Engine is required.";
+        if (values.engine.trim().length < 2) return "Engine must be at least 2 characters!";
+        if (!values.condition.trim()) return "Condition is required.";
+        if (values.condition.trim().length < 2) return "Condition must be at least 2 characters!";
+        if (!values.transmission.trim()) return "Transmission is required.";
+        if (values.transmission.trim().length < 2) return "Transmission must be at least 2 characters!";
+        if (!values.description.trim() || values.description.trim().length < 10) {
+            return "Description must be at least 10 characters long.";
+        }
+        return null;
+    };
+
     const { changeHandler, onSubmit, values, changeValues } = useForm(
-        Object.assign(initialValues, vehicle.item), 
+        Object.assign(initialValues, vehicle.item),
         async (values) => {
+            const validationError = validate(values);
+            if (validationError) return setError(validationError);
+
             try {
                 await update(vehicleId, values);
                 navigate(`/vehicles/${vehicleId}`);
             } catch (err) {
-                setError(err.error || 'Update failed'); // Handle errors.
-                changeValues(values); // Retain form values in case of an error.
+                setError(err.error || "Update failed");
+                changeValues(values);
             }
         }
     );
 
-    // Effect to update form values when vehicle data is available:
     useEffect(() => {
         if (vehicle?.vehicle) {
             changeValues({ ...vehicle.item });
@@ -47,7 +71,7 @@ export default function Edit() {
     return (
         <>
             {error && <ErrorNotification message={error} clearError={() => setError('')} />}
-                
+
             <div className="edit-container">
                 <div className="edit-box">
                     <h2>Edit Vehicle Listing</h2>
@@ -58,9 +82,9 @@ export default function Edit() {
                         </div>
                         <div className="input-group">
                             <label htmlFor="description">Car Description:</label>
-                            <textarea 
-                                id="description" 
-                                name="description" 
+                            <textarea
+                                id="description"
+                                name="description"
                                 required
                                 value={values.description}
                                 onChange={changeHandler}
@@ -90,7 +114,7 @@ export default function Edit() {
                             <label htmlFor="transmission">Transmission:</label>
                             <input type="text" id="transmission" name="transmission" required value={values.transmission} onChange={changeHandler} />
                         </div>
-                        
+
                         <div className="submit-btn">
                             <button type="submit">Edit Listing</button>
                         </div>
@@ -99,4 +123,4 @@ export default function Edit() {
             </div>
         </>
     );
-};
+}

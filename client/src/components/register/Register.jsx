@@ -19,17 +19,37 @@ export default function Register() {
     const register = useRegister();
     const navigate = useNavigate();
 
+    // Validation function
+    const validate = ({ username, email, phoneNumber, location, password, repeatPassword }) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const passwordRegex = /(?=.*[A-Z])(?=.*[a-z])(?=.*\d)/;
+        const phoneRegex = /^\+?\d{7,15}$/;
+
+        if (!username.trim()) return "Username is required.";
+        if (username.length < 2) return "Username must be at least 2 characters long!";
+        if (!email.trim()) return "Email is required.";
+        if (!emailRegex.test(email)) return "Invalid email format.";
+        if (!phoneNumber.trim()) return "Phone number is required.";
+        if (!phoneRegex.test(phoneNumber)) return "Invalid phone number format.";
+        if (!location.trim()) return "Location is required.";
+        if (location.length < 1) return "Location must be at least 1 character long!";
+        if (!password.trim()) return "Password is required.";
+        if (!passwordRegex.test(password)) return "Password must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number!";
+        if (password !== repeatPassword) return "Passwords do not match.";
+
+        return null; // No errors
+    };
+
     // Register handler function
     const registerHandler = async (values) => {
-        if (values.password !== values.repeatPassword) {
-            return setError('Password mismatch!');
-        }
+        const validationError = validate(values);
+        if (validationError) return setError(validationError);
 
         try {
             setError(""); // Clear previous errors
 
             await register(values.username, values.email, values.phoneNumber, values.location, values.password, values.repeatPassword);
-            navigate('/');
+            navigate('/'); // Redirect after successful registration
         } catch (err) {
             setError(err.error || 'Registration failed'); // Set error message if registration fails
         }

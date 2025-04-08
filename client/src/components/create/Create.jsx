@@ -23,14 +23,40 @@ export default function Create() {
 
     // Function to handle form submission when creating a new vehicle:
     const createHandler = async (values) => {
+        // Basic frontend validation rules:
+        if (!values.name.trim()) return setError("Name is required.");
+        if (values.name.length < 2) return setError("Name must be at least 2 characters long!");
+        if (!values.price.trim()) return setError("Price is required.");
+        if (values.price < 0) return setError("Price must be a positive number!");
+        if (!values.year.trim()) return setError("Year is required.")
+        if (values.year < 1886 || values.year > new Date().getFullYear()) {
+            return setError("Enter a valid year.");
+        }
+
+        if (!values.imageUrl.trim()) return setError("Image URL is required.");
+        if (!/^https?:\/\/.+/.test(values.imageUrl)) {
+            return setError("Enter a valid Image URL (starting with http/https).");
+        }
+        if (!values.engine.trim()) return setError("Engine is required.");
+        if (values.engine.length < 2) return setError("Engine must be at least 2 characters long!");
+        if (!values.condition.trim()) return setError("Condition is required.");
+        if (values.condition.length < 2) return setError("Condition must be at least 2 characters long!");
+        if (!values.transmission.trim()) return setError("Transmission is required.");
+        if (values.transmission.length < 2) return setError("Transmission must be at least 2 characters long!");
+        if (!values.description.trim()) return setError("Description is required.");
+        if (values.description.length < 10) {
+            return setError("Description must be at least 10 characters long.");
+        }
+    
         try {
             setError(""); // Clear any existing error before making the request.
             await createVehicle(values); // Send the request to create a new vehicle.
-            navigate("/vehicles");
+            navigate("/vehicles"); // Navigate to vehicles page.
         } catch (err) {
             setError(err?.error || "Create failed"); // Store the error message if any.
         }
     };
+    
 
     // Using the useForm hook to manage form values:
     const { values, changeHandler, onSubmit } = useForm(initialValues, createHandler);
