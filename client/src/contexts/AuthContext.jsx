@@ -28,7 +28,7 @@ export function AuthContextProvider({ children }) {
             }
         };
         fetchUser(); // Call the function to fetch user data.
-    }, [setAuthState]); // This effect will run every time the setAuthState function changes.
+    }, []);
 
     // Function to update the authentication state:
     const changeAuthState = (state) => {

@@ -35,8 +35,17 @@ export const itemService = {
         return Item.findByIdAndUpdate(itemId, userId, { runValidators: true });
     },
 
-    remove(itemId) {
-        return Item.findByIdAndDelete(itemId);
+    async remove(itemId) {
+        const item = await Item.findByIdAndDelete(itemId);
+    
+        if (item) {
+            await User.updateOne(
+                { _id: item.owner },
+                { $pull: { vehicles: itemId } }
+            );
+        }
+    
+        return item;
     },
 
     getItem(itemId) {
