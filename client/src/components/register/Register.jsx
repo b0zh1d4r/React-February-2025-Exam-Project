@@ -29,7 +29,7 @@ export default function Register() {
         if (!email.trim()) return "Email is required.";
         if (!emailRegex.test(email)) return "Invalid email format.";
         if (!phoneNumber.trim()) return "Phone number is required.";
-        if (!phoneRegex.test(phoneNumber)) return "Invalid phone number format.";
+        if (!phoneRegex.test(phoneNumber)) return "Phone number must be between 7 and 15 digits!";
         if (!location.trim()) return "Location is required.";
         if (location.length < 1) return "Location must be at least 1 character long!";
         if (!password.trim()) return "Password is required.";

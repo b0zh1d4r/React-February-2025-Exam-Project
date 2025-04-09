@@ -21,7 +21,7 @@ const userSchema = new Schema({
     phoneNumber: {
         type: String,
         required: [true, 'Phone number is required.'],
-        match: [/^\+?\d{7,15}$/, 'Invalid phone number format.']
+        match: [/^\+?\d{7,15}$/, 'Phone number must be between 7 and 15 digits!']
     },
 
     location: {
