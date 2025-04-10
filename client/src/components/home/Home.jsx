@@ -37,7 +37,7 @@ export default function Home() {
             </section>
 
             <section className="top-vehicles">
-                <h2>👑 Top 3 Most Liked Vehicles: </h2>
+                <h2>Most Liked Vehicles: </h2>
                 <div className="vehicles-container">
                     {topLikedVehicles.length ? (
                         topLikedVehicles.map(vehicle => (
@@ -52,7 +52,7 @@ export default function Home() {
             <hr />
 
             <section className="top-vehicles">
-                <h2>Latest 3 Vehicles: </h2>
+                <h2>Latest Vehicles: </h2>
                 <div className="vehicles-container">
                     {latestVehicles.length ? (
                         latestVehicles.map(vehicle => (
