@@ -55,7 +55,7 @@ export default function Profile() {
                     <div className="profile-info">
                         <h1>{userDetails?.username}</h1>
                         {vehicles.length > 0 ? (
-                            <p>Vehicle Dealer @ Garagix</p>
+                            <p>Vehicle's Dealer @ Garagix</p>
                         ) : (
                             <p>User @ GaragiX</p>
                         )}
