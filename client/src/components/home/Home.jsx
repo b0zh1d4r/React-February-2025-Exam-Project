@@ -37,7 +37,7 @@ export default function Home() {
             </section>
 
             <section className="top-vehicles">
-                <h2>Most Liked Vehicles: </h2>
+                <h2>👑 Most Liked Vehicles: </h2>
                 <div className="vehicles-container">
                     {topLikedVehicles.length ? (
                         topLikedVehicles.map(vehicle => (
