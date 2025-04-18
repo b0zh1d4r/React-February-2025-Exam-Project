@@ -88,7 +88,7 @@ Since this project utilizes cookies for authentication, you need to create a `.e
 
    The client should now be accessible at `http://localhost:5173`.
 
-## 🐶 Usage:
+## 🏎️ Usage:
 1. Open the app in your browser at http://localhost:5173.
 2. Register or log in to access full features.
 3. List your vehicle for sale or browse available listings.
