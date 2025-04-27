@@ -68,7 +68,7 @@ export default function Create() {
             
             <div className="create-container">
                 <div className="create-box">
-                    <h2>Create a New Vehicle Listing</h2>
+                    <h2>Create a New Vehicle Listing:</h2>
                     <form onSubmit={onSubmit}>
                         <div className="form-grid">
                             {[ 

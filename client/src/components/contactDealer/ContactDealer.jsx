@@ -34,7 +34,7 @@ export default function ContactDealer() {
             
             <div className="about-container">
                 <h2>Dealer's Information:</h2>
-                <p>Full Name: <span className="highlight">{dealer?.username || "N/A"}</span></p>
+                <p>Username: <span className="highlight">{dealer?.username || "N/A"}</span></p>
                 <p>Email: 
                     <a href={`mailto:${dealer?.email}`}>
                         <span className="highlight">{dealer?.email || "N/A"}</span>
